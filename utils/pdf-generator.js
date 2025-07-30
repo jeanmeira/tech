@@ -81,6 +81,11 @@ class PDFGenerator {
     
     return htmlPath;
   }
+
+  async close() {
+    // Method for compatibility - no cleanup needed for HTML fallback
+    console.log('PDF Generator: Cleanup complete');
+  }
 }
 
 module.exports = PDFGenerator;

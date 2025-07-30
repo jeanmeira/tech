@@ -4,11 +4,11 @@
   "description": "Builder for Jean Meira's tech content site",
   "main": "build.js",
   "scripts": {
-    "build": "node build-simple.js",
-    "build-safe": "node build-simple.js",
-    "dev": "node build-simple.js",
+    "build": "node build.js",
+    "build-safe": "node build.js",
+    "dev": "node build.js",
     "clean": "rm -rf dist/*",
-    "test": "node build-simple.js"
+    "test": "node build.js"
   },
   "dependencies": {
     "marked": "^4.3.0",

@@ -63,30 +63,28 @@ class SiteBuilder {
     }
 
     async copyAssets() {
-        // Copy and minify CSS
+        // Copy CSS without minification (simplified version)
         const cssContent = await fs.readFile(path.join(this.srcDir, 'css/main.css'), 'utf8');
-        const minifiedCSS = new CleanCSS({ level: 2 }).minify(cssContent);
         
         await fs.ensureDir(path.join(this.distDir, 'assets/css'));
         await fs.writeFile(
             path.join(this.distDir, 'assets/css/main.css'), 
-            minifiedCSS.styles
+            cssContent
         );
         
-        // Copy and minify JS
+        // Copy JS without minification (simplified version)
         const jsContent = await fs.readFile(path.join(this.srcDir, 'js/main.js'), 'utf8');
-        const minifiedJS = await minify(jsContent);
         
         await fs.ensureDir(path.join(this.distDir, 'assets/js'));
         await fs.writeFile(
             path.join(this.distDir, 'assets/js/main.js'), 
-            minifiedJS.code
+            jsContent
         );
         
-        // Copy and optimize images
+        // Copy images without optimization (simplified version)
         await this.copyImages();
         
-        console.log('📁 Assets copied and optimized');
+        console.log('📁 Assets copied');
     }
 
     async copyImages() {
@@ -95,7 +93,7 @@ class SiteBuilder {
             await fs.copy(imagesDir, path.join(this.distDir, 'assets/images'));
         }
         
-        // Copy and optimize book covers
+        // Copy book covers without optimization (simplified version)
         const booksDir = path.join(this.contentDir, 'books');
         const bookFolders = await fs.readdir(booksDir);
         
@@ -111,14 +109,11 @@ class SiteBuilder {
                 for (const coverFile of coverFiles) {
                     const coverPath = path.join(bookPath, coverFile);
                     if (await fs.pathExists(coverPath)) {
-                        const outputPath = path.join(this.distDir, 'assets/covers', folder + '.jpg');
+                        const outputPath = path.join(this.distDir, 'assets/covers', folder + path.extname(coverFile));
                         await fs.ensureDir(path.dirname(outputPath));
                         
-                        // Optimize image with sharp
-                        await sharp(coverPath)
-                            .resize(400, 600, { fit: 'cover' })
-                            .jpeg({ quality: 85 })
-                            .toFile(outputPath);
+                        // Simple copy without optimization
+                        await fs.copy(coverPath, outputPath);
                         break;
                     }
                 }

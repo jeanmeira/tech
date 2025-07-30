@@ -1,14 +1,14 @@
-<div class="container"></div>
+<div class="container">
     <div class="hero">
-        <h1>Jean Meira</h1>
+        <h1>Jean Meira - TECH</h1>
         <p>Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia</p>
     </div>
     
-    <div class="content-grid">
+    <div class="home-content">
         <section class="content-section">
-            <h2>Livros Recentes</h2>
+            <h2>Livros</h2>
             <div class="items-grid">
-                {{#recentBooks}}
+                {{#allBooks}}
                 <article class="card">
                     <img src="{{coverImage}}" alt="{{cover_image_alt}}" class="card-image" loading="lazy">
                     <div class="card-content">
@@ -21,17 +21,14 @@
                         <a href="{{baseUrl}}/books/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
                     </div>
                 </article>
-                {{/recentBooks}}
+                {{/allBooks}}
             </div>
-            <p style="text-align: center; margin-top: 2rem;">
-                <a href="{{baseUrl}}/books/" class="nav-btn">Ver Todos os Livros</a>
-            </p>
         </section>
         
         <section class="content-section">
-            <h2>Artigos Recentes</h2>
+            <h2>Artigos</h2>
             <div class="items-grid">
-                {{#recentArticles}}
+                {{#allArticles}}
                 <article class="card">
                     <img src="{{featuredImage}}" alt="{{title}}" class="card-image" loading="lazy">
                     <div class="card-content">
@@ -43,11 +40,8 @@
                         <a href="{{baseUrl}}/articles/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
                     </div>
                 </article>
-                {{/recentArticles}}
+                {{/allArticles}}
             </div>
-            <p style="text-align: center; margin-top: 2rem;">
-                <a href="{{baseUrl}}/articles/" class="nav-btn">Ver Todos os Artigos</a>
-            </p>
         </section>
     </div>
 </div>

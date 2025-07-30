@@ -221,13 +221,13 @@ class SiteBuilder {
         const baseTemplate = await this.loadTemplate('base.html');
         const homeTemplate = await this.loadTemplate('home.html');
         
-        const recentBooks = books.slice(0, 2).map(book => ({
+        const allBooks = books.map(book => ({
             ...book,
             date: this.formatDate(book.date),
             cover_image_alt: book.cover_image_alt || `Capa do livro ${book.title}`
         }));
         
-        const recentArticles = articles.slice(0, 3).map(article => ({
+        const allArticles = articles.map(article => ({
             ...article,
             date: this.formatDate(article.date)
         }));
@@ -235,19 +235,19 @@ class SiteBuilder {
         // Render home content first
         const homeData = {
             baseUrl: this.baseUrl,
-            recentBooks,
-            recentArticles
+            allBooks,
+            allArticles
         };
         const homeContent = mustache.render(homeTemplate, homeData);
         
         // Then render the full page
         const data = {
-            meta_title: 'Jean Meira - Arquitetura de Software e Liderança Técnica',
+            meta_title: 'Jean Meira - TECH - Arquitetura de Software e Liderança Técnica',
             meta_description: 'Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia',
             canonical_url: `${this.fullBaseUrl}/`,
             og_type: 'website',
             schema_type: 'WebSite',
-            title: 'Jean Meira',
+            title: 'Jean Meira - TECH',
             description: 'Plataforma de conhecimento técnico',
             date: new Date().toISOString(),
             css_path: `${this.baseUrl}/assets/css/main.css`,
@@ -308,7 +308,7 @@ class SiteBuilder {
         `;
         
         const data = {
-            meta_title: 'Livros - Jean Meira',
+            meta_title: 'Livros - Jean Meira - TECH',
             meta_description: 'Livros completos sobre arquitetura de software e liderança técnica',
             canonical_url: `${this.fullBaseUrl}/books/`,
             og_type: 'website',
@@ -547,7 +547,7 @@ class SiteBuilder {
         `;
         
         const data = {
-            meta_title: 'Artigos - Jean Meira',
+            meta_title: 'Artigos - Jean Meira - TECH',
             meta_description: 'Artigos sobre arquitetura de software, tecnologia e desenvolvimento',
             canonical_url: `${this.fullBaseUrl}/articles/`,
             og_type: 'website',

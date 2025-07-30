@@ -177,6 +177,17 @@ img {
     margin-bottom: var(--spacing-xl);
 }
 
+/* Home Content - Com margem lateral */
+.home-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.home-content .content-section {
+    margin-bottom: var(--spacing-xl);
+}
+
 .content-section h2 {
     border-bottom: 2px solid var(--primary-green);
     padding-bottom: var(--spacing-xs);

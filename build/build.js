@@ -16,7 +16,11 @@ class SiteBuilder {
         this.distDir = path.join(this.rootDir, 'dist');
         this.templatesDir = path.join(this.srcDir, 'templates');
         this.pdfGenerator = new PDFGenerator();
-        this.baseUrl = '/tech'; // GitHub Pages base URL
+        
+        // Environment-based configuration
+        this.isProduction = process.env.NODE_ENV === 'production' || process.env.GITHUB_ACTIONS === 'true';
+        this.baseUrl = this.isProduction ? '/tech' : '';
+        this.fullBaseUrl = this.isProduction ? 'https://jeanmeira.github.io/tech' : 'http://localhost:8000';
         
         // Configure marked for better HTML output
         marked.setOptions({
@@ -224,7 +228,7 @@ class SiteBuilder {
         const data = {
             meta_title: 'Jean Meira - Arquitetura de Software e Liderança Técnica',
             meta_description: 'Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia',
-            canonical_url: 'https://jeanmeira.github.io/tech/',
+            canonical_url: `${this.fullBaseUrl}/`,
             og_type: 'website',
             schema_type: 'WebSite',
             title: 'Jean Meira',
@@ -232,6 +236,7 @@ class SiteBuilder {
             date: new Date().toISOString(),
             css_path: `${this.baseUrl}/assets/css/main.css`,
             js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: homeContent
         };
         
@@ -278,7 +283,7 @@ class SiteBuilder {
                                     <span>${this.formatDate(book.date)}</span> • 
                                     <span>${book.chapters.length} capítulos</span>
                                 </div>
-                                <a href="/books/${book.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
+                                <a href="${this.baseUrl}/books/${book.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
                             </div>
                         </article>
                     `).join('')}
@@ -289,14 +294,15 @@ class SiteBuilder {
         const data = {
             meta_title: 'Livros - Jean Meira',
             meta_description: 'Livros completos sobre arquitetura de software e liderança técnica',
-            canonical_url: 'https://jeanmeira.github.io/tech/books/',
+            canonical_url: `${this.fullBaseUrl}/books/`,
             og_type: 'website',
             schema_type: 'WebPage',
             title: 'Livros',
             description: 'Livros completos sobre tecnologia',
             date: new Date().toISOString(),
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: booksContent
         };
         
@@ -312,8 +318,8 @@ class SiteBuilder {
         const bookContent = `
             <div class="container">
                 <nav class="breadcrumb">
-                    <a href="/">Início</a> > 
-                    <a href="/books/">Livros</a> > 
+                    <a href="${this.baseUrl}/">Início</a> > 
+                    <a href="${this.baseUrl}/books/">Livros</a> > 
                     <span>${book.title}</span>
                 </nav>
                 
@@ -324,9 +330,9 @@ class SiteBuilder {
                     <p class="book-description">${book.description}</p>
                     
                     <div class="book-downloads">
-                        <a href="/books/${book.slug}/downloads/${book.slug}.epub" class="download-btn">Download EPUB</a>
-                        <a href="/books/${book.slug}/downloads/${book.slug}.pdf" class="download-btn">Download PDF</a>
-                        <a href="/books/${book.slug}/downloads/${book.slug}.mobi" class="download-btn">Download MOBI</a>
+                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.epub" class="download-btn">Download EPUB</a>
+                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.pdf" class="download-btn">Download PDF</a>
+                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.mobi" class="download-btn">Download MOBI</a>
                     </div>
                 </header>
                 
@@ -335,7 +341,7 @@ class SiteBuilder {
                     <ol class="chapters-list">
                         ${book.chapters.map(chapter => `
                             <li class="chapter-item">
-                                <a href="/books/${book.slug}/${chapter.slug}/" class="chapter-link">
+                                <a href="${this.baseUrl}/books/${book.slug}/${chapter.slug}/" class="chapter-link">
                                     <div class="chapter-number">Capítulo ${chapter.number}</div>
                                     <div class="chapter-title">${chapter.title}</div>
                                     ${chapter.subtitle ? `<div class="chapter-subtitle">${chapter.subtitle}</div>` : ''}
@@ -350,15 +356,16 @@ class SiteBuilder {
         const data = {
             meta_title: book.seo.meta_title,
             meta_description: book.seo.meta_description,
-            canonical_url: `https://jeanmeira.github.io/tech${book.seo.canonical_url}`,
+            canonical_url: `${this.fullBaseUrl}${book.seo.canonical_url}`,
             og_type: 'book',
             schema_type: 'Book',
             title: book.title,
             description: book.description,
             date: book.date,
-            cover_image: `https://jeanmeira.github.io/tech${book.coverImage}`,
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            cover_image: `${this.fullBaseUrl}${book.coverImage}`,
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: bookContent
         };
         
@@ -389,9 +396,9 @@ class SiteBuilder {
         const chapterContent = `
             <div class="container">
                 <nav class="breadcrumb">
-                    <a href="/">Início</a> > 
-                    <a href="/books/">Livros</a> > 
-                    <a href="/books/${book.slug}/">${book.title}</a> > 
+                    <a href="${this.baseUrl}/">Início</a> > 
+                    <a href="${this.baseUrl}/books/">Livros</a> > 
+                    <a href="${this.baseUrl}/books/${book.slug}/">${book.title}</a> > 
                     <span>${chapter.title}</span>
                 </nav>
                 
@@ -408,12 +415,12 @@ class SiteBuilder {
                     
                     <nav class="chapter-nav">
                         ${prevChapter ? 
-                            `<a href="/books/${book.slug}/${prevChapter.slug}/" class="nav-btn">← ${prevChapter.title}</a>` : 
+                            `<a href="${this.baseUrl}/books/${book.slug}/${prevChapter.slug}/" class="nav-btn">← ${prevChapter.title}</a>` : 
                             '<span></span>'
                         }
-                        <a href="/books/${book.slug}/" class="nav-btn">Índice</a>
+                        <a href="${this.baseUrl}/books/${book.slug}/" class="nav-btn">Índice</a>
                         ${nextChapter ? 
-                            `<a href="/books/${book.slug}/${nextChapter.slug}/" class="nav-btn">${nextChapter.title} →</a>` : 
+                            `<a href="${this.baseUrl}/books/${book.slug}/${nextChapter.slug}/" class="nav-btn">${nextChapter.title} →</a>` : 
                             '<span></span>'
                         }
                     </nav>
@@ -435,14 +442,15 @@ class SiteBuilder {
         const data = {
             meta_title: `${chapter.title} - ${book.title}`,
             meta_description: chapter.subtitle || book.description,
-            canonical_url: `https://jeanmeira.github.io/tech/books/${book.slug}/${chapter.slug}/`,
+            canonical_url: `${this.fullBaseUrl}/books/${book.slug}/${chapter.slug}/`,
             og_type: 'article',
             schema_type: 'Article',
             title: chapter.title,
             description: chapter.subtitle || book.description,
             date: book.date,
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: chapterContent
         };
         
@@ -514,7 +522,7 @@ class SiteBuilder {
                                 <div class="card-meta">
                                     <span>${this.formatDate(article.date)}</span>
                                 </div>
-                                <a href="/articles/${article.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
+                                <a href="${this.baseUrl}/articles/${article.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
                             </div>
                         </article>
                     `).join('')}
@@ -525,14 +533,15 @@ class SiteBuilder {
         const data = {
             meta_title: 'Artigos - Jean Meira',
             meta_description: 'Artigos sobre arquitetura de software, tecnologia e desenvolvimento',
-            canonical_url: 'https://jeanmeira.github.io/tech/articles/',
+            canonical_url: `${this.fullBaseUrl}/articles/`,
             og_type: 'website',
             schema_type: 'WebPage',
             title: 'Artigos',
             description: 'Artigos sobre tecnologia',
             date: new Date().toISOString(),
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: articlesContent
         };
         
@@ -548,8 +557,8 @@ class SiteBuilder {
         const articleContent = `
             <div class="container">
                 <nav class="breadcrumb">
-                    <a href="/">Início</a> > 
-                    <a href="/articles/">Artigos</a> > 
+                    <a href="${this.baseUrl}/">Início</a> > 
+                    <a href="${this.baseUrl}/articles/">Artigos</a> > 
                     <span>${article.title}</span>
                 </nav>
                 
@@ -584,15 +593,16 @@ class SiteBuilder {
         const data = {
             meta_title: article.seo.meta_title,
             meta_description: article.seo.meta_description,
-            canonical_url: `https://jeanmeira.github.io/tech${article.seo.canonical_url}`,
+            canonical_url: `${this.fullBaseUrl}${article.seo.canonical_url}`,
             og_type: 'article',
             schema_type: 'Article',
             title: article.title,
             description: article.description,
             date: article.date,
-            cover_image: `https://jeanmeira.github.io/tech${article.featuredImage}`,
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            cover_image: `${this.fullBaseUrl}${article.featuredImage}`,
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
+            baseUrl: this.baseUrl,
             content: articleContent
         };
         
@@ -601,24 +611,23 @@ class SiteBuilder {
     }
 
     async generateSitemap(books, articles) {
-        const baseUrl = 'https://jeanmeira.github.io/tech';
         const urls = [
-            { loc: baseUrl, priority: '1.0' },
-            { loc: `${baseUrl}/books/`, priority: '0.9' },
-            { loc: `${baseUrl}/articles/`, priority: '0.9' }
+            { loc: this.fullBaseUrl, priority: '1.0' },
+            { loc: `${this.fullBaseUrl}/books/`, priority: '0.9' },
+            { loc: `${this.fullBaseUrl}/articles/`, priority: '0.9' }
         ];
         
         // Add book URLs
         books.forEach(book => {
-            urls.push({ loc: `${baseUrl}/books/${book.slug}/`, priority: '0.8' });
+            urls.push({ loc: `${this.fullBaseUrl}/books/${book.slug}/`, priority: '0.8' });
             book.chapters.forEach(chapter => {
-                urls.push({ loc: `${baseUrl}/books/${book.slug}/${chapter.slug}/`, priority: '0.7' });
+                urls.push({ loc: `${this.fullBaseUrl}/books/${book.slug}/${chapter.slug}/`, priority: '0.7' });
             });
         });
         
         // Add article URLs
         articles.forEach(article => {
-            urls.push({ loc: `${baseUrl}/articles/${article.slug}/`, priority: '0.8' });
+            urls.push({ loc: `${this.fullBaseUrl}/articles/${article.slug}/`, priority: '0.8' });
         });
         
         const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -637,7 +646,7 @@ ${urls.map(url => `  <url>
         const robots = `User-agent: *
 Allow: /
 
-Sitemap: https://jeanmeira.github.io/tech/sitemap.xml`;
+Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
         
         await fs.writeFile(path.join(this.distDir, 'robots.txt'), robots);
         console.log('🤖 Generated robots.txt');

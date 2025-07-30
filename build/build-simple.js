@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
-const { marked } = require('marked');
+const marked = require('marked');
 const mustache = require('mustache');
 
 class SiteBuilder {

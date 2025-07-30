@@ -20,7 +20,7 @@ class SiteBuilder {
         // Environment-based configuration
         this.isProduction = process.env.NODE_ENV === 'production' || process.env.GITHUB_ACTIONS === 'true';
         this.baseUrl = this.isProduction ? '/tech' : '';
-        this.fullBaseUrl = this.isProduction ? 'https://jeanmeira.github.io/tech' : 'http://localhost:8000';
+        this.fullBaseUrl = this.isProduction ? 'https://jeanmeira.github.io/tech' : 'http://localhost:8001';
         
         // Configure marked for better HTML output
         marked.setOptions({

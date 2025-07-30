@@ -122,7 +122,7 @@ class SiteBuilder {
                     const content = await fs.readFile(chapterPath, 'utf8');
                     chapters.push({
                         ...chapter,
-                        content: marked(content)
+                        content: marked.parse(content)
                     });
                 }
             }
@@ -148,7 +148,7 @@ class SiteBuilder {
         const content = await fs.readFile(contentPath, 'utf8');
         
         // Gerar página do artigo
-        await this.generateArticlePage(meta, marked(content), articleId);
+        await this.generateArticlePage(meta, marked.parse(content), articleId);
     }
 
     async generatePages() {

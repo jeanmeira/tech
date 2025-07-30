@@ -89,6 +89,9 @@ class SiteBuilder {
         // Copy images without optimization (simplified version)
         await this.copyImages();
         
+        // Copy Google Search Console verification file
+        await this.copyGoogleVerification();
+        
         console.log('📁 Assets copied');
     }
 
@@ -123,6 +126,19 @@ class SiteBuilder {
                     }
                 }
             }
+        }
+    }
+
+    async copyGoogleVerification() {
+        const googleVerificationFile = 'googlee26ca5db80bf77ae.html';
+        const sourcePath = path.join(this.srcDir, googleVerificationFile);
+        const destPath = path.join(this.distDir, googleVerificationFile);
+        
+        if (await fs.pathExists(sourcePath)) {
+            await fs.copy(sourcePath, destPath);
+            console.log('🔍 Google Search Console verification file copied');
+        } else {
+            console.log('⚠️  Google Search Console verification file not found in src/');
         }
     }
 

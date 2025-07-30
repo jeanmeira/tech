@@ -1,0 +1,27 @@
+id: "arquitetura-oculta-poder"
+type: "book"
+schema_version: "1.0"
+
+# Informações básicas
+title: "A Arquitetura Oculta do Poder"
+subtitle: "Estratégias Corporativas para o Século XXI"
+slug: "arquitetura-oculta-poder"
+author: "jean"
+date: "2025-01-01T00:00:00Z"
+updated: "2025-07-28T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Uma reinterpretação moderna das leis do poder aplicadas ao ambiente corporativo de tecnologia."
+abstract: "Este livro explora as dinâmicas de poder no ambiente corporativo moderno, oferecendo estratégias práticas para navegar e prosperar em organizações complexas."
+cover_image: "cover.png"
+cover_image_alt: "Capa do livro A Arquitetura Oculta do Poder"
+
+# Estrutura
+structure_file: "structure.yml"
+
+# SEO
+seo:
+  meta_title: "A Arquitetura Oculta do Poder - Estratégias Corporativas"
+  meta_description: "Uma reinterpretação moderna das leis do poder aplicadas ao ambiente corporativo de tecnologia. Estratégias práticas para liderança e influência."
+  canonical_url: "/books/arquitetura-oculta-poder/"

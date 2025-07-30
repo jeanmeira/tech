@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{meta_description}}">
+    <title>{{meta_title}}</title>
+    
+    <!-- SEO -->
+    <link rel="canonical" href="{{canonical_url}}">
+    <meta property="og:title" content="{{meta_title}}">
+    <meta property="og:description" content="{{meta_description}}">
+    <meta property="og:type" content="{{og_type}}">
+    <meta property="og:url" content="{{canonical_url}}">
+    {{#cover_image}}<meta property="og:image" content="{{cover_image}}">{{/cover_image}}
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{meta_title}}">
+    <meta name="twitter:description" content="{{meta_description}}">
+    {{#cover_image}}<meta name="twitter:image" content="{{cover_image}}">{{/cover_image}}
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{{schema_type}}",
+        "name": "{{title}}",
+        "author": {
+            "@type": "Person",
+            "name": "Jean Meira"
+        },
+        "description": "{{description}}",
+        "datePublished": "{{date}}"
+    }
+    </script>
+    
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{css_path}}">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">Jean Meira</a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="/" class="nav-link">Início</a>
+                <a href="/books/" class="nav-link">Livros</a>
+                <a href="/articles/" class="nav-link">Artigos</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {{content}}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Jean Meira. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/jeanmeira" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/jeanmeira" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{js_path}}"></script>
+</body>
+</html>

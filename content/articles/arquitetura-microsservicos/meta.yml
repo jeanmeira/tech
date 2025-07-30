@@ -1,0 +1,23 @@
+id: "arquitetura-microsservicos"
+type: "article"
+
+# Informações básicas
+title: "Arquitetura de Microsserviços: Teoria vs Prática"
+slug: "arquitetura-microsservicos"
+author: "jean"
+date: "2025-01-05T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Um olhar crítico sobre microsserviços, quando usar, quando evitar, e as complexidades ocultas desta arquitetura."
+content_file: "content.md"
+
+# Mídia
+featured_image: "assets/microservices.png"
+featured_image_alt: "Arquitetura de Microsserviços"
+
+# SEO
+seo:
+  meta_title: "Arquitetura de Microsserviços: Teoria vs Prática"
+  meta_description: "Análise crítica sobre microsserviços: quando usar, quando evitar e as complexidades ocultas desta arquitetura."
+  canonical_url: "/articles/arquitetura-microsservicos/"

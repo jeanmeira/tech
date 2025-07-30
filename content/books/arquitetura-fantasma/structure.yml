@@ -1,0 +1,46 @@
+book_structure:
+  chapters:
+    - file: "introducao.md"
+      title: "Introdução: Ecos de Decisões Passadas"
+      subtitle: "A presença invisível que assombra todo sistema de software"
+      number: 0
+      
+    - file: "capitulo-01.md"
+      title: "Anatomia de um Fantasma e a Fábrica que os Cria"
+      subtitle: "Como surgem e se multiplicam os problemas arquiteturais ocultos"
+      number: 1
+      
+    - file: "capitulo-02.md"
+      title: "O Fator Humano: Psicologia e Cultura por Trás dos Fantasmas"
+      subtitle: "Como as dinâmicas organizacionais geram e perpetuam problemas técnicos"
+      number: 2
+      
+    - file: "capitulo-03.md"
+      title: "Sinais de um Sistema Assombrado"
+      subtitle: "Identificando os sintomas de uma arquitetura fantasma"
+      number: 3
+      
+    - file: "capitulo-04.md"
+      title: "Histórias do Além-Código"
+      subtitle: "Casos reais de sistemas assombrados e suas consequências"
+      number: 4
+      
+    - file: "capitulo-05.md"
+      title: "O Ritual do Exorcismo: Um Guia Prático"
+      subtitle: "Estratégias e técnicas para limpar sistemas assombrados"
+      number: 5
+      
+    - file: "capitulo-06.md"
+      title: "Prevenção e Ferramentas: O Arsenal do Caça-Fantasmas"
+      subtitle: "Práticas e ferramentas para evitar a criação de fantasmas"
+      number: 6
+      
+    - file: "capitulo-07.md"
+      title: "O Custo da Assombração: O Impacto no Negócio"
+      subtitle: "Quantificando e comunicando o impacto de problemas arquiteturais"
+      number: 7
+      
+    - file: "capitulo-08.md"
+      title: "Conclusão: A Vigília Perpétua"
+      subtitle: "Mantendo sistemas saudáveis em um mundo em constante mudança"
+      number: 8

@@ -1,0 +1,27 @@
+id: "arquitetura-fantasma"
+type: "book"
+schema_version: "1.0"
+
+# Informações básicas
+title: "Arquitetura Fantasma"
+subtitle: "Como identificar, combater e prevenir problemas arquiteturais ocultos"
+slug: "arquitetura-fantasma"
+author: "jean"
+date: "2025-01-01T00:00:00Z"
+updated: "2025-07-29T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Um guia prático para arquitetos e desenvolvedores sobre como lidar com sistemas legados assombrados por decisões técnicas esquecidas"
+abstract: "Este livro explora os problemas arquiteturais ocultos em sistemas de software, oferecendo estratégias práticas para identificar, resolver e prevenir a 'arquitetura fantasma'."
+cover_image: "capa.png"
+cover_image_alt: "Capa do livro Arquitetura Fantasma"
+
+# Estrutura
+structure_file: "structure.yml"
+
+# SEO
+seo:
+  meta_title: "Arquitetura Fantasma - Guia Prático"
+  meta_description: "Guia prático para identificar, combater e prevenir problemas arquiteturais ocultos em sistemas de software."
+  canonical_url: "/books/arquitetura-fantasma/"

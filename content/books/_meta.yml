@@ -1,0 +1,15 @@
+books:
+  collection_type: "book"
+  
+  items:
+    - id: "arquitetura-oculta-poder"
+      title: "A Arquitetura Oculta do Poder"
+      slug: "arquitetura-oculta-poder"
+      date: "2025-01-01"
+      path: "arquitetura-oculta-poder/"
+      
+    - id: "arquitetura-fantasma"
+      title: "Arquitetura Fantasma"
+      slug: "arquitetura-fantasma"
+      date: "2025-01-01"
+      path: "arquitetura-fantasma/"

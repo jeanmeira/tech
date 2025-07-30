@@ -1,0 +1,251 @@
+book_structure:
+  chapters:
+    - file: "introducao.md"
+      title: "Introdução: A Arquitetura Oculta do Poder"
+      subtitle: "Um convite para compreender e navegar as dinâmicas de poder no ambiente corporativo moderno"
+      number: 0
+      
+    - file: "capitulo-01.md"
+      title: "Nunca Ofusque o Mestre"
+      subtitle: "A arte de fazer seus superiores parecerem mais brilhantes e a importância da visibilidade controlada"
+      number: 1
+      
+    - file: "capitulo-02.md"
+      title: "Nunca Confie Demais nos Amigos, Aprenda a Usar os Inimigos"
+      subtitle: "Navegando a linha tênue entre colaboração e competição"
+      number: 2
+      
+    - file: "capitulo-03.md"
+      title: "Oculte Suas Intenções"
+      subtitle: "O poder da ambiguidade e da transparência seletiva na era da comunicação instantânea"
+      number: 3
+      
+    - file: "capitulo-04.md"
+      title: "Sempre Diga Menos do que o Necessário"
+      subtitle: "Como a economia de palavras projeta poder, evita erros e força os outros a revelarem mais"
+      number: 4
+      
+    - file: "capitulo-05.md"
+      title: "Muito Depende da Reputação - Guarde-a com Sua Vida"
+      subtitle: "Construindo e defendendo seu ativo mais valioso: sua marca pessoal e profissional"
+      number: 5
+      
+    - file: "capitulo-06.md"
+      title: "Chame Atenção a Todo Custo"
+      subtitle: "A gestão estratégica da atenção para se destacar em um cenário de ruído e competição"
+      number: 6
+      
+    - file: "capitulo-07.md"
+      title: "Faça Outros Trabalharem para Você, mas Sempre Leve o Crédito"
+      subtitle: "A arte da delegação estratégica e o gerenciamento de reconhecimento"
+      number: 7
+      
+    - file: "capitulo-08.md"
+      title: "Faça as Pessoas Virem até Você - Use a Isca se Necessário"
+      subtitle: "O poder da atração e como criar demanda por suas ideias e soluções"
+      number: 8
+      
+    - file: "capitulo-09.md"
+      title: "Vença pela Ação, Nunca pelo Argumento"
+      subtitle: "Por que demonstrar vale mais que explicar no ambiente corporativo"
+      number: 9
+      
+    - file: "capitulo-10.md"
+      title: "Evite os Infelizes e os Azarados"
+      subtitle: "Como a energia e o momentum se propagam em organizações"
+      number: 10
+      
+    - file: "capitulo-11.md"
+      title: "Aprenda a Manter as Pessoas Dependentes de Você"
+      subtitle: "Criando valor único e indispensabilidade estratégica"
+      number: 11
+      
+    - file: "capitulo-12.md"
+      title: "Use a Honestidade e Generosidade Seletivas para Desarmar sua Vítima"
+      subtitle: "O poder da transparência estratégica e dos gestos calculados"
+      number: 12
+      
+    - file: "capitulo-13.md"
+      title: "Quando Pedir Ajuda, Apele para o Interesse das Pessoas, não para Sua Mercê"
+      subtitle: "A arte da persuasão baseada em benefício mútuo"
+      number: 13
+      
+    - file: "capitulo-14.md"
+      title: "Aja como um Amigo, Trabalhe como um Espião"
+      subtitle: "Coletando informações valiosas através de relacionamentos estratégicos"
+      number: 14
+      
+    - file: "capitulo-15.md"
+      title: "Esmague Completamente o Inimigo"
+      subtitle: "Por que soluções parciais geram problemas futuros"
+      number: 15
+      
+    - file: "capitulo-16.md"
+      title: "Use a Ausência para Aumentar o Respeito e a Honra"
+      subtitle: "O poder da escassez e do timing estratégico"
+      number: 16
+      
+    - file: "capitulo-17.md"
+      title: "Cultive um Ar de Imprevisibilidade"
+      subtitle: "Mantendo vantagem através da incerteza controlada"
+      number: 17
+      
+    - file: "capitulo-18.md"
+      title: "Não Construa Fortalezas para se Proteger - O Isolamento é Perigoso"
+      subtitle: "A importância da conexão e da visibilidade organizacional"
+      number: 18
+      
+    - file: "capitulo-19.md"
+      title: "Saiba com Quem Está Lidando - Não Ofenda a Pessoa Errada"
+      subtitle: "Mapeando poder e influência na organização"
+      number: 19
+      
+    - file: "capitulo-20.md"
+      title: "Não se Comprometa com Ninguém"
+      subtitle: "Mantendo flexibilidade e opções abertas"
+      number: 20
+      
+    - file: "capitulo-21.md"
+      title: "Banque o Tolo para Pegar o Tolo - Pareça mais Burro que sua Marca"
+      subtitle: "A vantagem de subestimar expectativas"
+      number: 21
+      
+    - file: "capitulo-22.md"
+      title: "Use a Tática da Rendição: Transforme Fraqueza em Poder"
+      subtitle: "Convertendo desvantagens em oportunidades estratégicas"
+      number: 22
+      
+    - file: "capitulo-23.md"
+      title: "Concentre suas Forças"
+      subtitle: "O poder do foco e da especialização estratégica"
+      number: 23
+      
+    - file: "capitulo-24.md"
+      title: "Seja o Cortesão Perfeito"
+      subtitle: "Navegando a política organizacional com elegância"
+      number: 24
+      
+    - file: "capitulo-25.md"
+      title: "Recrie a si Mesmo"
+      subtitle: "Adaptação contínua e reinvenção profissional"
+      number: 25
+      
+    - file: "capitulo-26.md"
+      title: "Mantenha suas Mãos Limpas"
+      subtitle: "Preservando reputação através de terceiros estratégicos"
+      number: 26
+      
+    - file: "capitulo-27.md"
+      title: "Explore a Necessidade que as Pessoas têm de Acreditar para Criar um Séquito de Fanáticos"
+      subtitle: "Construindo lealdade através de propósito e visão"
+      number: 27
+      
+    - file: "capitulo-28.md"
+      title: "Aja com Audácia"
+      subtitle: "O poder da confiança e da ação decisiva"
+      number: 28
+      
+    - file: "capitulo-29.md"
+      title: "Planeje todo o Caminho até o Fim"
+      subtitle: "Estratégia de longo prazo e antecipação de cenários"
+      number: 29
+      
+    - file: "capitulo-30.md"
+      title: "Faça suas Conquistas Parecerem sem Esforço"
+      subtitle: "A elegância da competência oculta"
+      number: 30
+      
+    - file: "capitulo-31.md"
+      title: "Controle as Opções: Faça os Outros Jogarem com as Cartas que Você Deu"
+      subtitle: "Arquitetando escolhas e direcionando decisões"
+      number: 31
+      
+    - file: "capitulo-32.md"
+      title: "Explore as Fantasias das Pessoas"
+      subtitle: "Conectando-se com aspirações e desejos profundos"
+      number: 32
+      
+    - file: "capitulo-33.md"
+      title: "Descubra o Calcanhar de Aquiles de Cada Pessoa"
+      subtitle: "Identificando vulnerabilidades e pontos de alavancagem"
+      number: 33
+      
+    - file: "capitulo-34.md"
+      title: "Seja Real em seu Próprio Estilo: Aja como um Rei para ser Tratado como Tal"
+      subtitle: "Projetando autoridade e comando natural"
+      number: 34
+      
+    - file: "capitulo-35.md"
+      title: "Domine a Arte da Cronometragem"
+      subtitle: "Timing perfeito para máximo impacto"
+      number: 35
+      
+    - file: "capitulo-36.md"
+      title: "Despreze as Coisas que Não Pode Ter: Ignorá-las é a Melhor Vingança"
+      subtitle: "O poder da indiferença estratégica"
+      number: 36
+      
+    - file: "capitulo-37.md"
+      title: "Crie Espetáculos Convincentes"
+      subtitle: "A importância da apresentação e do impacto visual"
+      number: 37
+      
+    - file: "capitulo-38.md"
+      title: "Pense como Quiser, mas Comporte-se como os Outros"
+      subtitle: "Equilibrando inovação com aceitação social"
+      number: 38
+      
+    - file: "capitulo-39.md"
+      title: "Agite a Água para Pescar"
+      subtitle: "Provocando reações para obter informações valiosas"
+      number: 39
+      
+    - file: "capitulo-40.md"
+      title: "Despreze o Almoço Grátis"
+      subtitle: "O valor de pagar o preço justo e manter independência"
+      number: 40
+      
+    - file: "capitulo-41.md"
+      title: "Evite Pisar nos Sapatos de um Grande Homem"
+      subtitle: "Respeitando legados e construindo sobre fundações sólidas"
+      number: 41
+      
+    - file: "capitulo-42.md"
+      title: "Ataque o Pastor e as Ovelhas se Dispersarão"
+      subtitle: "Identificando e neutralizando pontos de influência chave"
+      number: 42
+      
+    - file: "capitulo-43.md"
+      title: "Trabalhe o Coração e a Mente dos Outros"
+      subtitle: "Influência através de conexão emocional e lógica"
+      number: 43
+      
+    - file: "capitulo-44.md"
+      title: "Desarme e Deixe Louco com o Efeito Espelho"
+      subtitle: "Refletindo comportamentos para neutralizar oposição"
+      number: 44
+      
+    - file: "capitulo-45.md"
+      title: "Pregue a Mudança, mas Nunca Mude Muito de uma Vez"
+      subtitle: "Inovação gradual e gerenciamento da resistência"
+      number: 45
+      
+    - file: "capitulo-46.md"
+      title: "Nunca Pareça Perfeito Demais"
+      subtitle: "A humanidade estratégica e a gestão da inveja"
+      number: 46
+      
+    - file: "capitulo-47.md"
+      title: "Não Vá Além de seu Objetivo Proposto; Na Vitória, Saiba Quando Parar"
+      subtitle: "Moderação no sucesso e timing para consolidação"
+      number: 47
+      
+    - file: "capitulo-48.md"
+      title: "Assuma a Forma sem Forma"
+      subtitle: "Adaptabilidade suprema e fluidez estratégica"
+      number: 48
+      
+    - file: "conclusao.md"
+      title: "Conclusão: Navegando o Futuro do Poder"
+      subtitle: "Reflexões finais e aplicações práticas para o profissional moderno"
+      number: 49

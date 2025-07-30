@@ -1,0 +1,8 @@
+articles:
+  
+  items:
+    - id: "arquitetura-microsservicos"
+      title: "Arquitetura de Microsserviços: Teoria vs Prática"
+      slug: "arquitetura-microsservicos"
+      date: "2025-01-05"
+      path: "arquitetura-microsservicos/"

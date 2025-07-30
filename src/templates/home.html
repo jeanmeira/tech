@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="hero">
+        <h1>Jean Meira</h1>
+        <p>Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia</p>
+    </div>
+    
+    <div class="content-grid">
+        <section class="content-section">
+            <h2>Livros Recentes</h2>
+            <div class="items-grid">
+                {{#recentBooks}}
+                <article class="card">
+                    <img src="{{coverImage}}" alt="{{cover_image_alt}}" class="card-image" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">{{title}}</h3>
+                        <p class="card-subtitle">{{subtitle}}</p>
+                        <p class="card-description">{{description}}</p>
+                        <div class="card-meta">
+                            <span>{{date}}</span>
+                        </div>
+                        <a href="{{baseUrl}}/books/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
+                    </div>
+                </article>
+                {{/recentBooks}}
+            </div>
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="{{baseUrl}}/books/" class="nav-btn">Ver Todos os Livros</a>
+            </p>
+        </section>
+        
+        <section class="content-section">
+            <h2>Artigos Recentes</h2>
+            <div class="items-grid">
+                {{#recentArticles}}
+                <article class="card">
+                    <img src="{{featuredImage}}" alt="{{title}}" class="card-image" loading="lazy">
+                    <div class="card-content">
+                        <h3 class="card-title">{{title}}</h3>
+                        <p class="card-description">{{description}}</p>
+                        <div class="card-meta">
+                            <span>{{date}}</span>
+                        </div>
+                        <a href="{{baseUrl}}/articles/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
+                    </div>
+                </article>
+                {{/recentArticles}}
+            </div>
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="{{baseUrl}}/articles/" class="nav-btn">Ver Todos os Artigos</a>
+            </p>
+        </section>
+    </div>
+</div>

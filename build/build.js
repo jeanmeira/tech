@@ -16,6 +16,7 @@ class SiteBuilder {
         this.distDir = path.join(this.rootDir, 'dist');
         this.templatesDir = path.join(this.srcDir, 'templates');
         this.pdfGenerator = new PDFGenerator();
+        this.baseUrl = '/tech'; // GitHub Pages base URL
         
         // Configure marked for better HTML output
         marked.setOptions({
@@ -157,7 +158,7 @@ class SiteBuilder {
                     ...meta,
                     ...bookItem,
                     chapters,
-                    coverImage: `/assets/covers/${bookItem.id}.jpg`
+                    coverImage: `${this.baseUrl}/assets/covers/${bookItem.id}.jpg`
                 });
             }
         }
@@ -187,8 +188,8 @@ class SiteBuilder {
                     ...articleItem,
                     content: htmlContent,
                     featuredImage: meta.featured_image ? 
-                        `/assets/images/articles/${meta.featured_image.replace('assets/', '')}` : 
-                        '/assets/images/articles/default.svg'
+                        `${this.baseUrl}/assets/images/articles/${meta.featured_image.replace('assets/', '')}` : 
+                        `${this.baseUrl}/assets/images/articles/default.svg`
                 });
             }
         }
@@ -197,67 +198,29 @@ class SiteBuilder {
     }
 
     async generateHomePage(books, articles) {
-        const template = await this.loadTemplate('base.html');
+        const baseTemplate = await this.loadTemplate('base.html');
+        const homeTemplate = await this.loadTemplate('home.html');
         
-        const recentBooks = books.slice(0, 2);
-        const recentArticles = articles.slice(0, 3);
+        const recentBooks = books.slice(0, 2).map(book => ({
+            ...book,
+            date: this.formatDate(book.date),
+            cover_image_alt: book.cover_image_alt || `Capa do livro ${book.title}`
+        }));
         
-        const homeContent = `
-            <div class="container">
-                <div class="hero">
-                    <h1>Jean Meira</h1>
-                    <p>Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia</p>
-                </div>
-                
-                <div class="content-grid">
-                    <section class="content-section">
-                        <h2>Livros Recentes</h2>
-                        <div class="items-grid">
-                            ${recentBooks.map(book => `
-                                <article class="card">
-                                    <img src="${book.coverImage}" alt="${book.cover_image_alt || book.title}" class="card-image" loading="lazy">
-                                    <div class="card-content">
-                                        <h3 class="card-title">${book.title}</h3>
-                                        <p class="card-subtitle">${book.subtitle || ''}</p>
-                                        <p class="card-description">${book.description}</p>
-                                        <div class="card-meta">
-                                            <span>${this.formatDate(book.date)}</span>
-                                        </div>
-                                        <a href="/books/${book.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
-                                    </div>
-                                </article>
-                            `).join('')}
-                        </div>
-                        <p style="text-align: center; margin-top: 2rem;">
-                            <a href="/books/" class="nav-btn">Ver Todos os Livros</a>
-                        </p>
-                    </section>
-                    
-                    <section class="content-section">
-                        <h2>Artigos Recentes</h2>
-                        <div class="items-grid">
-                            ${recentArticles.map(article => `
-                                <article class="card">
-                                    <img src="${article.featuredImage}" alt="${article.title}" class="card-image" loading="lazy">
-                                    <div class="card-content">
-                                        <h3 class="card-title">${article.title}</h3>
-                                        <p class="card-description">${article.description}</p>
-                                        <div class="card-meta">
-                                            <span>${this.formatDate(article.date)}</span>
-                                        </div>
-                                        <a href="/articles/${article.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
-                                    </div>
-                                </article>
-                            `).join('')}
-                        </div>
-                        <p style="text-align: center; margin-top: 2rem;">
-                            <a href="/articles/" class="nav-btn">Ver Todos os Artigos</a>
-                        </p>
-                    </section>
-                </div>
-            </div>
-        `;
+        const recentArticles = articles.slice(0, 3).map(article => ({
+            ...article,
+            date: this.formatDate(article.date)
+        }));
         
+        // Render home content first
+        const homeData = {
+            baseUrl: this.baseUrl,
+            recentBooks,
+            recentArticles
+        };
+        const homeContent = mustache.render(homeTemplate, homeData);
+        
+        // Then render the full page
         const data = {
             meta_title: 'Jean Meira - Arquitetura de Software e Liderança Técnica',
             meta_description: 'Conteúdo técnico sobre arquitetura de software, liderança e desenvolvimento para profissionais de tecnologia',
@@ -267,12 +230,12 @@ class SiteBuilder {
             title: 'Jean Meira',
             description: 'Plataforma de conhecimento técnico',
             date: new Date().toISOString(),
-            css_path: '/assets/css/main.css',
-            js_path: '/assets/js/main.js',
+            css_path: `${this.baseUrl}/assets/css/main.css`,
+            js_path: `${this.baseUrl}/assets/js/main.js`,
             content: homeContent
         };
         
-        const html = mustache.render(template, data);
+        const html = mustache.render(baseTemplate, data);
         await fs.writeFile(path.join(this.distDir, 'index.html'), html);
         
         console.log('🏠 Generated home page');

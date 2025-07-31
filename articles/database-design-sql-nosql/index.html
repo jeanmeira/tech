@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade">
+    <title>Database Design: SQL vs NoSQL na Prática</title>
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;articles&#x2F;database-design-sql-nosql&#x2F;">
+    <meta property="og:title" content="Database Design: SQL vs NoSQL na Prática">
+    <meta property="og:description" content="Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;articles&#x2F;database-design-sql-nosql&#x2F;">
+    <meta property="og:image" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;tech&#x2F;assets&#x2F;images&#x2F;database-design-sql-nosql.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Database Design: SQL vs NoSQL na Prática">
+    <meta name="twitter:description" content="Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;tech&#x2F;assets&#x2F;images&#x2F;database-design-sql-nosql.png">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "name": "Database Design: SQL vs NoSQL na Prática",
+        "author": {
+            "@type": "Person",
+            "name": "Jean Meira"
+        },
+        "description": "Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade",
+        "datePublished": "2025-07-30"
+    }
+    </script>
+    
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="&#x2F;tech/" class="brand-link">Jean Meira - TECH</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="/tech/">Início</a> > 
+                    <a href="/tech/articles/">Artigos</a> > 
+                    <span>Database Design: SQL vs NoSQL na Prática</span>
+                </nav>
+                
+                <article class="article-content">
+                    <header class="article-header">
+                        <h1>Database Design: SQL vs NoSQL na Prática</h1>
+                        <div class="article-meta">
+                            <span>Por Jean Meira</span> • 
+                            <span>30 de julho de 2025</span>
+                        </div>
+                        <img src="/tech/assets/images/database-design-sql-nosql.png" alt="Database Design: SQL vs NoSQL na Prática" class="article-image">
+                    </header>
+                    
+                    <div class="content">
+                        <h1 id="database-design-sql-vs-nosql-na-prática">Database Design: SQL vs NoSQL na Prática</h1>
+<p>A guerra entre SQL e NoSQL consumiu mais energia de engenheiros que qualquer outro debate técnico da última década. Cada lado tem seus evangelistas, cada tecnologia promete ser a &quot;solução definitiva&quot;. </p>
+<p>Depois de arquitetar sistemas com PostgreSQL, MongoDB, Redis, Cassandra e DynamoDB em produção, posso dizer: <strong>o debate está errado</strong>. A pergunta não é &quot;SQL ou NoSQL?&quot;, mas &quot;qual ferramenta resolve meu problema específico?&quot;.</p>
+<p>Vou compartilhar uma análise pragmática baseada em casos reais, métricas de produção e custos operacionais que raramente são discutidos.</p>
+<p><img src="/tech/assets/articles/database-design-sql-nosql/assets/database-design.png" alt="Database Design"></p>
+<h2 id="o-mito-da-escolha-binária">O Mito da Escolha Binária</h2>
+<h3 id="sql-vs-nosql-é-falsa-dicotomia">SQL vs NoSQL é Falsa Dicotomia</h3>
+<pre><code>Realidade: PostgreSQL + Redis + S3 + Analytics Warehouse
+Não: &quot;Escolha UM database para tudo&quot;
+</code></pre>
+<p><strong>Polyglot persistence</strong> não é hype - é necessidade em sistemas complexos.</p>
+<h3 id="cap-theorem-na-prática">CAP Theorem na Prática</h3>
+<p><strong>Consistency, Availability, Partition Tolerance</strong>: escolha 2 de 3.</p>
+<pre><code>PostgreSQL: CP (Consistency + Partition tolerance)
+MongoDB: AP (Availability + Partition tolerance) 
+Redis: AP (com diferentes trade-offs)
+</code></pre>
+<p><strong>Realidade</strong>: você precisa de diferentes garantias para diferentes dados.</p>
+<h2 id="sql-quando-e-por-quê">SQL: Quando e Por Quê</h2>
+<h3 id="cenários-ideais">Cenários Ideais</h3>
+<ol>
+<li><p><strong>ACID Transactions Obrigatórias</strong></p>
+<ul>
+<li>Financial systems</li>
+<li>Inventory management  </li>
+<li>User account operations</li>
+<li>Qualquer coisa onde consistency &gt; availability</li>
+</ul>
+</li>
+<li><p><strong>Complex Queries e Reporting</strong></p>
+<ul>
+<li>JOINs entre múltiplas entidades</li>
+<li>Aggregations complexas</li>
+<li>Ad-hoc analytics</li>
+<li>Business intelligence</li>
+</ul>
+</li>
+<li><p><strong>Schema Bem Definido</strong></p>
+<ul>
+<li>Domain models estáveis</li>
+<li>Data integrity é crítica</li>
+<li>Foreign key constraints fazem sentido</li>
+</ul>
+</li>
+<li><p><strong>Team Expertise</strong></p>
+<ul>
+<li>SQL é conhecimento universal</li>
+<li>Tooling maduro (pgAdmin, DataGrip)</li>
+<li>Debugging familiar</li>
+</ul>
+</li>
+</ol>
+<h3 id="postgresql-o-canivete-suíço">PostgreSQL: O Canivete Suíço</h3>
+<pre><code class="language-sql">-- JSON support (NoSQL-like)
+SELECT data-&gt;&gt;&#39;name&#39; FROM users WHERE data @&gt; &#39;{&quot;active&quot;: true}&#39;;
+
+-- Full-text search
+SELECT * FROM articles WHERE to_tsvector(content) @@ to_tsquery(&#39;microservices&#39;);
+
+-- Arrays e ranges
+SELECT * FROM events WHERE date_range @&gt; &#39;2025-01-01&#39;::date;
+</code></pre>
+<p><strong>PostgreSQL hoje</strong>: 90% dos casos de uso, performance excelente, feature-rich.</p>
+<h3 id="quando-sql-falha">Quando SQL Falha</h3>
+<p><strong>Scale-out horizontal é doloroso</strong>:</p>
+<ul>
+<li>Sharding manual é complexo</li>
+<li>Cross-shard JOINs são caros</li>
+<li>Consistency entre shards é difícil</li>
+</ul>
+<p><strong>Schema migrations em high-scale</strong>:</p>
+<ul>
+<li>ALTER TABLE pode lockear tabela por horas</li>
+<li>Downtime para schema changes</li>
+<li>Backwards compatibility é essencial</li>
+</ul>
+<h2 id="nosql-casos-de-uso-específicos">NoSQL: Casos de Uso Específicos</h2>
+<h3 id="document-stores-mongodb-couchdb">Document Stores (MongoDB, CouchDB)</h3>
+<p><strong>Ideal para</strong>:</p>
+<pre><code class="language-javascript">// Schema-less data
+{
+  &quot;user_id&quot;: &quot;123&quot;,
+  &quot;profile&quot;: {
+    &quot;name&quot;: &quot;John&quot;,
+    &quot;preferences&quot;: {...}, // varies per user
+    &quot;custom_fields&quot;: {...} // customer-specific
+  }
+}
+</code></pre>
+<p><strong>Real benefits</strong>:</p>
+<ul>
+<li>Rapid prototyping sem schema changes</li>
+<li>Nested data structures naturais  </li>
+<li>Horizontal scaling built-in</li>
+<li>Developer velocity para MVPs</li>
+</ul>
+<p><strong>Hidden costs</strong>:</p>
+<ul>
+<li>No schema = runtime errors inevitáveis</li>
+<li>JOIN operations são caras/limitadas</li>
+<li>Data consistency mais complexa</li>
+<li>Query optimization é mais difícil</li>
+</ul>
+<h3 id="key-value-stores-redis-dynamodb">Key-Value Stores (Redis, DynamoDB)</h3>
+<p><strong>Performance cases</strong>:</p>
+<pre><code class="language-python"># Session storage
+redis.set(f&quot;session:{token}&quot;, user_data, ex=3600)
+
+# Real-time leaderboards  
+redis.zadd(&quot;leaderboard&quot;, {user_id: score})
+
+# Caching layer
+redis.set(f&quot;user:{id}&quot;, json.dumps(user), ex=300)
+</code></pre>
+<p><strong>Quando usar</strong>:</p>
+<ul>
+<li>Sub-millisecond latency requirements</li>
+<li>Simple data models</li>
+<li>High read/write ratios</li>
+<li>Caching layers</li>
+</ul>
+<h3 id="column-stores-cassandra-hbase">Column Stores (Cassandra, HBase)</h3>
+<p><strong>Analytics workloads</strong>:</p>
+<pre><code class="language-sql">-- Time-series data
+CREATE TABLE metrics (
+    metric_name text,
+    timestamp timestamp,
+    value double,
+    PRIMARY KEY (metric_name, timestamp)
+);
+</code></pre>
+<p><strong>Strengths</strong>:</p>
+<ul>
+<li>Massive write throughput</li>
+<li>Time-series data natural</li>
+<li>Linear scalability</li>
+<li>High availability</li>
+</ul>
+<p><strong>Complexities</strong>:</p>
+<ul>
+<li>Query patterns must be known upfront</li>
+<li>No JOINs, limited aggregations</li>
+<li>Eventual consistency model</li>
+<li>Operational complexity</li>
+</ul>
+<h2 id="performance-números-reais">Performance: Números Reais</h2>
+<h3 id="throughput-comparison">Throughput Comparison</h3>
+<p><strong>PostgreSQL</strong> (single node, optimized):</p>
+<ul>
+<li>Reads: ~10k QPS</li>
+<li>Writes: ~5k QPS  </li>
+<li>Complex queries: ~100 QPS</li>
+</ul>
+<p><strong>MongoDB</strong> (3-node replica set):</p>
+<ul>
+<li>Reads: ~15k QPS</li>
+<li>Writes: ~8k QPS</li>
+<li>Aggregations: ~500 QPS</li>
+</ul>
+<p><strong>Redis</strong> (single node):</p>
+<ul>
+<li>Simple operations: ~100k+ QPS</li>
+<li>Complex operations: ~10k QPS</li>
+</ul>
+<p><strong>DynamoDB</strong> (provisioned):</p>
+<ul>
+<li>Point reads: ~4k RCU = 4k QPS</li>
+<li>Writes: ~1k WCU = 1k QPS</li>
+<li>Scans: Very limited</li>
+</ul>
+<h3 id="latency-reality">Latency Reality</h3>
+<pre><code>PostgreSQL: p50=1ms, p99=10ms (local network)
+MongoDB: p50=2ms, p99=50ms (replica set)
+Redis: p50=0.1ms, p99=1ms (same machine)
+DynamoDB: p50=10ms, p99=100ms (AWS network)
+</code></pre>
+<p><strong>Network latency dominates</strong> em distributed systems.</p>
+<h2 id="operational-complexity">Operational Complexity</h2>
+<h3 id="postgresql-operations">PostgreSQL Operations</h3>
+<p><strong>Backup/Recovery</strong>:</p>
+<pre><code class="language-bash"># Point-in-time recovery
+pg_basebackup + WAL shipping
+# Logical backups
+pg_dump --jobs=4 large_db
+</code></pre>
+<p><strong>Monitoring essencial</strong>:</p>
+<ul>
+<li>Connection pools</li>
+<li>Lock contention  </li>
+<li>Query performance</li>
+<li>Disk space/IO</li>
+</ul>
+<p><strong>Skills needed</strong>: 1-2 DBAs para production</p>
+<h3 id="mongodb-operations">MongoDB Operations</h3>
+<p><strong>Replica set management</strong>:</p>
+<pre><code class="language-javascript">// Primary failover
+rs.stepDown()
+// Add new secondary
+rs.add(&quot;new-host:27017&quot;)
+</code></pre>
+<p><strong>Sharding complexity</strong>:</p>
+<ul>
+<li>Shard key design é crítico</li>
+<li>Balancer operations</li>
+<li>Orphaned documents cleanup</li>
+</ul>
+<p><strong>Skills needed</strong>: MongoDB-specific expertise</p>
+<h3 id="redis-operations">Redis Operations</h3>
+<p><strong>Persistence models</strong>:</p>
+<pre><code>RDB: Point-in-time snapshots
+AOF: Append-only file (every operation)
+</code></pre>
+<p><strong>Memory management</strong>:</p>
+<ul>
+<li>Eviction policies (LRU, LFU)</li>
+<li>Memory fragmentation</li>
+<li>Swap usage = death</li>
+</ul>
+<p><strong>Skills needed</strong>: Caching expertise, memory optimization</p>
+<h2 id="cost-analysis-hidden-factors">Cost Analysis: Hidden Factors</h2>
+<h3 id="infrastructure-costs">Infrastructure Costs</h3>
+<p><strong>PostgreSQL</strong>:</p>
+<ul>
+<li>Single powerful machine: $500-2000/month</li>
+<li>Read replicas: +$300/replica</li>
+<li>Managed (RDS): +30% markup</li>
+</ul>
+<p><strong>MongoDB Atlas</strong>:</p>
+<ul>
+<li>3-node cluster: $600-3000/month</li>
+<li>Dedicated clusters only</li>
+<li>Bandwidth charges</li>
+</ul>
+<p><strong>Redis</strong>:</p>
+<ul>
+<li>Memory-optimized instances: $200-1000/month</li>
+<li>ElastiCache: +25% markup</li>
+<li>Clustering adds complexity/cost</li>
+</ul>
+<h3 id="operational-costs">Operational Costs</h3>
+<p><strong>Learning curve</strong>:</p>
+<ul>
+<li>SQL: 2-4 weeks for competency</li>
+<li>MongoDB: 2-3 months for production-ready</li>
+<li>Redis: 1-2 months for proper usage</li>
+<li>Cassandra: 6+ months expertise</li>
+</ul>
+<p><strong>Tool ecosystem</strong>:</p>
+<ul>
+<li>SQL: Rich tooling, ORMs, monitoring</li>
+<li>NoSQL: Fragmented ecosystem, vendor-specific tools</li>
+</ul>
+<h2 id="migration-strategies">Migration Strategies</h2>
+<h3 id="sql-to-nosql">SQL to NoSQL</h3>
+<p><strong>Common reasons</strong>:</p>
+<ul>
+<li>Scale-out requirements</li>
+<li>Schema flexibility needs</li>
+<li>Performance requirements</li>
+</ul>
+<p><strong>Pattern: Dual-write</strong>:</p>
+<pre><code class="language-python">def create_user(user_data):
+    # Write to both systems
+    postgres.create_user(user_data)
+    mongodb.create_user(user_data)
+    
+    # Read from new system
+    return mongodb.get_user(user_data[&#39;id&#39;])
+</code></pre>
+<p><strong>Challenges</strong>:</p>
+<ul>
+<li>Data consistency during migration</li>
+<li>Query pattern changes</li>
+<li>Application logic rewrite</li>
+</ul>
+<h3 id="nosql-to-sql">NoSQL to SQL</h3>
+<p><strong>Common reasons</strong>:</p>
+<ul>
+<li>Query complexity growth</li>
+<li>Consistency requirements</li>
+<li>Operational simplicity</li>
+</ul>
+<p><strong>Pattern: ETL approach</strong>:</p>
+<pre><code class="language-python"># Extract from NoSQL
+data = mongodb.find_all_users()
+
+# Transform to relational
+for user in data:
+    normalized = normalize_user_data(user)
+    postgres.insert_user(normalized)
+</code></pre>
+<h2 id="hybrid-architectures">Hybrid Architectures</h2>
+<h3 id="polyglot-persistence-patterns">Polyglot Persistence Patterns</h3>
+<p><strong>Command Query Responsibility Segregation (CQRS)</strong>:</p>
+<pre><code>Commands → PostgreSQL (consistency)
+Queries → Elasticsearch (performance)
+Cache → Redis (speed)
+Analytics → ClickHouse (aggregations)
+</code></pre>
+<p><strong>Event sourcing + projections</strong>:</p>
+<pre><code>Events → Event store (Kafka/EventStore)
+Read models → Multiple databases optimized per use case
+</code></pre>
+<h3 id="real-example-e-commerce">Real Example: E-commerce</h3>
+<pre><code>User accounts → PostgreSQL (ACID requirements)
+Product catalog → Elasticsearch (search + filtering)  
+Session data → Redis (speed + TTL)
+Order events → Kafka (audit trail)
+Analytics → ClickHouse (reporting)
+Images → S3 (blob storage)
+</code></pre>
+<p><strong>Each database optimized for specific access patterns</strong>.</p>
+<h2 id="decision-framework">Decision Framework</h2>
+<h3 id="choose-sql-when">Choose SQL When:</h3>
+<ol>
+<li><strong>ACID transactions são obrigatórias</strong></li>
+<li><strong>Complex relationships</strong> entre dados</li>
+<li><strong>Ad-hoc queries</strong> são necessárias</li>
+<li><strong>Team tem SQL expertise</strong></li>
+<li><strong>Data integrity &gt; availability</strong></li>
+</ol>
+<h3 id="choose-nosql-when">Choose NoSQL When:</h3>
+<ol>
+<li><strong>Scale-out horizontal</strong> é obrigatório</li>
+<li><strong>Schema evolution</strong> é frequente</li>
+<li><strong>Simple access patterns</strong> bem definidos</li>
+<li><strong>Specific performance requirements</strong> (latency, throughput)</li>
+<li><strong>Availability &gt; consistency</strong></li>
+</ol>
+<h3 id="decision-tree">Decision Tree</h3>
+<pre><code>Need ACID transactions? → SQL
+Need complex queries? → SQL
+Need horizontal scale? → NoSQL
+Schema changes frequently? → NoSQL
+Team expertise? → Matches current skills
+Performance requirements? → Benchmark specifically
+</code></pre>
+<h2 id="minha-experiência-na-prática">Minha Experiência na Prática</h2>
+<h3 id="case-study-1-analytics-platform">Case Study 1: Analytics Platform</h3>
+<p><strong>Initial choice</strong>: MongoDB (document flexibility)<br><strong>Reality</strong>: Complex aggregations killed performance<br><strong>Solution</strong>: Migrated to PostgreSQL + TimescaleDB<br><strong>Result</strong>: 10x query performance, simpler operations</p>
+<h3 id="case-study-2-real-time-gaming">Case Study 2: Real-time Gaming</h3>
+<p><strong>Initial choice</strong>: PostgreSQL (familiar)<br><strong>Reality</strong>: Latency requirements impossible<br><strong>Solution</strong>: Redis for game state, PostgreSQL for persistence<br><strong>Result</strong>: &lt;1ms latency, eventual consistency acceptable</p>
+<h3 id="case-study-3-e-commerce-platform">Case Study 3: E-commerce Platform</h3>
+<p><strong>Final architecture</strong>:</p>
+<ul>
+<li><strong>PostgreSQL</strong>: Orders, users, inventory</li>
+<li><strong>Elasticsearch</strong>: Product search, recommendations</li>
+<li><strong>Redis</strong>: Sessions, caching, real-time features</li>
+<li><strong>S3</strong>: Images, documents</li>
+<li><strong>ClickHouse</strong>: Analytics, reporting</li>
+</ul>
+<p><strong>Lessons</strong>: No single database fits all use cases.</p>
+<h2 id="tools-e-ecosystem">Tools e Ecosystem</h2>
+<h3 id="sql-ecosystem">SQL Ecosystem</h3>
+<p><strong>ORMs</strong>: Django ORM, SQLAlchemy, Hibernate<br><strong>Migration tools</strong>: Flyway, Liquibase, Alembic<br><strong>Monitoring</strong>: pg_stat_statements, DataDog, New Relic<br><strong>Backup</strong>: WAL-E, Barman, cloud-native solutions</p>
+<h3 id="nosql-ecosystem">NoSQL Ecosystem</h3>
+<p><strong>MongoDB</strong>: Mongoose, Motor, MongoDB Compass<br><strong>Redis</strong>: RedisInsight, Redis Sentinel, Redis Cluster<br><strong>DynamoDB</strong>: AWS SDK, DynamoDB Streams, DAX</p>
+<p><strong>Reality</strong>: SQL ecosystem is more mature and standardized.</p>
+<h2 id="future-considerations">Future Considerations</h2>
+<h3 id="newsql-databases">NewSQL Databases</h3>
+<p><strong>CockroachDB, TiDB, Spanner</strong>:</p>
+<ul>
+<li>SQL interface + horizontal scale</li>
+<li>Distributed ACID transactions</li>
+<li>Higher operational complexity</li>
+<li>Still maturing ecosystem</li>
+</ul>
+<h3 id="serverless-databases">Serverless Databases</h3>
+<p><strong>Aurora Serverless, CosmosDB Serverless</strong>:</p>
+<ul>
+<li>Pay-per-use pricing</li>
+<li>Auto-scaling</li>
+<li>Cold start latency</li>
+<li>Good for variable workloads</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>SQL vs NoSQL é uma pergunta mal formulada. A pergunta certa é: <strong>qual combinação de ferramentas resolve meus problemas específicos?</strong></p>
+<p><strong>Start with PostgreSQL</strong> para maioria dos casos:</p>
+<ul>
+<li>Covers 90% das necessidades</li>
+<li>Mature ecosystem</li>
+<li>Team expertise disponível</li>
+<li>Easy operational model</li>
+</ul>
+<p><strong>Add NoSQL quando necessário</strong>:</p>
+<ul>
+<li>Specific performance requirements</li>
+<li>Scale-out horizontal obrigatório</li>
+<li>Schema flexibility crítica</li>
+</ul>
+<p><strong>Avoid premature optimization</strong>:</p>
+<ul>
+<li>Measure before migrating</li>
+<li>Understand operational costs</li>
+<li>Consider team expertise</li>
+</ul>
+<h3 id="próximos-passos">Próximos Passos</h3>
+<ol>
+<li><strong>Audit current database usage</strong> - where are the pain points?</li>
+<li><strong>Benchmark specific workloads</strong> - don&#39;t trust generic benchmarks</li>
+<li><strong>Consider hybrid approaches</strong> - polyglot persistence</li>
+<li><strong>Invest in monitoring</strong> - você precisa de dados para decidir</li>
+</ol>
+<p>Database choice é sobre trade-offs, não sobre trends. Escolha baseado em necessidades reais, não em hype de conferências.</p>
+
+                    </div>
+                </article>
+                
+                <section class="comments-section">
+                    <h3>Comentários</h3>
+                    <script src="https://utteranc.es/client.js"
+                            repo="jeanmeira/tech"
+                            issue-term="pathname"
+                            theme="github-light"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
+                </section>
+            </div>
+        
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Jean Meira. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/jeanmeira" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/jean-meira" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;main.js"></script>
+</body>
+</html>

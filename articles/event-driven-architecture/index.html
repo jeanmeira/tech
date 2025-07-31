@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta">
+    <title>Event-Driven Architecture: Além do Hype</title>
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;articles&#x2F;event-driven-architecture&#x2F;">
+    <meta property="og:title" content="Event-Driven Architecture: Além do Hype">
+    <meta property="og:description" content="Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;articles&#x2F;event-driven-architecture&#x2F;">
+    <meta property="og:image" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;tech&#x2F;assets&#x2F;images&#x2F;event-driven-architecture.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Event-Driven Architecture: Além do Hype">
+    <meta name="twitter:description" content="Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta">
+    <meta name="twitter:image" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;tech&#x2F;assets&#x2F;images&#x2F;event-driven-architecture.png">
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "name": "Event-Driven Architecture: Além do Hype",
+        "author": {
+            "@type": "Person",
+            "name": "Jean Meira"
+        },
+        "description": "Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta",
+        "datePublished": "2025-07-30"
+    }
+    </script>
+    
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="&#x2F;tech/" class="brand-link">Jean Meira - TECH</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="/tech/">Início</a> > 
+                    <a href="/tech/articles/">Artigos</a> > 
+                    <span>Event-Driven Architecture: Além do Hype</span>
+                </nav>
+                
+                <article class="article-content">
+                    <header class="article-header">
+                        <h1>Event-Driven Architecture: Além do Hype</h1>
+                        <div class="article-meta">
+                            <span>Por Jean Meira</span> • 
+                            <span>30 de julho de 2025</span>
+                        </div>
+                        <img src="/tech/assets/images/event-driven-architecture.png" alt="Event-Driven Architecture: Além do Hype" class="article-image">
+                    </header>
+                    
+                    <div class="content">
+                        <h1 id="event-driven-architecture-além-do-hype">Event-Driven Architecture: Além do Hype</h1>
+<p>Event-driven architecture (EDA) virou o buzzword favorito de arquitetos de software. Toda apresentação sobre microsserviços menciona eventos, todo sistema &quot;moderno&quot; precisa ser event-driven. Mas como alguém que implementou sistemas orientados a eventos em produção por anos, posso dizer: <strong>nem sempre é a resposta</strong>.</p>
+<p>Vou compartilhar uma visão pragmática sobre quando eventos fazem sentido, os custos ocultos que ninguém menciona, e estratégias que realmente funcionam em produção.</p>
+<p><img src="/tech/assets/articles/event-driven-architecture/assets/event-driven.png" alt="Event-Driven Architecture"></p>
+<h2 id="o-que-é-event-driven-architecture-realmente">O Que É Event-Driven Architecture (Realmente)</h2>
+<p>EDA não é apenas &quot;pub/sub com extra steps&quot;. É uma abordagem arquitetural onde:</p>
+<ul>
+<li><strong>Componentes comunicam através de eventos</strong></li>
+<li><strong>Produtores não conhecem consumidores</strong></li>
+<li><strong>Estado é derivado de eventos</strong></li>
+<li><strong>Processamento pode ser assíncrono</strong></li>
+</ul>
+<h3 id="event-vs-message-vs-command">Event vs. Message vs. Command</h3>
+<p>Confusão comum que gera arquiteturas ruins:</p>
+<pre><code>Event: &quot;User registered&quot; (algo que aconteceu)
+Command: &quot;Register user&quot; (pedido para fazer algo)  
+Message: &quot;Here&#39;s user data&quot; (transferência de informação)
+</code></pre>
+<p><strong>Events são imutáveis e representam fatos</strong>. Commands podem falhar, events já aconteceram.</p>
+<h3 id="o-espectro-event-driven">O Espectro Event-Driven</h3>
+<pre><code>Polling → Webhooks → Message Queues → Event Streams → Event Sourcing
+</code></pre>
+<p>Não é binário - você pode começar simples e evoluir conforme necessidade.</p>
+<h2 id="quando-eventos-fazem-sentido">Quando Eventos Fazem Sentido</h2>
+<h3 id="cenários-ideais">Cenários Ideais</h3>
+<ol>
+<li><p><strong>Integração entre sistemas independentes</strong></p>
+<ul>
+<li>E-commerce: Order → Inventory → Shipping → Email</li>
+<li>Cada sistema tem seu próprio domínio</li>
+<li>Falha em um não para os outros</li>
+</ul>
+</li>
+<li><p><strong>Processamento em tempo real</strong></p>
+<ul>
+<li>Fraud detection em transações</li>
+<li>Real-time analytics e dashboards</li>
+<li>IoT data processing</li>
+</ul>
+</li>
+<li><p><strong>Auditoria e compliance</strong></p>
+<ul>
+<li>Event sourcing para trilha completa</li>
+<li>Regulatory requirements</li>
+<li>Debugging complexo de estados</li>
+</ul>
+</li>
+<li><p><strong>Scaling diferenciado</strong></p>
+<ul>
+<li>Alguns eventos processados milhões de vezes</li>
+<li>Outros uma vez por dia</li>
+<li>Resource allocation otimizada</li>
+</ul>
+</li>
+</ol>
+<h3 id="padrões-que-funcionam">Padrões que Funcionam</h3>
+<h4 id="fan-out-pattern">Fan-out Pattern</h4>
+<pre><code>Order Created → [Inventory, Shipping, Email, Analytics, Fraud Detection]
+</code></pre>
+<p>Um evento dispara múltiplos processamentos independentes.</p>
+<h4 id="event-choreography">Event Choreography</h4>
+<pre><code>User Signup → Email Service → Welcome Email Sent → Analytics Service
+</code></pre>
+<p>Cada serviço reage e produz novos eventos conforme necessário.</p>
+<h4 id="event-orchestration">Event Orchestration</h4>
+<pre><code>Saga Manager → Commands → Services → Events → Saga Manager
+</code></pre>
+<p>Coordenação centralizada para workflows complexos.</p>
+<h2 id="os-custos-ocultos">Os Custos Ocultos</h2>
+<h3 id="debugging-distribuído">Debugging Distribuído</h3>
+<p><strong>Requisição REST falha</strong>:</p>
+<ul>
+<li>Status 500, stack trace, logs no mesmo lugar</li>
+<li>Reprodução local simples</li>
+</ul>
+<p><strong>Event processing falha</strong>:</p>
+<ul>
+<li>Evento processado 3 horas depois</li>
+<li>Falha pode estar em qualquer consumidor</li>
+<li>Dead letter queues cheias de eventos misteriosos</li>
+<li>Correlation IDs espalhados por 5+ sistemas</li>
+</ul>
+<h3 id="eventual-consistency">Eventual Consistency</h3>
+<pre><code class="language-sql">-- Monolito
+BEGIN TRANSACTION;
+UPDATE orders SET status = &#39;paid&#39;;
+UPDATE inventory SET quantity = quantity - 1;
+COMMIT;
+
+-- Event-driven
+Order Paid Event → Inventory Service (maybe in 5 minutes)
+User sees &quot;paid&quot; but inventory not updated yet
+</code></pre>
+<p><strong>Realidade</strong>: seus usuários vão reportar &quot;bugs&quot; de inconsistência.</p>
+<h3 id="message-ordering">Message Ordering</h3>
+<pre><code>Event 1: User updated name to &quot;John&quot;
+Event 2: User updated name to &quot;Jane&quot;
+
+Consumer receives: Event 2, Event 1
+Final state: &quot;John&quot; (wrong!)
+</code></pre>
+<p>Ordering guarantees são caros e limitam paralelismo.</p>
+<h3 id="operational-complexity">Operational Complexity</h3>
+<p><strong>Single service deployment</strong>: 1 artifact, 1 configuration<br><strong>Event-driven system</strong>: N services + Message broker + Schema registry + Monitoring</p>
+<h2 id="quando-não-usar-eventos">Quando NÃO Usar Eventos</h2>
+<h3 id="1-request-response-natural">1. Request-Response Natural</h3>
+<pre><code class="language-python"># Simples e correto
+def get_user_profile(user_id):
+    return database.get_user(user_id)
+
+# Complicação desnecessária
+def get_user_profile(user_id):
+    publish_event(&quot;GetUserProfile&quot;, {&quot;user_id&quot;: user_id})
+    # Como retornar resposta???
+</code></pre>
+<p>Se você precisa de resposta imediata, use API síncrona.</p>
+<h3 id="2-strong-consistency-requirements">2. Strong Consistency Requirements</h3>
+<p>Banking transactions, inventory management crítico, payment processing - eventual consistency pode ser inaceitável.</p>
+<h3 id="3-debugging-complexo">3. Debugging Complexo</h3>
+<p>Se seu time ainda luta para debuggar APIs REST, eventos vão multiplicar a complexidade por 10.</p>
+<h3 id="4-small-teams">4. Small Teams</h3>
+<p>5 pessoas mantendo 15 event consumers é receita para burnout operacional.</p>
+<h2 id="ferramentas-e-tecnologias">Ferramentas e Tecnologias</h2>
+<h3 id="message-brokers">Message Brokers</h3>
+<p><strong>Apache Kafka</strong></p>
+<ul>
+<li>✅ High throughput, durability, ordering</li>
+<li>❌ Operational complexity, learning curve</li>
+<li><strong>Use quando</strong>: millions of events/day</li>
+</ul>
+<p><strong>RabbitMQ</strong></p>
+<ul>
+<li>✅ Feature-rich, easier ops, good tooling</li>
+<li>❌ Lower throughput que Kafka</li>
+<li><strong>Use quando</strong>: complex routing needs</li>
+</ul>
+<p><strong>Redis Streams</strong></p>
+<ul>
+<li>✅ Simple, familiar, good performance</li>
+<li>❌ Limited durability guarantees</li>
+<li><strong>Use quando</strong>: real-time processing</li>
+</ul>
+<p><strong>Cloud Managed</strong> (SQS, Cloud Pub/Sub, EventHub)</p>
+<ul>
+<li>✅ Zero ops, good integrations</li>
+<li>❌ Vendor lock-in, cost at scale</li>
+<li><strong>Use quando</strong>: small-medium scale</li>
+</ul>
+<h3 id="event-sourcing">Event Sourcing</h3>
+<p><strong>EventStore</strong></p>
+<ul>
+<li>✅ Purpose-built, good projections</li>
+<li>❌ .NET focused, niche</li>
+</ul>
+<p><strong>Apache Kafka + KSQL</strong></p>
+<ul>
+<li>✅ Stream processing, good ecosystem</li>
+<li>❌ Complex setup</li>
+</ul>
+<p><strong>Custom Implementation</strong></p>
+<ul>
+<li>✅ Fits exact needs</li>
+<li>❌ Você vai reimplementar mal o que já existe</li>
+</ul>
+<h2 id="implementação-prática">Implementação Prática</h2>
+<h3 id="schema-evolution">Schema Evolution</h3>
+<pre><code class="language-json">// Version 1
+{
+  &quot;event_type&quot;: &quot;user_registered&quot;,
+  &quot;user_id&quot;: &quot;123&quot;,
+  &quot;email&quot;: &quot;user@example.com&quot;
+}
+
+// Version 2 - Backward compatible
+{
+  &quot;event_type&quot;: &quot;user_registered&quot;, 
+  &quot;schema_version&quot;: &quot;2.0&quot;,
+  &quot;user_id&quot;: &quot;123&quot;,
+  &quot;email&quot;: &quot;user@example.com&quot;,
+  &quot;registration_source&quot;: &quot;web&quot; // new field
+}
+</code></pre>
+<p><strong>Schema registry é obrigatório</strong> para evitar quebrar consumidores.</p>
+<h3 id="dead-letter-queues">Dead Letter Queues</h3>
+<pre><code class="language-python">def process_event(event):
+    try:
+        handle_event(event)
+    except RetryableError:
+        retry_queue.send(event, delay=exponential_backoff())
+    except FatalError:
+        dead_letter_queue.send(event)
+        alert_operations(f&quot;Fatal error processing {event.id}&quot;)
+</code></pre>
+<p><strong>Monitoring DLQs é crítico</strong> - eventos perdidos = bugs silenciosos.</p>
+<h3 id="idempotency">Idempotency</h3>
+<pre><code class="language-python">@idempotent(key=&quot;event_id&quot;)
+def handle_order_created(event):
+    # Safe to process multiple times
+    order = Order.create(event.data)
+    send_confirmation_email(order.email)
+</code></pre>
+<p><strong>Duplicate events vão acontecer</strong> - design para idempotência desde o início.</p>
+<h2 id="minha-experiência-na-prática">Minha Experiência na Prática</h2>
+<h3 id="case-study-e-commerce-platform">Case Study: E-commerce Platform</h3>
+<p><strong>Contexto</strong>: 100k orders/day, 20+ microservices</p>
+<p><strong>Event-driven wins</strong>:</p>
+<ul>
+<li><strong>Resilience</strong>: Payment failures não paravam inventory updates</li>
+<li><strong>Scalability</strong>: Analytics processava events offline</li>
+<li><strong>Auditability</strong>: Event sourcing salvou em auditorias</li>
+</ul>
+<p><strong>Event-driven losses</strong>:</p>
+<ul>
+<li><strong>Debugging nightmare</strong>: &quot;Why didn&#39;t email send?&quot; = 3 hours investigation</li>
+<li><strong>Eventual consistency bugs</strong>: Users complained sobre inventory discrepancies</li>
+<li><strong>Operational overhead</strong>: Kafka cluster, schema registry, monitoring</li>
+</ul>
+<h3 id="lessons-learned">Lessons Learned</h3>
+<ol>
+<li><strong>Start with synchronous APIs</strong>, add events para integration</li>
+<li><strong>Invest heavily in observability</strong> antes de ir all-in</li>
+<li><strong>Dead letter queues são seus amigos</strong> - monitor religiosamente</li>
+<li><strong>Schema evolution strategy</strong> desde o dia 1</li>
+<li><strong>Correlation IDs em tudo</strong> - debugging vai precisar</li>
+</ol>
+<h3 id="o-que-eu-faria-diferente">O Que Eu Faria Diferente</h3>
+<ol>
+<li><strong>Hybrid approach</strong>: Core business logic síncrono, integration assíncrona</li>
+<li><strong>Fewer event types</strong>: 5 well-designed events &gt; 50 granular events</li>
+<li><strong>Better tooling</strong>: Custom dashboards para event flow tracing</li>
+<li><strong>Circuit breakers</strong>: Para quando event processing fica lento</li>
+</ol>
+<h2 id="estratégias-de-implementação">Estratégias de Implementação</h2>
+<h3 id="pattern-api-first-events-second">Pattern: API First, Events Second</h3>
+<ol>
+<li><strong>Core business operations</strong> via REST/GraphQL</li>
+<li><strong>Integration events</strong> para side effects</li>
+<li><strong>Analytics events</strong> para reporting</li>
+<li><strong>Migrate gradually</strong> conforme ganha confiança</li>
+</ol>
+<h3 id="strangler-fig-para-events">Strangler Fig para Events</h3>
+<pre><code>Legacy: Synchronous calls
+New: Publish events + keep sync calls
+Future: Pure event-driven (maybe)
+</code></pre>
+<h3 id="event-storming">Event Storming</h3>
+<p><strong>Workshop com stakeholders</strong>:</p>
+<ul>
+<li>Mapear domain events naturais</li>
+<li>Identificar bounded contexts</li>
+<li>Design event schemas collaboratively</li>
+</ul>
+<h2 id="ferramentas-de-observabilidade">Ferramentas de Observabilidade</h2>
+<h3 id="event-tracing">Event Tracing</h3>
+<pre><code class="language-python"># Correlate events across services
+event = {
+    &quot;correlation_id&quot;: &quot;req-123&quot;,
+    &quot;causation_id&quot;: &quot;event-456&quot;, 
+    &quot;event_id&quot;: &quot;event-789&quot;,
+    &quot;data&quot;: {...}
+}
+</code></pre>
+<h3 id="monitoring-essencial">Monitoring Essencial</h3>
+<ul>
+<li><strong>Event lag</strong>: Quanto tempo para processar</li>
+<li><strong>Dead letter queue size</strong>: Eventos falhando</li>
+<li><strong>Consumer throughput</strong>: Gargalos de processamento</li>
+<li><strong>Schema compatibility</strong>: Breaking changes</li>
+</ul>
+<h3 id="tooling-stack">Tooling Stack</h3>
+<ul>
+<li><strong>Kafka UI</strong>: akhq, kafdrop para visualização</li>
+<li><strong>Jaeger/Zipkin</strong>: Distributed tracing</li>
+<li><strong>Grafana</strong>: Event flow dashboards</li>
+<li><strong>PagerDuty</strong>: Alerting em DLQ buildup</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Event-driven architecture é poderosa, mas não é simples. É uma ferramenta para problemas específicos, não uma arquitetura padrão.</p>
+<p><strong>Use eventos quando</strong>:</p>
+<ul>
+<li>Integration entre sistemas independentes</li>
+<li>Auditability é crítica</li>
+<li>Scaling diferenciado é necessário</li>
+<li>Time tem experiência com sistemas distribuídos</li>
+</ul>
+<p><strong>Evite quando</strong>:</p>
+<ul>
+<li>Request-response é natural</li>
+<li>Strong consistency é obrigatória</li>
+<li>Time é pequeno sem experiência</li>
+<li>Debugging atual já é complexo</li>
+</ul>
+<p><strong>Lembre-se</strong>: você pode sempre adicionar eventos, mas removê-los de um sistema running é muito mais difícil.</p>
+<h3 id="próximos-passos">Próximos Passos</h3>
+<ol>
+<li><strong>Identifique integration points</strong> no seu sistema atual</li>
+<li><strong>Comece com eventos de notificação</strong> simples</li>
+<li><strong>Invista em observability</strong> desde o início</li>
+<li><strong>Meça impact</strong>: latência, throughput, operability</li>
+</ol>
+<p>Event-driven architecture é sobre trade-offs, não sobre ser &quot;modern&quot;. Escolha conscientemente baseado em necessidades reais, não em hype.</p>
+
+                    </div>
+                </article>
+                
+                <section class="comments-section">
+                    <h3>Comentários</h3>
+                    <script src="https://utteranc.es/client.js"
+                            repo="jeanmeira/tech"
+                            issue-term="pathname"
+                            theme="github-light"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
+                </section>
+            </div>
+        
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Jean Meira. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/jeanmeira" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/jean-meira" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;main.js"></script>
+</body>
+</html>

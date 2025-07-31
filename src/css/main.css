@@ -202,6 +202,8 @@ img {
     overflow: hidden;
     box-shadow: var(--box-shadow);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -211,12 +213,16 @@ img {
 
 .card-image {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 1;
     object-fit: cover;
+    object-position: center;
 }
 
 .card-content {
     padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-title {
@@ -234,6 +240,7 @@ img {
     color: var(--medium-gray);
     font-size: 0.9rem;
     margin-bottom: var(--spacing-sm);
+    flex: 1;
 }
 
 .card-meta {
@@ -241,13 +248,13 @@ img {
     color: var(--medium-gray);
     border-top: 1px solid var(--border-color);
     padding-top: var(--spacing-xs);
-    margin-top: var(--spacing-sm);
+    margin-top: auto;
 }
 
 /* Book and Article Lists */
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-lg);
 }
 
@@ -261,8 +268,13 @@ img {
 
 .book-cover {
     max-width: 300px;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
     margin-bottom: var(--spacing-lg);
     box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
 }
 
 .book-downloads {
@@ -530,7 +542,7 @@ img {
     }
     
     .items-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
     
     .book-downloads {

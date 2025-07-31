@@ -1,0 +1,28 @@
+🧠 1. A Arquitetura Oculta do Poder — Gato Frajola
+Minimalist but warm visual scene with soft natural lighting and generous whitespace. Use the exact color palette: #2d5a27, #4a7c59, #f8f9fa, #6c757d, #343a40, #ffffff, #dee2e6. Incorporate organic shapes with smooth edges and gentle, natural shadows that add depth without heaviness. The composition should resemble a stylish website card — sophisticated yet approachable, breathing with visual lightness.
+
+Central character: a tuxedo cat (Frajola-inspired), seated elegantly on a sleek, abstract architectural structure that subtly resembles a power diagram — bridges, connections, or circuits hidden within the shapes. The cat looks slightly away, as if guarding a secret. The atmosphere suggests strategy and discretion. Natural green (#2d5a27) is used sparingly to highlight connecting lines or accents around the structure. The background uses light gradients in gray and white tones, with symbolic shapes suggesting hidden systems or influence networks. No clutter; keep the visual flow clean, professional, and thought-provoking.
+
+👻 2. Arquitetura Fantasma — Fantasma
+Minimalist but warm visual composition with soft, natural ambient lighting and generous breathing space. Use the exact color palette: #2d5a27, #4a7c59, #f8f9fa, #6c757d, #343a40, #ffffff, #dee2e6. Include smooth, organic shapes and shadows that gently define layers without creating contrast-heavy areas. The image must feel airy, clean, and contemplative.
+
+Central character: a soft, translucent ghost, floating peacefully above an architectural blueprint made of fading organic forms. The ghost has gentle curves and a neutral, calm presence — nothing spooky or playful. Its body slightly blends with the background, evoking subtlety and elegance. Architectural elements appear partially rendered, as if emerging from or vanishing into the background — reinforcing the idea of invisible structures. The green highlight (#2d5a27) might form a quiet pulse line or spectral path connecting the shapes. Everything should feel intentional but hidden — a harmony of absence and presence.
+
+🐝 3. Microserviços — Abelha
+Warm minimalist visual with soft natural lighting and generous whitespace. Apply the exact color palette: #2d5a27, #4a7c59, #f8f9fa, #6c757d, #343a40, #ffffff, #dee2e6. Use organic rounded shapes with soft corners and subtle shadows to create floating modular elements. The aesthetic should mirror a modern card UI — clean, light, and welcoming.
+
+Central character: a well-stylized bee (not cartoonish), hovering calmly above or between hexagonal modules, which are evenly spaced in a gentle grid. Each module represents a microservice — self-contained, with clear but soft connections to others via fine lines or dotted paths. The bee's wings and body are minimalist, with soft gold striping and muted detailing to match the palette. Use green accents (#2d5a27) to highlight active links or communication flows between modules. The background is bright and clean, subtly textured to evoke tech precision without rigidity. Emphasize modularity, independence, and orchestration through the arrangement.
+
+---
+
+**Especificações Técnicas:**
+- Formato: 1024x1024 pixels (quadrado)
+- Qualidade: Alta resolução, adequada para web
+- Estilo: Minimalista, profissional, acolhedor
+- Paleta obrigatória: #2d5a27, #4a7c59, #f8f9fa, #6c757d, #343a40, #ffffff, #dee2e6
+- Bordas: Suaves, arredondadas (8px equivalente)
+- Sombras: Gentis, naturais
+- Composição: Generosa respiração visual, nunca claustrofóbico
+
+**Filosofia Visual:**
+Cada imagem deve sentir como se pertencesse ao site — mesma energia acolhedora, mesmo profissionalismo acessível, mesma paleta de cores. O objetivo é criar capas memoráveis que façam os usuários se sentirem bem-vindos a explorar o conteúdo.

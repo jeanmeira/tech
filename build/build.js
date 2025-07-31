@@ -100,33 +100,6 @@ class SiteBuilder {
         if (await fs.pathExists(imagesDir)) {
             await fs.copy(imagesDir, path.join(this.distDir, 'assets/images'));
         }
-        
-        // Copy book covers without optimization (simplified version)
-        const booksDir = path.join(this.contentDir, 'books');
-        const bookFolders = await fs.readdir(booksDir);
-        
-        for (const folder of bookFolders) {
-            if (folder.startsWith('_')) continue;
-            
-            const bookPath = path.join(booksDir, folder);
-            const stat = await fs.stat(bookPath);
-            
-            if (stat.isDirectory()) {
-                const coverFiles = ['capa.png', 'cover.png', 'capa.jpg', 'cover.jpg'];
-                
-                for (const coverFile of coverFiles) {
-                    const coverPath = path.join(bookPath, coverFile);
-                    if (await fs.pathExists(coverPath)) {
-                        const outputPath = path.join(this.distDir, 'assets/covers', folder + path.extname(coverFile));
-                        await fs.ensureDir(path.dirname(outputPath));
-                        
-                        // Simple copy without optimization
-                        await fs.copy(coverPath, outputPath);
-                        break;
-                    }
-                }
-            }
-        }
     }
 
     async copyGoogleVerification() {
@@ -178,7 +151,7 @@ class SiteBuilder {
                     ...meta,
                     ...bookItem,
                     chapters,
-                    coverImage: `${this.baseUrl}/assets/covers/${bookItem.id}.jpg`
+                    coverImage: `${this.baseUrl}/assets/images/${bookItem.id}.png`
                 });
             }
         }
@@ -207,9 +180,7 @@ class SiteBuilder {
                     ...meta,
                     ...articleItem,
                     content: htmlContent,
-                    featuredImage: meta.featured_image ? 
-                        `${this.baseUrl}/assets/images/articles/${meta.featured_image.replace('assets/', '')}` : 
-                        `${this.baseUrl}/assets/images/articles/default.svg`
+                    featuredImage: `${this.baseUrl}/assets/images/${articleItem.id}.png`
                 });
             }
         }

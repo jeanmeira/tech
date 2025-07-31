@@ -1,6 +1,24 @@
 articles:
   
   items:
+    - id: "api-design-rest-graphql-grpc"
+      title: "API Design: RESTful, GraphQL ou gRPC?"
+      slug: "api-design-rest-graphql-grpc"
+      date: "2025-07-30"
+      path: "api-design-rest-graphql-grpc/"
+      
+    - id: "database-design-sql-nosql"
+      title: "Database Design: SQL vs NoSQL na Prática"
+      slug: "database-design-sql-nosql"
+      date: "2025-07-30"
+      path: "database-design-sql-nosql/"
+      
+    - id: "event-driven-architecture"
+      title: "Event-Driven Architecture: Além do Hype"
+      slug: "event-driven-architecture"
+      date: "2025-07-30"
+      path: "event-driven-architecture/"
+      
     - id: "arquitetura-microsservicos"
       title: "Arquitetura de Microsserviços: Teoria vs Prática"
       slug: "arquitetura-microsservicos"

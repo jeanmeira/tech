@@ -1,0 +1,23 @@
+id: "event-driven-architecture"
+type: "article"
+
+# Informações básicas
+title: "Event-Driven Architecture: Além do Hype"
+slug: "event-driven-architecture"
+author: "jean"
+date: "2025-07-30T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta"
+content_file: "content.md"
+
+# Mídia
+featured_image: "assets/event-driven.png"
+featured_image_alt: "Event-Driven Architecture"
+
+# SEO
+seo:
+  meta_title: "Event-Driven Architecture: Além do Hype"
+  meta_description: "Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta"
+  canonical_url: "/articles/event-driven-architecture/"

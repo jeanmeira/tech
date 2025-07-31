@@ -1,0 +1,23 @@
+id: "database-design-sql-nosql"
+type: "article"
+
+# Informações básicas
+title: "Database Design: SQL vs NoSQL na Prática"
+slug: "database-design-sql-nosql"
+author: "jean"
+date: "2025-07-30T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade"
+content_file: "content.md"
+
+# Mídia
+featured_image: "assets/database-design.png"
+featured_image_alt: "Database Design"
+
+# SEO
+seo:
+  meta_title: "Database Design: SQL vs NoSQL na Prática"
+  meta_description: "Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade"
+  canonical_url: "/articles/database-design-sql-nosql/"

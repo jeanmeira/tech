@@ -1,0 +1,23 @@
+id: "api-design-rest-graphql-grpc"
+type: "article"
+
+# Informações básicas
+title: "API Design: RESTful, GraphQL ou gRPC?"
+slug: "api-design-rest-graphql-grpc"
+author: "jean"
+date: "2025-07-30T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Análise pragmática das três principais abordagens de API design, com casos reais e métricas de performance"
+content_file: "content.md"
+
+# Mídia
+featured_image: "assets/api-design.png"
+featured_image_alt: "API Design"
+
+# SEO
+seo:
+  meta_title: "API Design: RESTful, GraphQL ou gRPC?"
+  meta_description: "Análise pragmática das três principais abordagens de API design, com casos reais e métricas de performance"
+  canonical_url: "/articles/api-design-rest-graphql-grpc/"

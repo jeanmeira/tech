@@ -89,6 +89,9 @@ class SiteBuilder {
         // Copy images without optimization (simplified version)
         await this.copyImages();
         
+        // Copy book and article assets
+        await this.copyContentAssets();
+        
         // Copy Google Search Console verification file
         await this.copyGoogleVerification();
         
@@ -99,6 +102,62 @@ class SiteBuilder {
         const imagesDir = path.join(this.contentDir, 'images');
         if (await fs.pathExists(imagesDir)) {
             await fs.copy(imagesDir, path.join(this.distDir, 'assets/images'));
+        }
+    }
+
+    async copyContentAssets() {
+        // Copy book assets
+        const booksDir = path.join(this.contentDir, 'books');
+        if (await fs.pathExists(booksDir)) {
+            const bookFolders = await fs.readdir(booksDir);
+            
+            for (const folder of bookFolders) {
+                if (folder.startsWith('_')) continue;
+                
+                const bookPath = path.join(booksDir, folder);
+                const stat = await fs.stat(bookPath);
+                
+                if (stat.isDirectory()) {
+                    // Copia pasta assets se existir
+                    const assetsPath = path.join(bookPath, 'assets');
+                    if (await fs.pathExists(assetsPath)) {
+                        const destPath = path.join(this.distDir, 'assets/books', folder, 'assets');
+                        await fs.copy(assetsPath, destPath);
+                    }
+                    
+                    // Copia arquivos de imagem diretos (capa.png, cover.png, etc.)
+                    const files = await fs.readdir(bookPath);
+                    for (const file of files) {
+                        if (file.match(/\.(png|jpg|jpeg|gif|svg)$/i)) {
+                            const srcFile = path.join(bookPath, file);
+                            const destFile = path.join(this.distDir, 'assets/books', folder, file);
+                            await fs.ensureDir(path.dirname(destFile));
+                            await fs.copy(srcFile, destFile);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Copy article assets
+        const articlesDir = path.join(this.contentDir, 'articles');
+        if (await fs.pathExists(articlesDir)) {
+            const articleFolders = await fs.readdir(articlesDir);
+            
+            for (const folder of articleFolders) {
+                if (folder.startsWith('_')) continue;
+                
+                const articlePath = path.join(articlesDir, folder);
+                const stat = await fs.stat(articlePath);
+                
+                if (stat.isDirectory()) {
+                    const assetsPath = path.join(articlePath, 'assets');
+                    if (await fs.pathExists(assetsPath)) {
+                        const destPath = path.join(this.distDir, 'assets/articles', folder, 'assets');
+                        await fs.copy(assetsPath, destPath);
+                    }
+                }
+            }
         }
     }
 
@@ -136,7 +195,10 @@ class SiteBuilder {
                 for (const chapter of structure.book_structure.chapters) {
                     const chapterPath = path.join(bookDir, chapter.file);
                     if (await fs.pathExists(chapterPath)) {
-                        const content = await fs.readFile(chapterPath, 'utf8');
+                        let content = await fs.readFile(chapterPath, 'utf8');
+                        
+                        // Processa as referências de assets no conteúdo do capítulo
+                        content = this.processContentAssets(content, 'books', bookItem.id);
                         const htmlContent = marked.parse(content);
                         
                         chapters.push({
@@ -159,6 +221,12 @@ class SiteBuilder {
         return books;
     }
 
+    // Processa conteúdo convertendo referências de assets para URLs corretas
+    processContentAssets(content, type, id) {
+        // Converte referências locais de assets para o caminho correto no site
+        return content.replace(/assets\/([^"'\s)]+)/g, `${this.baseUrl}/assets/${type}/${id}/assets/$1`);
+    }
+
     async loadArticles() {
         const articlesMetaPath = path.join(this.contentDir, 'articles/_meta.yml');
         const articlesMetaContent = await fs.readFile(articlesMetaPath, 'utf8');
@@ -173,7 +241,10 @@ class SiteBuilder {
             
             if (await fs.pathExists(metaPath) && await fs.pathExists(contentPath)) {
                 const meta = yaml.load(await fs.readFile(metaPath, 'utf8'));
-                const content = await fs.readFile(contentPath, 'utf8');
+                let content = await fs.readFile(contentPath, 'utf8');
+                
+                // Processa as referências de assets no conteúdo
+                content = this.processContentAssets(content, 'articles', articleItem.id);
                 const htmlContent = marked.parse(content);
                 
                 articles.push({

@@ -16,7 +16,7 @@ Microsserviços não são apenas "serviços pequenos". São uma abordagem arquit
 - **Comunicação via rede**: Serviços se comunicam através de APIs bem definidas
 - **Descentralização**: Dados, governance e decisões técnicas são distribuídas
 
-![Arquitetura de Microsserviços De Novo](assets/microservices-1.png.png)
+![Arquitetura de Microsserviços De Novo](assets/microservices-1.png)
 
 ### O Espectro Arquitetural
 

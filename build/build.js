@@ -8,6 +8,7 @@ const mustache = require('mustache');
 // const { minify } = require('terser');
 const PDFGenerator = require('../utils/pdf-generator');
 const EPUBGenerator = require('../utils/epub-generator');
+const ImageOptimizer = require('../utils/image-optimizer');
 
 class SiteBuilder {
     constructor() {
@@ -18,6 +19,7 @@ class SiteBuilder {
         this.templatesDir = path.join(this.srcDir, 'templates');
         this.pdfGenerator = new PDFGenerator();
         this.epubGenerator = new EPUBGenerator();
+        this.imageOptimizer = new ImageOptimizer();
         
         // Environment-based configuration
         this.isProduction = process.env.NODE_ENV === 'production' || process.env.GITHUB_ACTIONS === 'true';
@@ -39,6 +41,10 @@ class SiteBuilder {
         try {
             // Clean and prepare dist directory
             await this.cleanDist();
+            
+            // Optimize images first
+            await this.imageOptimizer.optimizeImages();
+            
             await this.copyAssets();
             
             // Load content data
@@ -108,10 +114,9 @@ class SiteBuilder {
     }
 
     async copyImages() {
-        const imagesDir = path.join(this.contentDir, 'images');
-        if (await fs.pathExists(imagesDir)) {
-            await fs.copy(imagesDir, path.join(this.distDir, 'assets/images'));
-        }
+        // Images are now handled by ImageOptimizer
+        // This method kept for potential additional image assets
+        console.log('📁 Images processed by ImageOptimizer');
     }
 
     async copyFavicons() {
@@ -341,12 +346,14 @@ class SiteBuilder {
         const allBooks = books.map(book => ({
             ...book,
             date: this.formatDate(book.date),
-            cover_image_alt: book.cover_image_alt || `Capa do livro ${book.title}`
+            cover_image_alt: book.cover_image_alt || `Capa do livro ${book.title}`,
+            coverImageBase: book.id // Use the book ID directly
         }));
         
         const allArticles = articles.map(article => ({
             ...article,
-            date: this.formatDate(article.date)
+            date: this.formatDate(article.date),
+            featuredImageBase: article.featuredImage ? path.parse(article.featuredImage).name.replace(/^.*\//, '') : ''
         }));
         
         // Render home content first
@@ -804,6 +811,32 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
             month: 'long',
             day: 'numeric'
         });
+    }
+
+    // Helper method to generate responsive image HTML
+    generateResponsiveImageHTML(baseName, alt, className = 'card-image', loading = 'lazy') {
+        return `
+<picture>
+    <source 
+        srcset="${this.baseUrl}/assets/images/${baseName}-200.webp 200w,
+                ${this.baseUrl}/assets/images/${baseName}-400.webp 400w,
+                ${this.baseUrl}/assets/images/${baseName}-800.webp 800w,
+                ${this.baseUrl}/assets/images/${baseName}.webp 1024w"
+        sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px"
+        type="image/webp">
+    <source 
+        srcset="${this.baseUrl}/assets/images/${baseName}-200.png 200w,
+                ${this.baseUrl}/assets/images/${baseName}-400.png 400w,
+                ${this.baseUrl}/assets/images/${baseName}-800.png 800w"
+        sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px">
+    <img 
+        src="${this.baseUrl}/assets/images/${baseName}-400.png" 
+        alt="${alt}" 
+        class="${className}"
+        loading="${loading}"
+        width="400" 
+        height="400">
+</picture>`.trim();
     }
 }
 

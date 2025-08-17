@@ -10,7 +10,27 @@
             <div class="items-grid">
                 {{#allBooks}}
                 <a href="{{baseUrl}}/books/{{slug}}/" class="card">
-                    <img src="{{coverImage}}" alt="{{cover_image_alt}}" class="card-image" loading="lazy">
+                    <picture>
+                        <source 
+                            srcset="{{baseUrl}}/assets/images/{{coverImageBase}}-200.webp 200w,
+                                    {{baseUrl}}/assets/images/{{coverImageBase}}-400.webp 400w,
+                                    {{baseUrl}}/assets/images/{{coverImageBase}}-800.webp 800w,
+                                    {{baseUrl}}/assets/images/{{coverImageBase}}.webp 1024w"
+                            sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px"
+                            type="image/webp">
+                        <source 
+                            srcset="{{baseUrl}}/assets/images/{{coverImageBase}}-200.png 200w,
+                                    {{baseUrl}}/assets/images/{{coverImageBase}}-400.png 400w,
+                                    {{baseUrl}}/assets/images/{{coverImageBase}}-800.png 800w"
+                            sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px">
+                        <img 
+                            src="{{baseUrl}}/assets/images/{{coverImageBase}}-400.png" 
+                            alt="{{cover_image_alt}}" 
+                            class="card-image"
+                            loading="lazy"
+                            width="400" 
+                            height="400">
+                    </picture>
                     <div class="card-content">
                         <h3 class="card-title">{{title}}</h3>
                         <p class="card-subtitle">{{subtitle}}</p>
@@ -29,7 +49,27 @@
             <div class="items-grid">
                 {{#allArticles}}
                 <a href="{{baseUrl}}/articles/{{slug}}/" class="card">
-                    <img src="{{featuredImage}}" alt="{{title}}" class="card-image" loading="lazy">
+                    <picture>
+                        <source 
+                            srcset="{{baseUrl}}/assets/images/{{featuredImageBase}}-200.webp 200w,
+                                    {{baseUrl}}/assets/images/{{featuredImageBase}}-400.webp 400w,
+                                    {{baseUrl}}/assets/images/{{featuredImageBase}}-800.webp 800w,
+                                    {{baseUrl}}/assets/images/{{featuredImageBase}}.webp 1024w"
+                            sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px"
+                            type="image/webp">
+                        <source 
+                            srcset="{{baseUrl}}/assets/images/{{featuredImageBase}}-200.png 200w,
+                                    {{baseUrl}}/assets/images/{{featuredImageBase}}-400.png 400w,
+                                    {{baseUrl}}/assets/images/{{featuredImageBase}}-800.png 800w"
+                            sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px">
+                        <img 
+                            src="{{baseUrl}}/assets/images/{{featuredImageBase}}-400.png" 
+                            alt="{{title}}" 
+                            class="card-image"
+                            loading="lazy"
+                            width="400" 
+                            height="400">
+                    </picture>
                     <div class="card-content">
                         <h3 class="card-title">{{title}}</h3>
                         <p class="card-description">{{description}}</p>

@@ -9,7 +9,7 @@
             <h2>Livros</h2>
             <div class="items-grid">
                 {{#allBooks}}
-                <article class="card">
+                <a href="{{baseUrl}}/books/{{slug}}/" class="card">
                     <img src="{{coverImage}}" alt="{{cover_image_alt}}" class="card-image" loading="lazy">
                     <div class="card-content">
                         <h3 class="card-title">{{title}}</h3>
@@ -18,9 +18,8 @@
                         <div class="card-meta">
                             <span>{{date}}</span>
                         </div>
-                        <a href="{{baseUrl}}/books/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
                     </div>
-                </article>
+                </a>
                 {{/allBooks}}
             </div>
         </section>
@@ -29,7 +28,7 @@
             <h2>Artigos</h2>
             <div class="items-grid">
                 {{#allArticles}}
-                <article class="card">
+                <a href="{{baseUrl}}/articles/{{slug}}/" class="card">
                     <img src="{{featuredImage}}" alt="{{title}}" class="card-image" loading="lazy">
                     <div class="card-content">
                         <h3 class="card-title">{{title}}</h3>
@@ -37,9 +36,8 @@
                         <div class="card-meta">
                             <span>{{date}}</span>
                         </div>
-                        <a href="{{baseUrl}}/articles/{{slug}}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Artigo</a>
                     </div>
-                </article>
+                </a>
                 {{/allArticles}}
             </div>
         </section>

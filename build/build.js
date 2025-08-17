@@ -70,13 +70,17 @@ class SiteBuilder {
     }
 
     async copyAssets() {
-        // Copy CSS without minification (simplified version)
+        // Copy CSS files
         const cssContent = await fs.readFile(path.join(this.srcDir, 'css/main.css'), 'utf8');
+        const nonCriticalCssContent = await fs.readFile(path.join(this.srcDir, 'css/non-critical.css'), 'utf8');
         
         await fs.ensureDir(path.join(this.distDir, 'assets/css'));
+        
+        // Combine CSS files for the main.css
+        const combinedCss = cssContent + '\n' + nonCriticalCssContent;
         await fs.writeFile(
             path.join(this.distDir, 'assets/css/main.css'), 
-            cssContent
+            combinedCss
         );
         
         // Copy JS without minification (simplified version)
@@ -454,13 +458,15 @@ class SiteBuilder {
                 
                 <header class="book-header">
                     <img src="${book.coverImage}" alt="${book.cover_image_alt || book.title}" class="book-cover">
-                    <h1>${book.title}</h1>
-                    ${book.subtitle ? `<p class="book-subtitle">${book.subtitle}</p>` : ''}
-                    <p class="book-description">${book.description}</p>
-                    
-                    <div class="book-downloads">
-                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.epub" class="download-btn">Download EPUB</a>
-                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.pdf" class="download-btn">Download PDF</a>
+                    <div class="book-info">
+                        <h1>${book.title}</h1>
+                        ${book.subtitle ? `<p class="book-subtitle">${book.subtitle}</p>` : ''}
+                        <p class="book-description">${book.description}</p>
+                        
+                        <div class="book-downloads">
+                            <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.epub" class="download-btn">Download EPUB</a>
+                            <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.pdf" class="download-btn">Download PDF</a>
+                        </div>
                     </div>
                 </header>
                 

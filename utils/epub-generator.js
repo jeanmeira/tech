@@ -675,7 +675,7 @@ ${tocList}
     return new Promise((resolve, reject) => {
       const output = fs.createWriteStream(outputPath);
       const archive = archiver('zip', {
-        zlib: { level: 0 }, // No compression for better compatibility
+        zlib: { level: 6 }, // Use standard compression for internal files (keep mimetype stored)
         forceLocalTime: true,
         comment: ''
       });

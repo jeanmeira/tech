@@ -120,6 +120,22 @@ class SiteBuilder {
                 const stat = await fs.stat(bookPath);
                 
                 if (stat.isDirectory()) {
+                    // Only copy assets for published books
+                    const metaPath = path.join(bookPath, 'meta.yml');
+                    let meta = null;
+                    if (await fs.pathExists(metaPath)) {
+                        try {
+                            meta = yaml.load(await fs.readFile(metaPath, 'utf8'));
+                        } catch (e) {
+                            console.warn(`Failed to read meta for book ${folder}:`, e.message || e);
+                        }
+                    }
+
+                    if (!meta || meta.published !== true) {
+                        // Skip copying assets for unpublished books
+                        continue;
+                    }
+
                     // Copia pasta assets se existir
                     const assetsPath = path.join(bookPath, 'assets');
                     if (await fs.pathExists(assetsPath)) {
@@ -153,6 +169,21 @@ class SiteBuilder {
                 const stat = await fs.stat(articlePath);
                 
                 if (stat.isDirectory()) {
+                    // Only copy assets for published articles
+                    const metaPath = path.join(articlePath, 'meta.yml');
+                    let meta = null;
+                    if (await fs.pathExists(metaPath)) {
+                        try {
+                            meta = yaml.load(await fs.readFile(metaPath, 'utf8'));
+                        } catch (e) {
+                            console.warn(`Failed to read meta for article ${folder}:`, e.message || e);
+                        }
+                    }
+
+                    if (!meta || meta.published !== true) {
+                        continue; // skip unpublished article assets
+                    }
+
                     const assetsPath = path.join(articlePath, 'assets');
                     if (await fs.pathExists(assetsPath)) {
                         const destPath = path.join(this.distDir, 'assets/articles', folder, 'assets');

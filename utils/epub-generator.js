@@ -633,12 +633,11 @@ ${navPoints}
       `      <li><a href="${entry.filename}">${this.escapeHTML(entry.title)}</a></li>`
     ).join('\n');
 
-    return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="pt-BR">
 <head>
   <title>Índice</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta charset="UTF-8"/>
   <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
 </head>
 <body>
@@ -656,13 +655,11 @@ ${tocList}
 
   generateChapterHTML(section) {
     const contentHTML = this.generateContentHTML(section.content);
-    
-    return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR">
+    return `<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="pt-BR">
 <head>
   <title>${this.escapeHTML(section.title)}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta charset="UTF-8"/>
   <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
 </head>
 <body>

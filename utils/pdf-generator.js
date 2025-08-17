@@ -95,6 +95,13 @@ class PDFGenerator {
           // Join remaining lines as quote text
           quoteText = nonEmptyLines.join(' ').trim();
           
+          // Remove markdown formatting from quote text
+          quoteText = quoteText
+            .replace(/\*\*(.*?)\*\*/g, '$1')  // Remove bold
+            .replace(/\*(.*?)\*/g, '$1')      // Remove italic
+            .replace(/__(.*?)__/g, '$1')      // Remove bold underscores
+            .replace(/_(.*?)_/g, '$1');       // Remove italic underscores
+          
           // Remove surrounding quotes if present
           if (quoteText.startsWith('"') && quoteText.endsWith('"')) {
             quoteText = quoteText.slice(1, -1).trim();
@@ -289,20 +296,26 @@ class PDFGenerator {
       const allContent = [];
       const tocEntries = [];
 
-      // Introduction
+      // Introduction - only add if it's not the first chapter
       const rootDir = path.resolve(__dirname, '..');
-      const introPath = path.join(rootDir, `content/books/${book.slug}`, 'introducao.md');
-      console.log(`PDF Generator: Looking for introduction at: ${introPath}`);
-      if (fs.existsSync(introPath)) {
-        console.log(`PDF Generator: Found introduction file`);
-        const intro = fs.readFileSync(introPath, 'utf-8');
-        if (intro.trim()) {
-          const parsedIntro = this.parseMarkdownContent(intro);
-          allContent.push({ type: 'intro', title: 'Introdução', content: parsedIntro });
-          tocEntries.push({ title: 'Introdução', page: 2 });
+      const firstChapterIsIntro = chapters[0]?.title?.toLowerCase().includes('introdução');
+      
+      if (!firstChapterIsIntro) {
+        const introPath = path.join(rootDir, `content/books/${book.slug}`, 'introducao.md');
+        console.log(`PDF Generator: Looking for introduction at: ${introPath}`);
+        if (fs.existsSync(introPath)) {
+          console.log(`PDF Generator: Found introduction file`);
+          const intro = fs.readFileSync(introPath, 'utf-8');
+          if (intro.trim()) {
+            const parsedIntro = this.parseMarkdownContent(intro);
+            allContent.push({ type: 'intro', title: 'Introdução', content: parsedIntro });
+            tocEntries.push({ title: 'Introdução', page: 2 });
+          }
+        } else {
+          console.log(`PDF Generator: Introduction file not found at ${introPath}`);
         }
       } else {
-        console.log(`PDF Generator: Introduction file not found at ${introPath}`);
+        console.log(`PDF Generator: First chapter is introduction, skipping separate intro`);
       }
 
       // Process chapters from the provided array

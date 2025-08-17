@@ -262,7 +262,8 @@ class PDFGenerator {
       
       const doc = new PDFDocument({
         size: 'A4',
-        margins: { top: 50, bottom: 50, left: 50, right: 50 }
+        margins: { top: 50, bottom: 50, left: 50, right: 50 },
+        bufferPages: true // Optimize memory usage
       });
 
       const stream = fs.createWriteStream(outputPath);
@@ -367,7 +368,8 @@ class PDFGenerator {
         // Render content
         console.log(`PDF Generator: Rendering ${contentToRender.length} items for section: ${section.title}`);
         contentToRender.forEach((item, itemIndex) => {
-          if (itemIndex % 10 === 0) {
+          // Log progress less frequently to reduce overhead
+          if (itemIndex % 20 === 0) {
             console.log(`PDF Generator: Processing item ${itemIndex + 1}/${contentToRender.length} of type: ${item.type}`);
           }
           switch (item.type) {

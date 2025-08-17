@@ -287,7 +287,7 @@
             h2 { font-size: 1.5rem; }
             h3 { font-size: 1.25rem; }
         }
-        /* Critical footer styles with accessibility compliance */
+        /* Critical footer styles with accessibility compliance - High specificity */
         .site-footer {
             background-color: var(--bg-secondary);
             border-top: 1px solid var(--border);
@@ -304,40 +304,40 @@
             flex-wrap: wrap;
             gap: var(--spacing-md);
         }
-        .footer-container p {
-            color: #2c3e50;  /* Cor mais escura para melhor contraste */
+        .site-footer .footer-container p {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
             font-size: 0.9rem;
             margin: 0;
-            font-weight: 600;  /* Peso maior para melhor legibilidade */
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
         }
         .footer-links {
             display: flex;
             gap: var(--spacing-md);
         }
-        .footer-links a {
-            color: #2c3e50;  /* Cor mais escura para melhor contraste */
+        .site-footer .footer-links a {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
             font-size: 0.9rem;
             text-decoration: none;
             padding: var(--spacing-xs);
             border-radius: var(--border-radius);
             transition: var(--transition);
-            font-weight: 600;  /* Peso maior para melhor legibilidade */
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
         }
-        .footer-links a:hover {
-            color: var(--primary-green);
+        .site-footer .footer-links a:hover {
+            color: var(--primary-green) !important;
             background-color: var(--bg-primary);
         }
-        .footer-links a:focus {
+        .site-footer .footer-links a:focus {
             outline: 2px solid var(--primary-green);
             outline-offset: 2px;
         }
         /* Dark mode specific overrides for footer */
         @media (prefers-color-scheme: dark) {
-            .footer-container p {
-                color: #f8f9fa;  /* Light color for dark mode */
+            .site-footer .footer-container p {
+                color: #ffffff !important;  /* Branco puro para dark mode */
             }
-            .footer-links a {
-                color: #f8f9fa;  /* Light color for dark mode */
+            .site-footer .footer-links a {
+                color: #ffffff !important;  /* Branco puro para dark mode */
             }
         }
         @media (max-width: 768px) {

@@ -505,31 +505,10 @@ img {
     border-top: 1px solid var(--border);
 }
 
-/* Footer */
-.site-footer {
-    background: var(--primary-green);
-    color: var(--white);
-    padding: var(--spacing-lg) 0;
-    margin-top: var(--spacing-xl);
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-sm);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-links {
-    display: flex;
-    gap: var(--spacing-md);
-}
-
+/* Footer - Estilos movidos para CSS crítico inline */
 .footer-links a {
-    color: var(--white);
-    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
 }
 
 .footer-links a:hover {

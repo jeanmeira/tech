@@ -331,12 +331,14 @@ class PDFGenerator {
       console.log(`Total content sections: ${allContent.length}`);
 
       // Table of Contents
+      console.log('PDF Generator: Adding Table of Contents...');
       doc.addPage()
          .fontSize(22)
          .font('Helvetica-Bold')
          .text('Índice', { align: 'center' })
          .moveDown(1);
 
+      console.log(`PDF Generator: TOC entries: ${tocEntries.length}`);
       tocEntries.forEach(entry => {
         doc.fontSize(12)
            .font('Helvetica')
@@ -346,7 +348,9 @@ class PDFGenerator {
       });
 
       // Generate content
-      allContent.forEach(section => {
+      console.log('PDF Generator: Generating content sections...');
+      allContent.forEach((section, sectionIndex) => {
+        console.log(`PDF Generator: Processing section ${sectionIndex + 1}/${allContent.length}: ${section.title}`);
         doc.addPage();
         
         // Skip the first h1 since we'll use our own title
@@ -361,7 +365,11 @@ class PDFGenerator {
            .moveDown(1);
 
         // Render content
-        contentToRender.forEach(item => {
+        console.log(`PDF Generator: Rendering ${contentToRender.length} items for section: ${section.title}`);
+        contentToRender.forEach((item, itemIndex) => {
+          if (itemIndex % 10 === 0) {
+            console.log(`PDF Generator: Processing item ${itemIndex + 1}/${contentToRender.length} of type: ${item.type}`);
+          }
           switch (item.type) {
             case 'h2':
               doc.fontSize(16)
@@ -440,11 +448,22 @@ class PDFGenerator {
         });
       });
 
+      console.log('PDF Generator: Finalizing PDF...');
       doc.end();
 
       await new Promise((resolve, reject) => {
-        stream.on('finish', resolve);
-        stream.on('error', reject);
+        const timeout = setTimeout(() => {
+          reject(new Error('PDF generation timeout after 30 seconds'));
+        }, 30000); // 30 second timeout
+        
+        stream.on('finish', () => {
+          clearTimeout(timeout);
+          resolve();
+        });
+        stream.on('error', (error) => {
+          clearTimeout(timeout);
+          reject(error);
+        });
       });
 
       console.log(`PDF Generator: Professional PDF created at ${outputPath}`);

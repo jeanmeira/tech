@@ -513,14 +513,15 @@ em {
       );
 
       // Generate content.opf
-      const contentOPF = this.generateContentOPF(book, allContent);
+      const bookUuid = `urn:uuid:${book.slug}-${Date.now()}`;
+      const contentOPF = this.generateContentOPF(book, allContent, bookUuid);
       await fs.promises.writeFile(
         path.join(tempDir, 'OEBPS', 'content.opf'),
         contentOPF
       );
 
       // Generate toc.ncx
-      const tocNCX = this.generateTocNCX(book, tocEntries);
+      const tocNCX = this.generateTocNCX(book, tocEntries, bookUuid);
       await fs.promises.writeFile(
         path.join(tempDir, 'OEBPS', 'toc.ncx'),
         tocNCX
@@ -557,10 +558,9 @@ em {
     }
   }
 
-  generateContentOPF(book, allContent) {
-    const uuid = `urn:uuid:${book.slug}-${Date.now()}`;
+  generateContentOPF(book, allContent, bookUuid) {
     const timestamp = new Date().toISOString().split('T')[0];
-    const modifiedTimestamp = new Date().toISOString(); // ISO format completo
+    const modifiedTimestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'); // Remove milliseconds for EPUB compliance
     
     const manifest = allContent.map(section => 
       `    <item id="${section.filename.replace('.xhtml', '')}" href="text/${section.filename}" media-type="application/xhtml+xml"/>`
@@ -573,7 +573,7 @@ em {
     return `<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="3.0">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:identifier id="bookid">${uuid}</dc:identifier>
+    <dc:identifier id="bookid">${bookUuid}</dc:identifier>
     <dc:title>${this.escapeHTML(book.title)}</dc:title>
     <dc:creator>${this.escapeHTML(book.author || 'Jean Meira')}</dc:creator>
     <dc:language>pt-BR</dc:language>
@@ -596,7 +596,7 @@ ${spine}
 </package>`;
   }
 
-  generateTocNCX(book, tocEntries) {
+  generateTocNCX(book, tocEntries, bookUuid) {
     const navPoints = tocEntries.map((entry, index) => `
     <navPoint id="navpoint-${index + 1}" playOrder="${index + 1}">
       <navLabel>
@@ -609,7 +609,7 @@ ${spine}
 <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
   <head>
-    <meta name="dtb:uid" content="urn:uuid:${book.slug}-${Date.now()}"/>
+    <meta name="dtb:uid" content="${bookUuid}"/>
     <meta name="dtb:depth" content="1"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>

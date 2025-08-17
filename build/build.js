@@ -3,9 +3,8 @@ const path = require('path');
 const yaml = require('js-yaml');
 const marked = require('marked');
 const mustache = require('mustache');
-// const sharp = require('sharp');
-// const CleanCSS = require('clean-css');
-// const { minify } = require('terser');
+const CleanCSS = require('clean-css');
+const { minify } = require('terser');
 const PDFGenerator = require('../utils/pdf-generator');
 const EPUBGenerator = require('../utils/epub-generator');
 const ImageOptimizer = require('../utils/image-optimizer');
@@ -86,21 +85,84 @@ class SiteBuilder {
         
         await fs.ensureDir(path.join(this.distDir, 'assets/css'));
         
-        // Combine CSS files for the main.css with cache busting
+        // Combine and minify CSS files
         const combinedCss = cssContent + '\n' + nonCriticalCssContent;
+        
+        let finalCss;
+        if (this.isProduction) {
+            const cleanCSS = new CleanCSS({
+                level: 2,
+                returnPromise: false
+            });
+            const minified = cleanCSS.minify(combinedCss);
+            finalCss = minified.styles;
+            console.log(`📦 CSS minified: ${combinedCss.length} → ${finalCss.length} bytes (${Math.round((1 - finalCss.length / combinedCss.length) * 100)}% smaller)`);
+        } else {
+            finalCss = combinedCss;
+        }
+        
         await fs.writeFile(
             path.join(this.distDir, `assets/css/main.${cacheHash}.css`), 
-            combinedCss
+            finalCss
         );
         
-        // Copy JS with cache busting
+        // Minify JS with cache busting
         const jsContent = await fs.readFile(path.join(this.srcDir, 'js/main.js'), 'utf8');
+        
+        let finalJs;
+        if (this.isProduction) {
+            const minified = await minify(jsContent, {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                    pure_funcs: ['console.log', 'console.info', 'console.warn']
+                },
+                mangle: true,
+                format: {
+                    comments: false
+                }
+            });
+            finalJs = minified.code || jsContent;
+            console.log(`📦 JS minified: ${jsContent.length} → ${finalJs.length} bytes (${Math.round((1 - finalJs.length / jsContent.length) * 100)}% smaller)`);
+        } else {
+            finalJs = jsContent;
+        }
         
         await fs.ensureDir(path.join(this.distDir, 'assets/js'));
         await fs.writeFile(
             path.join(this.distDir, `assets/js/main.${cacheHash}.js`), 
-            jsContent
+            finalJs
         );
+        
+        // Process non-critical JavaScript separately
+        const nonCriticalJsPath = path.join(this.srcDir, 'js/non-critical.js');
+        if (await fs.pathExists(nonCriticalJsPath)) {
+            const nonCriticalJsContent = await fs.readFile(nonCriticalJsPath, 'utf8');
+            
+            let finalNonCriticalJs;
+            if (this.isProduction) {
+                const minified = await minify(nonCriticalJsContent, {
+                    compress: {
+                        drop_console: true,
+                        drop_debugger: true,
+                        pure_funcs: ['console.log', 'console.info', 'console.warn']
+                    },
+                    mangle: true,
+                    format: {
+                        comments: false
+                    }
+                });
+                finalNonCriticalJs = minified.code || nonCriticalJsContent;
+                console.log(`📦 Non-critical JS minified: ${nonCriticalJsContent.length} → ${finalNonCriticalJs.length} bytes`);
+            } else {
+                finalNonCriticalJs = nonCriticalJsContent;
+            }
+            
+            await fs.writeFile(
+                path.join(this.distDir, `assets/js/non-critical.${cacheHash}.js`), 
+                finalNonCriticalJs
+            );
+        }
         
         // Copy images without optimization (simplified version)
         await this.copyImages();
@@ -381,6 +443,7 @@ class SiteBuilder {
             date: new Date().toISOString(),
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: homeContent
         };
@@ -466,6 +529,7 @@ class SiteBuilder {
             date: new Date().toISOString(),
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: booksContent
         };
@@ -549,6 +613,7 @@ class SiteBuilder {
             cover_image: `${this.fullBaseUrl}${book.coverImage}`,
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: bookContent
         };
@@ -634,6 +699,7 @@ class SiteBuilder {
             date: book.date,
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: chapterContent
         };
@@ -720,6 +786,7 @@ class SiteBuilder {
             date: new Date().toISOString(),
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: articlesContent
         };
@@ -781,6 +848,7 @@ class SiteBuilder {
             cover_image: `${this.fullBaseUrl}${article.featuredImage}`,
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
             baseUrl: this.baseUrl,
             content: articleContent
         };
@@ -854,6 +922,10 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
 
     getJsPath() {
         return `${this.baseUrl}/assets/js/main.${this.cacheHash}.js`;
+    }
+
+    getNonCriticalJsPath() {
+        return `${this.baseUrl}/assets/js/non-critical.${this.cacheHash}.js`;
     }
 
     formatDate(dateString) {

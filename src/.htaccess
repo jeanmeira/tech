@@ -1,0 +1,38 @@
+# Cache Control Headers para otimização de performance
+# GitHub Pages suporte limitado, mas vamos tentar
+
+# Cache para recursos estáticos por 1 ano
+<FilesMatch "\.(css|js|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Cache para HTML por 1 hora (para permitir atualizações)
+<FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600"
+</FilesMatch>
+
+# Cache para manifests e sitemap por 1 dia
+<FilesMatch "\.(json|xml|txt)$">
+    Header set Cache-Control "public, max-age=86400"
+</FilesMatch>
+
+# Compressão Gzip
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# Força HTTPS (redundante no GitHub Pages, mas boa prática)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>

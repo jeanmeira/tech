@@ -388,5 +388,16 @@
     </footer>
 
     <script defer src="{{js_path}}"></script>
+    
+    <!-- Load non-critical JavaScript after main content -->
+    <script>
+        // Load non-critical JS after page load to reduce main thread work
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = '{{non_critical_js_path}}';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
 </body>
 </html>

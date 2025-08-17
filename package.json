@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "pdfkit": "^0.17.1"
+    "pdfkit": "^0.17.1",
+    "archiver": "^5.3.1"
   }
 }

@@ -7,6 +7,7 @@ const mustache = require('mustache');
 // const CleanCSS = require('clean-css');
 // const { minify } = require('terser');
 const PDFGenerator = require('../utils/pdf-generator');
+const EPUBGenerator = require('../utils/epub-generator');
 
 class SiteBuilder {
     constructor() {
@@ -16,6 +17,7 @@ class SiteBuilder {
         this.distDir = path.join(this.rootDir, 'dist');
         this.templatesDir = path.join(this.srcDir, 'templates');
         this.pdfGenerator = new PDFGenerator();
+        this.epubGenerator = new EPUBGenerator();
         
         // Environment-based configuration
         this.isProduction = process.env.NODE_ENV === 'production' || process.env.GITHUB_ACTIONS === 'true';
@@ -539,9 +541,9 @@ class SiteBuilder {
             const pdfPath = path.join(downloadsDir, `${book.slug}.pdf`);
             await this.pdfGenerator.generateBookPDF(book, chapters, pdfPath);
             
-            // Generate EPUB placeholder (for now)
-            const epubPlaceholder = `EPUB version of ${book.title} - Coming soon!`;
-            await fs.writeFile(path.join(downloadsDir, `${book.slug}.epub`), epubPlaceholder);
+            // Generate EPUB
+            const epubPath = path.join(downloadsDir, `${book.slug}.epub`);
+            await this.epubGenerator.generateBookEPUB(book, chapters, epubPath);
             
             // Generate MOBI placeholder (for now)
             const mobiPlaceholder = `MOBI version of ${book.title} - Coming soon!`;

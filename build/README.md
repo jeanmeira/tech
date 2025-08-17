@@ -36,7 +36,9 @@ npm run clean
 - ✅ SEO otimizado
 - ✅ Schema.org markup
 - ✅ Open Graph tags
-- ⏳ Geração EPUB/PDF/MOBI (placeholder)
+- ✅ Geração PDF profissional
+- ✅ Geração EPUB profissional
+- ⏳ Geração MOBI (placeholder)
 
 ## Deploy
 

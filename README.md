@@ -627,51 +627,6 @@ EPUB Generator: Created 54756 bytes
 
 ---
 
-## 🎯 Roadmap
-
-### Features Planejadas
-
-- [ ] **Busca full-text** no site
-- [ ] **Comentários** via GitHub Discussions
-- [ ] **Newsletter** automática
-- [ ] **Dark mode** toggle
-- [ ] **Métricas** de leitura
-- [ ] **Versões audiobook** (texto para fala)
-
-### Melhorias Técnicas
-
-- [ ] **Cache** inteligente no build
-- [ ] **Compressão** de imagens automática
-- [ ] **Service Worker** para offline
-- [ ] **Critical CSS** inline
-- [ ] **Lazy loading** de imagens
-
----
-
-## 🤝 Contribuindo
-
-### Como Contribuir
-
-1. **Fork** o repositório
-2. **Clone** sua fork localmente
-3. **Crie** uma branch para sua feature
-4. **Implemente** suas mudanças
-5. **Teste** localmente
-6. **Commit** com mensagens descritivas
-7. **Push** e crie um Pull Request
-
-### Padrões de Commit
-
-```bash
-feat: Adiciona nova funcionalidade
-fix: Corrige bug específico
-docs: Atualiza documentação
-style: Mudanças de formatação
-refactor: Refatora código sem mudança de funcionalidade
-test: Adiciona ou corrige testes
-chore: Tarefas de manutenção
-```
-
 ### Guidelines
 
 - **Markdown** limpo e semântico
@@ -684,7 +639,7 @@ chore: Tarefas de manutenção
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença Apache 2.0. Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
@@ -695,13 +650,3 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para de
 - Site: [jeanmeira.github.io/tech](https://jeanmeira.github.io/tech)
 
 ---
-
-## 🙏 Agradecimentos
-
-- **GitHub Pages** pelo hosting gratuito
-- **PDFKit** pela excelente biblioteca de PDF
-- **Comunidade Open Source** pelas bibliotecas utilizadas
-
----
-
-**📚 Happy Reading & Coding!**

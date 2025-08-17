@@ -290,32 +290,43 @@ class PDFGenerator {
       const tocEntries = [];
 
       // Introduction
-      const bookPath = path.dirname(chapters[0]?.path || '');
-      const introPath = path.join(bookPath, 'introducao.md');
+      const rootDir = path.resolve(__dirname, '..');
+      const introPath = path.join(rootDir, `content/books/${book.slug}`, 'introducao.md');
+      console.log(`PDF Generator: Looking for introduction at: ${introPath}`);
       if (fs.existsSync(introPath)) {
+        console.log(`PDF Generator: Found introduction file`);
         const intro = fs.readFileSync(introPath, 'utf-8');
         if (intro.trim()) {
           const parsedIntro = this.parseMarkdownContent(intro);
           allContent.push({ type: 'intro', title: 'Introdução', content: parsedIntro });
           tocEntries.push({ title: 'Introdução', page: 2 });
         }
+      } else {
+        console.log(`PDF Generator: Introduction file not found at ${introPath}`);
       }
 
       // Process chapters from the provided array
+      console.log(`PDF Generator: Processing ${chapters.length} chapters`);
       chapters.forEach((chapter, index) => {
+        console.log(`PDF Generator: Looking for chapter ${index + 1}: ${chapter.title}`);
+        
         // Convert HTML back to markdown-like structure for parsing
         // For now, we'll try to read the original markdown file
-        const bookDir = path.dirname(chapters[0]?.path || book.slug || '');
+        const rootDir = path.resolve(__dirname, '..');
         let chapterContent = '';
         
-        // Try to find the original markdown file
+        // Try to find the original markdown file with absolute paths
         const possiblePaths = [
-          path.join(`content/books/${book.slug}`, chapter.file || `capitulo-${(index + 1).toString().padStart(2, '0')}.md`),
-          path.join(bookDir, chapter.file || `capitulo-${(index + 1).toString().padStart(2, '0')}.md`)
+          path.join(rootDir, `content/books/${book.slug}`, chapter.file || `capitulo-${(index + 1).toString().padStart(2, '0')}.md`),
+          path.join(rootDir, `content/books/${book.slug}`, `capitulo-${(index + 1).toString().padStart(2, '0')}.md`)
         ];
         
+        console.log(`PDF Generator: Trying paths for chapter ${index + 1}:`, possiblePaths);
+        
         for (const possiblePath of possiblePaths) {
+          console.log(`PDF Generator: Checking path: ${possiblePath}`);
           if (fs.existsSync(possiblePath)) {
+            console.log(`PDF Generator: Found file: ${possiblePath}`);
             chapterContent = fs.readFileSync(possiblePath, 'utf-8');
             break;
           }
@@ -326,10 +337,16 @@ class PDFGenerator {
           
           allContent.push({ type: 'chapter', title: chapter.title, content: parsedChapter });
           tocEntries.push({ title: chapter.title, page: tocEntries.length + 3 });
+          console.log(`PDF Generator: Added chapter: ${chapter.title}`);
+        } else {
+          console.log(`PDF Generator: WARNING - No content found for chapter: ${chapter.title}`);
         }
       });
 
       console.log(`Total content sections: ${allContent.length}`);
+      if (allContent.length === 0) {
+        console.log('PDF Generator: ERROR - No content sections found! Check file paths and chapter configuration.');
+      }
 
       // Table of Contents
       console.log('PDF Generator: Adding Table of Contents...');

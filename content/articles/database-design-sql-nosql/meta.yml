@@ -4,7 +4,7 @@ type: "article"
 # Informações básicas
 title: "Database Design: SQL vs NoSQL na Prática"
 slug: "database-design-sql-nosql"
-author: "jean"
+author: "Jean Meira"
 date: "2025-07-30T00:00:00Z"
 language: "pt-BR"
 
@@ -21,3 +21,4 @@ seo:
   meta_title: "Database Design: SQL vs NoSQL na Prática"
   meta_description: "Guia pragmático para escolher entre SQL e NoSQL baseado em casos reais, performance e operabilidade"
   canonical_url: "/articles/database-design-sql-nosql/"
+published: false

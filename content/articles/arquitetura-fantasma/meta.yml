@@ -1,0 +1,24 @@
+id: "arquitetura-fantasma"
+type: "article"
+
+# Informações básicas
+title: "Arquitetura Fantasma"
+slug: "arquitetura-fantasma"
+author: "Jean Meira"
+date: "2025-01-05T00:00:00Z"
+language: "pt-BR"
+
+# Conteúdo
+description: "Uma análise sobre estruturas invisíveis na arquitetura de sistemas."
+content_file: "content.md"
+
+# Mídia
+featured_image: "capa.png"
+featured_image_alt: "Fantasma sobre blueprint arquitetural"
+
+# SEO
+seo:
+  meta_title: "Arquitetura Fantasma"
+  meta_description: "Uma análise sobre estruturas invisíveis na arquitetura de sistemas."
+  canonical_url: "/articles/arquitetura-fantasma/"
+published: false

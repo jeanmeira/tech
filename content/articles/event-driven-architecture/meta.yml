@@ -4,7 +4,7 @@ type: "article"
 # Informações básicas
 title: "Event-Driven Architecture: Além do Hype"
 slug: "event-driven-architecture"
-author: "jean"
+author: "Jean Meira"
 date: "2025-07-30T00:00:00Z"
 language: "pt-BR"
 
@@ -21,3 +21,4 @@ seo:
   meta_title: "Event-Driven Architecture: Além do Hype"
   meta_description: "Uma análise pragmática sobre arquiteturas orientadas a eventos, quando usar e os custos ocultos que ninguém conta"
   canonical_url: "/articles/event-driven-architecture/"
+published: false

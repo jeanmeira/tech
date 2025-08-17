@@ -4,7 +4,7 @@ type: "article"
 # Informações básicas
 title: "API Design: RESTful, GraphQL ou gRPC?"
 slug: "api-design-rest-graphql-grpc"
-author: "jean"
+author: "Jean Meira"
 date: "2025-07-30T00:00:00Z"
 language: "pt-BR"
 
@@ -21,3 +21,4 @@ seo:
   meta_title: "API Design: RESTful, GraphQL ou gRPC?"
   meta_description: "Análise pragmática das três principais abordagens de API design, com casos reais e métricas de performance"
   canonical_url: "/articles/api-design-rest-graphql-grpc/"
+published: false

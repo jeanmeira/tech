@@ -57,8 +57,8 @@ class SiteBuilder {
             console.error('❌ Build failed:', error);
             process.exit(1);
         } finally {
-            // Clean up Puppeteer browser instance
-            await this.pdfGenerator.close();
+            // PDF Generator cleanup (no longer needed with PDFKit)
+            console.log('PDF Generator: Cleanup complete');
         }
     }
 
@@ -188,6 +188,12 @@ class SiteBuilder {
             
             if (await fs.pathExists(metaPath) && await fs.pathExists(structurePath)) {
                 const meta = yaml.load(await fs.readFile(metaPath, 'utf8'));
+                
+                // Filtra apenas livros publicados
+                if (meta.published !== true) {
+                    continue;
+                }
+                
                 const structure = yaml.load(await fs.readFile(structurePath, 'utf8'));
                 
                 // Load chapter contents
@@ -241,6 +247,12 @@ class SiteBuilder {
             
             if (await fs.pathExists(metaPath) && await fs.pathExists(contentPath)) {
                 const meta = yaml.load(await fs.readFile(metaPath, 'utf8'));
+                
+                // Filtra apenas artigos publicados
+                if (meta.published !== true) {
+                    continue;
+                }
+                
                 let content = await fs.readFile(contentPath, 'utf8');
                 
                 // Processa as referências de assets no conteúdo

@@ -6,7 +6,7 @@ schema_version: "1.0"
 title: "A Arquitetura Oculta do Poder"
 subtitle: "Estratégias Corporativas para o Século XXI"
 slug: "arquitetura-oculta-poder"
-author: "jean"
+author: "Jean Meira"
 date: "2025-01-01T00:00:00Z"
 updated: "2025-07-28T00:00:00Z"
 language: "pt-BR"
@@ -25,3 +25,4 @@ seo:
   meta_title: "A Arquitetura Oculta do Poder - Estratégias Corporativas"
   meta_description: "Uma reinterpretação moderna das leis do poder aplicadas ao ambiente corporativo de tecnologia. Estratégias práticas para liderança e influência."
   canonical_url: "/books/arquitetura-oculta-poder/"
+published: false

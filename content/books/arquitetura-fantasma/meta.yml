@@ -6,7 +6,7 @@ schema_version: "1.0"
 title: "Arquitetura Fantasma"
 subtitle: "Como identificar, combater e prevenir problemas arquiteturais ocultos"
 slug: "arquitetura-fantasma"
-author: "jean"
+author: "Jean Meira"
 date: "2025-01-01T00:00:00Z"
 updated: "2025-07-29T00:00:00Z"
 language: "pt-BR"
@@ -25,3 +25,4 @@ seo:
   meta_title: "Arquitetura Fantasma - Guia Prático"
   meta_description: "Guia prático para identificar, combater e prevenir problemas arquiteturais ocultos em sistemas de software."
   canonical_url: "/books/arquitetura-fantasma/"
+published: true

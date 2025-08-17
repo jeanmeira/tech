@@ -499,36 +499,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Footer */
-.site-footer {
-    background-color: var(--bg-secondary);
-    border-top: 1px solid var(--border);
-    margin-top: var(--spacing-xl);
-    padding: var(--spacing-xl) 0;
-}
+/* Footer styles moved to critical CSS in base.html for accessibility compliance */
+/* Additional footer enhancements can be added here for progressive enhancement */
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-}
-
-.footer-links {
-    display: flex;
-    gap: var(--spacing-md);
-}
-
-.footer-links a {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.footer-links a:hover {
-    color: var(--primary-green);
+.footer-links a:active {
+    transform: translateY(1px);
 }
 
 /* Responsive Design */

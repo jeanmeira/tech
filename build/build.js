@@ -404,7 +404,6 @@ class SiteBuilder {
                     <div class="book-downloads">
                         <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.epub" class="download-btn">Download EPUB</a>
                         <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.pdf" class="download-btn">Download PDF</a>
-                        <a href="${this.baseUrl}/books/${book.slug}/downloads/${book.slug}.mobi" class="download-btn">Download MOBI</a>
                     </div>
                 </header>
                 
@@ -456,7 +455,7 @@ class SiteBuilder {
             await this.generateChapterPage(book, chapter, prevChapter, nextChapter);
         }
         
-        // Generate download files (PDF, EPUB, MOBI)
+        // Generate download files (PDF, EPUB)
         await this.generateDownloads(book, book.chapters);
     }
 
@@ -545,10 +544,6 @@ class SiteBuilder {
             const epubPath = path.join(downloadsDir, `${book.slug}.epub`);
             await this.epubGenerator.generateBookEPUB(book, chapters, epubPath);
             
-            // Generate MOBI placeholder (for now)
-            const mobiPlaceholder = `MOBI version of ${book.title} - Coming soon!`;
-            await fs.writeFile(path.join(downloadsDir, `${book.slug}.mobi`), mobiPlaceholder);
-            
             console.log(`✅ Downloads generated for ${book.title}`);
         } catch (error) {
             console.error(`❌ Error generating downloads for ${book.title}:`, error.message);
@@ -556,7 +551,6 @@ class SiteBuilder {
             const placeholderContent = `Download for ${book.title} - Generation failed`;
             await fs.writeFile(path.join(downloadsDir, `${book.slug}.epub`), placeholderContent);
             await fs.writeFile(path.join(downloadsDir, `${book.slug}.pdf`), placeholderContent);
-            await fs.writeFile(path.join(downloadsDir, `${book.slug}.mobi`), placeholderContent);
         }
     }
 

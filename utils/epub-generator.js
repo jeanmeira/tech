@@ -246,12 +246,14 @@ class EPUBGenerator {
   }
 
   escapeHTML(text) {
+    if (!text || typeof text !== 'string') return '';
     return text
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+      .replace(/'/g, '&#x27;')
+      .replace(/\u00A0/g, '&#160;'); // Non-breaking space for better compatibility
   }
 
   generateContentHTML(content) {
@@ -628,16 +630,17 @@ ${navPoints}
     ).join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR">
 <head>
   <title>Índice</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
 </head>
 <body>
   <div class="toc">
     <h1>Índice</h1>
-    <nav epub:type="toc">
+    <nav>
       <ol>
 ${tocList}
       </ol>
@@ -651,10 +654,11 @@ ${tocList}
     const contentHTML = this.generateContentHTML(section.content);
     
     return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR">
 <head>
   <title>${this.escapeHTML(section.title)}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" type="text/css" href="../css/styles.css"/>
 </head>
 <body>
@@ -670,8 +674,9 @@ ${tocList}
     return new Promise((resolve, reject) => {
       const output = fs.createWriteStream(outputPath);
       const archive = archiver('zip', {
-        zlib: { level: 9 },
-        store: true // Don't compress mimetype
+        zlib: { level: 0 }, // No compression for better compatibility
+        forceLocalTime: true,
+        comment: ''
       });
 
       output.on('close', () => {
@@ -685,14 +690,22 @@ ${tocList}
 
       archive.pipe(output);
 
-      // Add mimetype first (uncompressed)
-      archive.file(path.join(sourceDir, 'mimetype'), { name: 'mimetype', store: true });
+      // Add mimetype first (MUST be uncompressed and first for EPUB compliance)
+      archive.file(path.join(sourceDir, 'mimetype'), { 
+        name: 'mimetype', 
+        store: true,
+        date: new Date(2023, 0, 1) // Fixed date for consistency
+      });
       
-      // Add META-INF directory
-      archive.directory(path.join(sourceDir, 'META-INF'), 'META-INF');
+      // Add META-INF directory with fixed dates
+      archive.directory(path.join(sourceDir, 'META-INF'), 'META-INF', {
+        date: new Date(2023, 0, 1)
+      });
       
-      // Add OEBPS directory
-      archive.directory(path.join(sourceDir, 'OEBPS'), 'OEBPS');
+      // Add OEBPS directory with fixed dates
+      archive.directory(path.join(sourceDir, 'OEBPS'), 'OEBPS', {
+        date: new Date(2023, 0, 1)
+      });
 
       archive.finalize();
     });

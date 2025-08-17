@@ -512,8 +512,11 @@ em {
         this.generateCSS()
       );
 
-      // Generate content.opf
-      const bookUuid = `urn:uuid:${book.slug}-${Date.now()}`;
+  // Generate content.opf
+  // Use a RFC4122 UUID to satisfy validators (generate once per build)
+  const { randomUUID } = require('crypto');
+  const uuidValue = randomUUID();
+  const bookUuid = `urn:uuid:${uuidValue}`;
       const contentOPF = this.generateContentOPF(book, allContent, bookUuid);
       await fs.promises.writeFile(
         path.join(tempDir, 'OEBPS', 'content.opf'),

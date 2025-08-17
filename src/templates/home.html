@@ -27,7 +27,7 @@
                             src="{{baseUrl}}/assets/images/{{coverImageBase}}-400.png" 
                             alt="{{cover_image_alt}}" 
                             class="card-image"
-                            loading="lazy"
+                            {{#isFirstBook}}fetchpriority="high"{{/isFirstBook}}{{^isFirstBook}}loading="lazy"{{/isFirstBook}}
                             width="400" 
                             height="400">
                     </picture>

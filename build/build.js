@@ -76,25 +76,29 @@ class SiteBuilder {
     }
 
     async copyAssets() {
+        // Generate cache busting hash based on timestamp
+        const cacheHash = Date.now().toString(36);
+        this.cacheHash = cacheHash;
+        
         // Copy CSS files
         const cssContent = await fs.readFile(path.join(this.srcDir, 'css/main.css'), 'utf8');
         const nonCriticalCssContent = await fs.readFile(path.join(this.srcDir, 'css/non-critical.css'), 'utf8');
         
         await fs.ensureDir(path.join(this.distDir, 'assets/css'));
         
-        // Combine CSS files for the main.css
+        // Combine CSS files for the main.css with cache busting
         const combinedCss = cssContent + '\n' + nonCriticalCssContent;
         await fs.writeFile(
-            path.join(this.distDir, 'assets/css/main.css'), 
+            path.join(this.distDir, `assets/css/main.${cacheHash}.css`), 
             combinedCss
         );
         
-        // Copy JS without minification (simplified version)
+        // Copy JS with cache busting
         const jsContent = await fs.readFile(path.join(this.srcDir, 'js/main.js'), 'utf8');
         
         await fs.ensureDir(path.join(this.distDir, 'assets/js'));
         await fs.writeFile(
-            path.join(this.distDir, 'assets/js/main.js'), 
+            path.join(this.distDir, `assets/js/main.${cacheHash}.js`), 
             jsContent
         );
         
@@ -343,11 +347,12 @@ class SiteBuilder {
         const baseTemplate = await this.loadTemplate('base.html');
         const homeTemplate = await this.loadTemplate('home.html');
         
-        const allBooks = books.map(book => ({
+        const allBooks = books.map((book, index) => ({
             ...book,
             date: this.formatDate(book.date),
             cover_image_alt: book.cover_image_alt || `Capa do livro ${book.title}`,
-            coverImageBase: book.id // Use the book ID directly
+            coverImageBase: book.id, // Use the book ID directly
+            isFirstBook: index === 0  // Flag for LCP optimization
         }));
         
         const allArticles = articles.map(article => ({
@@ -374,8 +379,8 @@ class SiteBuilder {
             title: 'Jean Meira - TECH',
             description: 'Plataforma de conhecimento técnico',
             date: new Date().toISOString(),
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: homeContent
         };
@@ -459,8 +464,8 @@ class SiteBuilder {
             title: 'Livros',
             description: 'Livros completos sobre tecnologia',
             date: new Date().toISOString(),
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: booksContent
         };
@@ -542,8 +547,8 @@ class SiteBuilder {
             description: book.description,
             date: book.date,
             cover_image: `${this.fullBaseUrl}${book.coverImage}`,
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: bookContent
         };
@@ -627,8 +632,8 @@ class SiteBuilder {
             title: chapter.title,
             description: chapter.subtitle || book.description,
             date: book.date,
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: chapterContent
         };
@@ -713,8 +718,8 @@ class SiteBuilder {
             title: 'Artigos',
             description: 'Artigos sobre tecnologia',
             date: new Date().toISOString(),
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: articlesContent
         };
@@ -774,8 +779,8 @@ class SiteBuilder {
             description: article.description,
             date: article.date,
             cover_image: `${this.fullBaseUrl}${article.featuredImage}`,
-            css_path: `${this.baseUrl}/assets/css/main.css`,
-            js_path: `${this.baseUrl}/assets/js/main.js`,
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
             baseUrl: this.baseUrl,
             content: articleContent
         };
@@ -840,6 +845,15 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-')
             .trim();
+    }
+
+    // Helper methods for cache busting
+    getCssPath() {
+        return `${this.baseUrl}/assets/css/main.${this.cacheHash}.css`;
+    }
+
+    getJsPath() {
+        return `${this.baseUrl}/assets/js/main.${this.cacheHash}.js`;
     }
 
     formatDate(dateString) {

@@ -261,7 +261,10 @@ class SiteBuilder {
                         
                         // Processa as referências de assets no conteúdo do capítulo
                         content = this.processContentAssets(content, 'books', bookItem.id);
-                        const htmlContent = marked.parse(content);
+                        let htmlContent = marked.parse(content);
+                        
+                        // Remove the first H1 tag to avoid duplication with template header
+                        htmlContent = htmlContent.replace(/^<h1[^>]*>.*?<\/h1>\s*/i, '');
                         
                         chapters.push({
                             ...chapter,

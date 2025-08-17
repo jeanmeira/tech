@@ -560,6 +560,7 @@ em {
   generateContentOPF(book, allContent) {
     const uuid = `urn:uuid:${book.slug}-${Date.now()}`;
     const timestamp = new Date().toISOString().split('T')[0];
+    const modifiedTimestamp = new Date().toISOString(); // ISO format completo
     
     const manifest = allContent.map(section => 
       `    <item id="${section.filename.replace('.xhtml', '')}" href="text/${section.filename}" media-type="application/xhtml+xml"/>`
@@ -578,7 +579,7 @@ em {
     <dc:language>pt-BR</dc:language>
     <dc:date>${timestamp}</dc:date>
     <dc:description>${this.escapeHTML(book.description || '')}</dc:description>
-    <meta property="dcterms:modified">${new Date().toISOString()}</meta>
+    <meta property="dcterms:modified">${modifiedTimestamp}</meta>
   </metadata>
   
   <manifest>
@@ -630,8 +631,8 @@ ${navPoints}
     ).join('\n');
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="pt-BR">
 <head>
   <title>Índice</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -640,7 +641,7 @@ ${navPoints}
 <body>
   <div class="toc">
     <h1>Índice</h1>
-    <nav>
+    <nav epub:type="toc" id="toc">
       <ol>
 ${tocList}
       </ol>
@@ -654,7 +655,7 @@ ${tocList}
     const contentHTML = this.generateContentHTML(section.content);
     
     return `<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-BR">
 <head>
   <title>${this.escapeHTML(section.title)}</title>

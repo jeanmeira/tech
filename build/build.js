@@ -91,6 +91,9 @@ class SiteBuilder {
         // Copy images without optimization (simplified version)
         await this.copyImages();
         
+        // Copy favicons
+        await this.copyFavicons();
+        
         // Copy book and article assets
         await this.copyContentAssets();
         
@@ -104,6 +107,26 @@ class SiteBuilder {
         const imagesDir = path.join(this.contentDir, 'images');
         if (await fs.pathExists(imagesDir)) {
             await fs.copy(imagesDir, path.join(this.distDir, 'assets/images'));
+        }
+    }
+
+    async copyFavicons() {
+        // Copy favicon.png from src root as favicon.ico
+        const faviconPng = path.join(this.srcDir, 'favicon.png');
+        if (await fs.pathExists(faviconPng)) {
+            await fs.copy(faviconPng, path.join(this.distDir, 'favicon.ico'));
+        }
+
+        // Copy favicon assets
+        const faviconAssetsDir = path.join(this.srcDir, 'assets/favicon');
+        if (await fs.pathExists(faviconAssetsDir)) {
+            await fs.copy(faviconAssetsDir, path.join(this.distDir, 'assets/favicon'));
+        }
+
+        // Also copy favicon.png to assets/favicon
+        if (await fs.pathExists(faviconPng)) {
+            await fs.ensureDir(path.join(this.distDir, 'assets/favicon'));
+            await fs.copy(faviconPng, path.join(this.distDir, 'assets/favicon/favicon.png'));
         }
     }
 

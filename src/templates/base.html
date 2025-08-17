@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- Google tag (gtag.js) - Deferred -->
+    <!-- Google Analytics - LGPD Compliant (only loads with consent) -->
     <script>
-      // Defer Google Analytics loading
-      function loadGoogleAnalytics() {
+      // Analytics initialization function (called after consent)
+      window.initAnalytics = function() {
+        // Check if analytics is already loaded
+        if (window.gtag) return;
+        
         const script = document.createElement('script');
         script.async = true;
         script.src = 'https://www.googletagmanager.com/gtag/js?id=G-VFL88MPT0T';
@@ -14,16 +17,17 @@
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-VFL88MPT0T');
+          gtag('config', 'G-VFL88MPT0T', {
+            'anonymize_ip': true,
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false
+          });
+          
+          console.log('📊 Google Analytics carregado com consentimento LGPD');
         };
-      }
+      };
       
-      // Load after page is interactive
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadGoogleAnalytics);
-      } else {
-        loadGoogleAnalytics();
-      }
+      // Analytics will be initialized by cookie consent script
     </script>
     
     <meta charset="UTF-8">
@@ -388,6 +392,9 @@
     </footer>
 
     <script defer src="{{js_path}}"></script>
+    
+    <!-- Cookie Consent Banner - LGPD Compliance -->
+    <script defer src="{{cookie_consent_js_path}}"></script>
     
     <!-- Load non-critical JavaScript after main content -->
     <script>

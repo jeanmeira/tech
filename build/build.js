@@ -164,6 +164,35 @@ class SiteBuilder {
             );
         }
         
+        // Process cookie consent JavaScript
+        const cookieConsentJsPath = path.join(this.srcDir, 'js/cookie-consent.js');
+        if (await fs.pathExists(cookieConsentJsPath)) {
+            const cookieConsentJsContent = await fs.readFile(cookieConsentJsPath, 'utf8');
+            
+            let finalCookieConsentJs;
+            if (this.isProduction) {
+                const minified = await minify(cookieConsentJsContent, {
+                    compress: {
+                        drop_console: false, // Keep console.log for analytics feedback
+                        drop_debugger: true
+                    },
+                    mangle: true,
+                    format: {
+                        comments: false
+                    }
+                });
+                finalCookieConsentJs = minified.code || cookieConsentJsContent;
+                console.log(`📦 Cookie consent JS minified: ${cookieConsentJsContent.length} → ${finalCookieConsentJs.length} bytes`);
+            } else {
+                finalCookieConsentJs = cookieConsentJsContent;
+            }
+            
+            await fs.writeFile(
+                path.join(this.distDir, `assets/js/cookie-consent.${cacheHash}.js`), 
+                finalCookieConsentJs
+            );
+        }
+        
         // Copy images without optimization (simplified version)
         await this.copyImages();
         
@@ -444,6 +473,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: homeContent
         };
@@ -530,6 +560,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: booksContent
         };
@@ -614,6 +645,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: bookContent
         };
@@ -700,6 +732,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: chapterContent
         };
@@ -787,6 +820,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: articlesContent
         };
@@ -849,6 +883,7 @@ class SiteBuilder {
             css_path: this.getCssPath(),
             js_path: this.getJsPath(),
             non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
             baseUrl: this.baseUrl,
             content: articleContent
         };
@@ -926,6 +961,10 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
 
     getNonCriticalJsPath() {
         return `${this.baseUrl}/assets/js/non-critical.${this.cacheHash}.js`;
+    }
+
+    getCookieConsentJsPath() {
+        return `${this.baseUrl}/assets/js/cookie-consent.${this.cacheHash}.js`;
     }
 
     formatDate(dateString) {

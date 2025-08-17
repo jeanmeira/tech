@@ -43,7 +43,9 @@ class ImageOptimizer {
                 
                 // Get original image info
                 const metadata = await sharp(inputPath).metadata();
-                console.log(`  Original: ${metadata.width}x${metadata.height}, ${Math.round(metadata.size / 1024)}KB`);
+                const originalStats = await fs.stat(inputPath);
+                const originalSizeKB = Math.round(originalStats.size / 1024);
+                console.log(`  Original: ${metadata.width}x${metadata.height}, ${originalSizeKB}KB`);
                 
                 const imageVariants = [];
                 
@@ -61,9 +63,10 @@ class ImageOptimizer {
                         .toFile(webpPath);
                     
                     const webpStats = await fs.stat(webpPath);
-                    const savings = Math.round((1 - webpStats.size / metadata.size) * 100);
+                    const webpSizeKB = Math.round(webpStats.size / 1024);
+                    const savings = Math.round((1 - webpStats.size / originalStats.size) * 100);
                     
-                    console.log(`  ✅ WebP ${size.width}x${size.height}: ${Math.round(webpStats.size / 1024)}KB (${savings}% smaller)`);
+                    console.log(`  ✅ WebP ${size.width}x${size.height}: ${webpSizeKB}KB (${savings}% smaller)`);
                     
                     imageVariants.push({
                         format: 'webp',
@@ -106,7 +109,7 @@ class ImageOptimizer {
                     width: metadata.width,
                     height: metadata.height,
                     filename: originalFilename,
-                    size: metadata.size,
+                    size: originalStats.size,
                     isOriginal: true
                 });
                 

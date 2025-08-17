@@ -305,21 +305,23 @@
             gap: var(--spacing-md);
         }
         .footer-container p {
-            color: var(--text-primary);
+            color: #212529;  /* Darker color for better contrast */
             font-size: 0.9rem;
             margin: 0;
+            font-weight: 500;
         }
         .footer-links {
             display: flex;
             gap: var(--spacing-md);
         }
         .footer-links a {
-            color: var(--text-primary);
+            color: #212529;  /* Darker color for better contrast */
             font-size: 0.9rem;
             text-decoration: none;
             padding: var(--spacing-xs);
             border-radius: var(--border-radius);
             transition: var(--transition);
+            font-weight: 500;
         }
         .footer-links a:hover {
             color: var(--primary-green);
@@ -328,6 +330,15 @@
         .footer-links a:focus {
             outline: 2px solid var(--primary-green);
             outline-offset: 2px;
+        }
+        /* Dark mode specific overrides for footer */
+        @media (prefers-color-scheme: dark) {
+            .footer-container p {
+                color: #f8f9fa;  /* Light color for dark mode */
+            }
+            .footer-links a {
+                color: #f8f9fa;  /* Light color for dark mode */
+            }
         }
         @media (max-width: 768px) {
             .footer-container {

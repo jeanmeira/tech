@@ -39,7 +39,7 @@
     // Passive scroll events for better performance
     let ticking = false;
     
-    // Reading progress with RAF optimization
+    // Reading progress with RAF optimization - Reduced reflow
     function initReadingProgress() {
         const article = document.querySelector('article .content');
         if (!article) return;
@@ -70,14 +70,25 @@
         
         document.body.appendChild(progressBar);
         
-        // Optimized scroll handler with RAF
+        // Cache DOM measurements to reduce reflow
+        let articleHeight = 0;
+        let windowHeight = 0;
+        let resizeTimeout;
+        
+        function cacheLayoutMetrics() {
+            articleHeight = article.offsetHeight;
+            windowHeight = window.innerHeight;
+        }
+        
+        // Initial measurement
+        cacheLayoutMetrics();
+        
+        // Optimized scroll handler with RAF - minimal DOM reads
         function updateProgress() {
             if (!ticking) {
                 requestAnimationFrame(() => {
-                    const articleRect = article.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-                    const articleHeight = article.offsetHeight;
-                    const articleTop = articleRect.top;
+                    // Only read getBoundingClientRect, avoid offsetHeight in scroll
+                    const articleTop = article.getBoundingClientRect().top;
                     
                     const scrolled = Math.max(0, Math.min(1, 
                         (windowHeight - articleTop) / (articleHeight + windowHeight)
@@ -89,6 +100,12 @@
                 ticking = true;
             }
         }
+        
+        // Debounced resize handler to recalculate dimensions
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(cacheLayoutMetrics, 250);
+        }, { passive: true });
         
         // Debounced scroll listener
         window.addEventListener('scroll', updateProgress, { passive: true });

@@ -305,23 +305,23 @@
             gap: var(--spacing-md);
         }
         .footer-container p {
-            color: #212529;  /* Darker color for better contrast */
+            color: #2c3e50;  /* Cor mais escura para melhor contraste */
             font-size: 0.9rem;
             margin: 0;
-            font-weight: 500;
+            font-weight: 600;  /* Peso maior para melhor legibilidade */
         }
         .footer-links {
             display: flex;
             gap: var(--spacing-md);
         }
         .footer-links a {
-            color: #212529;  /* Darker color for better contrast */
+            color: #2c3e50;  /* Cor mais escura para melhor contraste */
             font-size: 0.9rem;
             text-decoration: none;
             padding: var(--spacing-xs);
             border-radius: var(--border-radius);
             transition: var(--transition);
-            font-weight: 500;
+            font-weight: 600;  /* Peso maior para melhor legibilidade */
         }
         .footer-links a:hover {
             color: var(--primary-green);
@@ -394,7 +394,7 @@
         // Load non-critical JS after page load to reduce main thread work
         window.addEventListener('load', function() {
             var script = document.createElement('script');
-            script.src = '{{non_critical_js_path}}';
+            script.src = '{{{non_critical_js_path}}}';
             script.async = true;
             document.head.appendChild(script);
         });

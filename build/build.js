@@ -413,8 +413,28 @@ class SiteBuilder {
                 
                 <div class="items-grid">
                     ${books.map(book => `
-                        <article class="card">
-                            <img src="${book.coverImage}" alt="${book.cover_image_alt || book.title}" class="card-image" loading="lazy">
+                        <a href="${this.baseUrl}/books/${book.slug}/" class="card">
+                            <picture>
+                                <source 
+                                    srcset="${this.baseUrl}/assets/images/${book.id}-200.webp 200w,
+                                            ${this.baseUrl}/assets/images/${book.id}-400.webp 400w,
+                                            ${this.baseUrl}/assets/images/${book.id}-800.webp 800w,
+                                            ${this.baseUrl}/assets/images/${book.id}.webp 1024w"
+                                    sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px"
+                                    type="image/webp">
+                                <source 
+                                    srcset="${this.baseUrl}/assets/images/${book.id}-200.png 200w,
+                                            ${this.baseUrl}/assets/images/${book.id}-400.png 400w,
+                                            ${this.baseUrl}/assets/images/${book.id}-800.png 800w"
+                                    sizes="(max-width: 480px) 200px, (max-width: 768px) 400px, 400px">
+                                <img 
+                                    src="${this.baseUrl}/assets/images/${book.id}-400.png" 
+                                    alt="${book.cover_image_alt || book.title}" 
+                                    class="card-image"
+                                    loading="lazy"
+                                    width="400" 
+                                    height="400">
+                            </picture>
                             <div class="card-content">
                                 <h2 class="card-title">${book.title}</h2>
                                 <p class="card-subtitle">${book.subtitle || ''}</p>
@@ -423,9 +443,8 @@ class SiteBuilder {
                                     <span>${this.formatDate(book.date)}</span> • 
                                     <span>${book.chapters.length} capítulos</span>
                                 </div>
-                                <a href="${this.baseUrl}/books/${book.slug}/" class="nav-btn" style="display: inline-block; margin-top: 1rem;">Ler Livro</a>
                             </div>
-                        </article>
+                        </a>
                     `).join('')}
                 </div>
             </div>
@@ -464,7 +483,26 @@ class SiteBuilder {
                 </nav>
                 
                 <header class="book-header">
-                    <img src="${book.coverImage}" alt="${book.cover_image_alt || book.title}" class="book-cover">
+                    <picture>
+                        <source 
+                            srcset="${this.baseUrl}/assets/images/${book.id}-200.webp 200w,
+                                    ${this.baseUrl}/assets/images/${book.id}-400.webp 400w,
+                                    ${this.baseUrl}/assets/images/${book.id}-800.webp 800w,
+                                    ${this.baseUrl}/assets/images/${book.id}.webp 1024w"
+                            sizes="200px"
+                            type="image/webp">
+                        <source 
+                            srcset="${this.baseUrl}/assets/images/${book.id}-200.png 200w,
+                                    ${this.baseUrl}/assets/images/${book.id}-400.png 400w,
+                                    ${this.baseUrl}/assets/images/${book.id}-800.png 800w"
+                            sizes="200px">
+                        <img 
+                            src="${this.baseUrl}/assets/images/${book.id}-200.png" 
+                            alt="${book.cover_image_alt || book.title}" 
+                            class="book-cover"
+                            width="200" 
+                            height="200">
+                    </picture>
                     <div class="book-info">
                         <h1>${book.title}</h1>
                         ${book.subtitle ? `<p class="book-subtitle">${book.subtitle}</p>` : ''}

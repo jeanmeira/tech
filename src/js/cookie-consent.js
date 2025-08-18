@@ -22,12 +22,16 @@
     
     // Create cookie banner
     function createCookieBanner() {
+        // Detect if we're on GitHub Pages or local development
+        const baseUrl = window.location.hostname === 'jeanmeira.github.io' ? '/tech' : '';
+        const policyUrl = `${baseUrl}/politica-cookies/`;
+        
         const banner = document.createElement('div');
         banner.id = 'cookie-consent-banner';
         banner.innerHTML = `
             <div class="cookie-banner-content">
                 <div class="cookie-text">
-                    <p>🍪 Este site utiliza cookies para melhorar sua experiência de navegação e analisar o uso do site. Ao continuar navegando, você concorda com nossa <a href="/politica-cookies/" class="cookie-link" target="_blank">Política de Cookies</a> e com o processamento de dados conforme a LGPD.</p>
+                    <p>🍪 Este site utiliza cookies para melhorar sua experiência de navegação e analisar o uso do site. Ao continuar navegando, você concorda com nossa <a href="${policyUrl}" class="cookie-link" target="_blank">Política de Cookies</a> e com o processamento de dados conforme a LGPD.</p>
                 </div>
                 <div class="cookie-buttons">
                     <button id="cookie-accept" class="cookie-btn cookie-accept">Aceitar</button>

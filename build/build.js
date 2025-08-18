@@ -54,6 +54,7 @@ class SiteBuilder {
             await this.generateHomePage(books, articles);
             await this.generateBooksPages(books);
             await this.generateArticlesPages(articles);
+            await this.generateCookiePolicyPage();
             
             // Generate additional files
             await this.generateSitemap(books, articles);
@@ -974,6 +975,60 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
             month: 'long',
             day: 'numeric'
         });
+    }
+
+    async generateCookiePolicyPage() {
+        // Create politica-cookies directory
+        const policyDir = path.join(this.distDir, 'politica-cookies');
+        await fs.ensureDir(policyDir);
+        
+        // Read the cookie policy markdown file
+        const policyPath = path.join(this.contentDir, 'politica-cookies.md');
+        const policyContent = await fs.readFile(policyPath, 'utf8');
+        
+        // Convert markdown to HTML
+        const htmlContent = marked.parse(policyContent);
+        
+        // Create the full page content
+        const pageContent = `
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="${this.baseUrl}/">Início</a> > 
+                    <span>Política de Cookies</span>
+                </nav>
+                
+                <div class="content-page">
+                    ${htmlContent}
+                </div>
+            </div>
+        `;
+        
+        // Load base template
+        const template = await this.loadTemplate('base.html');
+        
+        // Template data
+        const data = {
+            meta_title: 'Política de Cookies - Jean Meira - TECH',
+            meta_description: 'Política de cookies e privacidade conforme LGPD - Como utilizamos cookies e dados pessoais',
+            canonical_url: `${this.fullBaseUrl}/politica-cookies/`,
+            og_type: 'article',
+            schema_type: 'WebPage',
+            title: 'Política de Cookies',
+            description: 'Política de cookies e privacidade conforme LGPD',
+            date: new Date().toISOString(),
+            css_path: this.getCssPath(),
+            js_path: this.getJsPath(),
+            non_critical_js_path: this.getNonCriticalJsPath(),
+            cookie_consent_js_path: this.getCookieConsentJsPath(),
+            baseUrl: this.baseUrl,
+            content: pageContent
+        };
+        
+        // Render and save
+        const html = mustache.render(template, data);
+        await fs.writeFile(path.join(policyDir, 'index.html'), html);
+        
+        console.log('🍪 Generated cookie policy page');
     }
 
     // Helper method to generate responsive image HTML

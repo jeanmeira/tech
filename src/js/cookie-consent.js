@@ -27,7 +27,7 @@
         banner.innerHTML = `
             <div class="cookie-banner-content">
                 <div class="cookie-text">
-                    <p>🍪 Este site utiliza cookies para melhorar sua experiência de navegação e analisar o uso do site. Ao continuar navegando, você concorda com nossa <a href="#politica-cookies" class="cookie-link">Política de Cookies</a> e com o processamento de dados conforme a LGPD.</p>
+                    <p>🍪 Este site utiliza cookies para melhorar sua experiência de navegação e analisar o uso do site. Ao continuar navegando, você concorda com nossa <a href="/politica-cookies/" class="cookie-link" target="_blank">Política de Cookies</a> e com o processamento de dados conforme a LGPD.</p>
                 </div>
                 <div class="cookie-buttons">
                     <button id="cookie-accept" class="cookie-btn cookie-accept">Aceitar</button>

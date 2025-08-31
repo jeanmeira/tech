@@ -2,11 +2,15 @@
 
 > "Qualquer tolo consegue escrever código que um computador entende. Bons programadores escrevem código que humanos entendem."
 > 
-> — Martin Fowler
+> — **Martin Fowler, em seu livro "Refatoração: Aperfeiçoando o Design de Códigos Existentes".**
+>
+> **Contexto:** Fowler é uma das vozes mais influentes em engenharia de software. Esta citação é o pilar do movimento de "Software Craftsmanship" e da engenharia de software moderna. Ela argumenta que a clareza e a manutenibilidade do código são mais importantes do que a mera funcionalidade. Um código que apenas a máquina entende é um futuro fantasma, pois o próximo desenvolvedor que precisar modificá-lo estará operando no escuro.
 
 > "Nós construímos nossos sistemas de computador da mesma forma que construímos nossas cidades: ao longo do tempo, sem um plano, sobre ruínas."
 >
-> — Ellen Ullman
+> — **Ellen Ullman, em seu livro "Close to the Machine: Technophilia and Its Discontents".**
+>
+> **Contexto:** Ullman, uma programadora e escritora, captura aqui a natureza orgânica e, por vezes, caótica do desenvolvimento de software. A metáfora da cidade é poderosa: sistemas de software, como centros urbanos, crescem de forma incremental, com novas funcionalidades sendo construídas sobre as "ruínas" de decisões e tecnologias passadas. Essa citação descreve perfeitamente a geologia de um sistema assombrado, onde camadas de história se acumulam, muitas vezes sem um plano mestre.
 
 A **Arquitetura Fantasma** não é um conceito abstrato; é uma força tangível que molda o cotidiano de equipes de desenvolvimento. Ela se manifesta como o conjunto de decisões técnicas que, embora invisíveis e não documentadas, ditam o comportamento, as limitações e as fragilidades de um sistema. Pense nela como a fundação invisível de um arranha-céu de software: uma base que todos presumem ser sólida, operando silenciosamente em segundo plano, até que uma única fissura se revela e compromete toda a estrutura de forma catastrófica.
 
@@ -35,6 +39,10 @@ Este fantasma é particularmente perigoso porque cria um gargalo humano crítico
 ### A Fábrica de Fantasmas
 
 > "Toda decisão não documentada é um fantasma em potencial, esperando pacientemente para assombrar o futuro."
+>
+> — **Princípio Central deste Livro.**
+>
+> **Contexto:** Esta frase encapsula a tese fundamental da "Arquitetura Fantasma". Ela afirma que a criação de fantasmas não é um ato, mas uma omissão. O verdadeiro problema não é tomar uma decisão "errada", mas falhar em registrar o *contexto* e a *justificativa* por trás de qualquer decisão, seja ela boa ou ruim. É essa falta de narrativa que transforma uma simples escolha técnica em um futuro mistério.
 
 Fantasmas técnicos não surgem por combustão espontânea. Eles são fabricados, peça por peça, em um processo alimentado por uma combinação tóxica de pressão, pressa e negligência. Cada um deles tem uma história de origem, um momento preciso em que uma decisão foi tomada e seu contexto foi deixado para trás, criando uma dependência órfã no sistema. Entender como essa fábrica de fantasmas opera é o primeiro passo para desativá-la.
 

@@ -31,16 +31,21 @@ book_structure:
       number: 5
       
     - file: "capitulo-06.md"
-      title: "Prevenção e Ferramentas: O Arsenal do Caça-Fantasmas"
+      title: "Prevenção e Ferramentas: O Arsenal Prático"
       subtitle: "Práticas e ferramentas para evitar a criação de fantasmas"
       number: 6
       
     - file: "capitulo-07.md"
-      title: "O Custo da Assombração: O Impacto no Negócio"
-      subtitle: "Quantificando e comunicando o impacto de problemas arquiteturais"
+      title: "O Copiloto de IA: Prevenção em Todas as Fases do Ciclo de Vida"
+      subtitle: "Ampliando o arsenal de prevenção com inteligência artificial"
       number: 7
       
     - file: "capitulo-08.md"
+      title: "O Custo da Assombração: O Impacto no Negócio"
+      subtitle: "Quantificando e comunicando o impacto de problemas arquiteturais"
+      number: 8
+      
+    - file: "capitulo-09.md"
       title: "Conclusão: A Vigília Perpétua"
       subtitle: "Mantendo sistemas saudáveis em um mundo em constante mudança"
-      number: 8
+      number: 9

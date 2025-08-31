@@ -2,11 +2,15 @@
 
 > "Qualquer organização que projeta um sistema produzirá um projeto cuja estrutura é uma cópia da estrutura de comunicação da organização."
 > 
-> — Melvin Conway
+> — **Melvin Conway, em seu artigo de 1968, "How Do Committees Invent?".**
+>
+> **Contexto:** Conhecida como a "Lei de Conway", esta observação tornou-se um dos princípios mais duradouros da engenharia de software. Conway argumenta que a arquitetura de um sistema é um reflexo direto das estruturas sociais da organização que o constrói. Se as equipes são isoladas e a comunicação é burocrática, o software resultante será monolítico e rigidamente acoplado de maneiras estranhas. Esta lei é fundamental para entender que muitos "fantasmas" técnicos não são falhas de código, mas sintomas de uma estrutura organizacional disfuncional.
 
 > "O maior problema na comunicação é a ilusão de que ela ocorreu."
 >
-> — George Bernard Shaw
+> — **George Bernard Shaw, dramaturgo e co-fundador da London School of Economics.**
+>
+> **Contexto:** Embora não seja uma citação sobre tecnologia, a frase de Shaw é profundamente relevante para a "fábrica de fantasmas". Muitas decisões técnicas se tornam fantasmas porque as pessoas *acreditam* que o contexto foi comunicado e compreendido, quando na verdade não foi. Uma conversa rápida no corredor, uma mensagem de Slack que é rapidamente soterrada ou uma decisão tomada em uma reunião sem uma ata clara são exemplos perfeitos da "ilusão de comunicação". Essa ilusão deixa para trás um rastro de suposições que, mais tarde, se manifestam como código misterioso.
 
 Se a fábrica de fantasmas é o processo, o fator humano é o seu combustível. Nenhuma decisão técnica ocorre no vácuo. Ela é tomada por pessoas, dentro de equipes, que por sua vez estão inseridas em uma cultura organizacional. Entender a psicologia por trás do código e a dinâmica das equipes não é um desvio "soft"; é ir à fonte do problema. Fantasmas técnicos são, em sua essência, manifestações de vieses cognitivos, falhas de comunicação e estruturas organizacionais disfuncionais.
 

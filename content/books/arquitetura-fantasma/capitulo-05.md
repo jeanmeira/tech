@@ -2,7 +2,9 @@
 
 > "A verdade só pode ser encontrada em um lugar: no código."
 > 
-> — Robert C. Martin
+> — **Robert C. Martin (Uncle Bob), em "Código Limpo: Um Manual de Artesanato de Software Ágil".**
+>
+> **Contexto:** Uncle Bob é uma figura central no movimento de software craftsmanship. Esta citação é um chamado à ação para desenvolvedores. Ele argumenta que, embora a documentação e os diagramas sejam úteis, a fonte final e inquestionável da verdade sobre o comportamento de um sistema é o próprio código-fonte. Para exorcizar um fantasma, não se pode confiar em suposições ou em documentação desatualizada; é preciso ter a coragem de mergulhar no código, pois é lá que o fantasma realmente vive.
 
 Sentimos o arrepio, vimos a forma, contamos as histórias. Agora, com o mapa do território assombrado em mãos, chegamos ao momento decisivo: a confrontação. Como se exorciza um fantasma de uma arquitetura de software? Não com sal e ferro, mas com um ritual metódico de investigação, coragem e engenharia cuidadosa. É um processo que transforma o medo do desconhecido em um plano de ação.
 

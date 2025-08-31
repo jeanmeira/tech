@@ -1,6 +1,8 @@
 # Introdução: Ecos de Decisões Passadas
 
 > *"Sempre foi assim."*
+>
+> — **Autor Desconhecido, proferida em incontáveis equipes de desenvolvimento ao redor do mundo.**
 
 Essa frase, sussurrada em corredores de escritórios e canais de Slack, é o primeiro sinal de que você não está sozinho no código. Ela ecoa a presença de uma força invisível que assombra todo sistema de software com alguma idade: a **Arquitetura Fantasma**. É o conjunto de decisões técnicas esquecidas, de dependências obscuras e de processos manuais frágeis que formam a fundação oculta sobre a qual a tecnologia do presente foi construída. É o bug bizarro que ninguém ousa investigar, o script de deploy que apenas um veterano sabe executar, a dependência crítica que ninguém entende completamente.
 

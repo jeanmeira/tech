@@ -2,11 +2,15 @@
 
 > "O otimismo é o inimigo mortal do programador; a esperança é a causa de projetos inacabados e orçamentos estourados."
 > 
-> — Rich Cook
+> — **Rich Cook, em "The Tao of Programming".**
+>
+> **Contexto:** Este livro, escrito em um estilo que imita o Tao Te Ching, oferece aforismos sobre a arte da programação. Esta citação em particular ataca diretamente o "viés de otimismo". Ela nos lembra que a engenharia de software robusta não é construída sobre a esperança de que tudo dará certo, mas sobre o planejamento cuidadoso para quando as coisas derem errado. Um sistema assombrado é frequentemente o resultado de um excesso de otimismo — a crença de que "soluções temporárias" serão corrigidas e que a complexidade não cobrará seu preço.
 
 > "O código legado é frequentemente definido como 'código que os desenvolvedores têm medo de mudar'."
 >
-> — Michael Feathers
+> — **Michael Feathers, em seu livro seminal "Working Effectively with Legacy Code".**
+>
+> **Contexto:** Feathers deu à comunidade de software uma das definições mais práticas e emocionais de código legado. Não se trata da idade do código, mas da nossa confiança em modificá-lo. Esta citação é a descrição perfeita de um sintoma de assombração: o medo. Quando as equipes evitam tocar em certas partes do sistema, é um sinal claro de que o conhecimento se perdeu e um fantasma tomou conta daquela área. O medo é um indicador de que o código não tem uma rede de segurança de testes, tornando qualquer alteração um risco.
 
 Um sistema assombrado raramente se revela através de uma falha espetacular e definitiva. Em vez disso, ele sussurra sua presença através de uma série de sintomas sutis e persistentes, anomalias no comportamento da equipe e no funcionamento do código que, juntas, pintam o retrato de uma arquitetura assombrada por fantasmas técnicos. Aprender a reconhecer esses sinais é a habilidade diagnóstica fundamental do caçador de fantasmas.
 

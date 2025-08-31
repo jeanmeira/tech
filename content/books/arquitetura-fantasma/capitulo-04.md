@@ -1,4 +1,4 @@
-# Capítulo 4: Histórias do Além-Código
+# Capítulo 4: Histórias de Terror
 
 > "Aqueles que não conseguem lembrar o passado estão condenados a repeti-lo."
 >

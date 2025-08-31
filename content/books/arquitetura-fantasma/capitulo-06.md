@@ -1,4 +1,4 @@
-# Capítulo 6: Prevenção e Ferramentas: O Arsenal Prático
+# Capítulo 6: O Arsenal do Caça-Fantasmas
 
 > "O objetivo da arquitetura de software é minimizar os recursos humanos necessários para construir e manter o sistema."
 > 

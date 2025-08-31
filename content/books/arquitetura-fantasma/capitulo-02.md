@@ -1,4 +1,4 @@
-# Capítulo 2: O Fator Humano: Psicologia e Cultura por Trás dos Fantasmas
+# Capítulo 2: Sussurros na Sala de Reunião
 
 > "Qualquer organização que projeta um sistema produzirá um projeto cuja estrutura é uma cópia da estrutura de comunicação da organização."
 > 

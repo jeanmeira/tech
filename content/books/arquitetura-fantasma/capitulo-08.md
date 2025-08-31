@@ -1,4 +1,4 @@
-# Capítulo 8: O Custo da Assombração: O Impacto no Negócio
+# Capítulo 8: A Dívida Espectral
 
 > "A dívida técnica é como uma hipoteca. Pode ser útil para acelerar, mas você tem que pagar os juros."
 > 

@@ -1,4 +1,4 @@
-# Capítulo 7: O Copiloto de IA: Prevenção em Todas as Fases do Ciclo de Vida
+# Capítulo 7: O Talismã Digital
 
 > "A IA não vai substituir os humanos, mas humanos com IA vão substituir humanos sem IA."
 > 

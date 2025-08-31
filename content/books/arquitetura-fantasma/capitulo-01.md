@@ -1,4 +1,4 @@
-# Capítulo 1: Anatomia de um Fantasma e a Fábrica que os Cria
+# Capítulo 1: Anatomia de um Fantasma
 
 > "Qualquer tolo consegue escrever código que um computador entende. Bons programadores escrevem código que humanos entendem."
 > 

@@ -7,50 +7,55 @@ book_structure:
       
     - file: "capitulo-01.md"
       title: "Anatomia de um Fantasma"
-      subtitle: "Como surgem e se multiplicam os problemas arquiteturais ocultos"
+      subtitle: "Identificando as formas que assombram o código"
       number: 1
       
     - file: "capitulo-02.md"
-      title: "Sussurros na Sala de Reunião"
-      subtitle: "Como as dinâmicas organizacionais geram e perpetuam problemas técnicos"
+      title: "A Fábrica de Fantasmas"
+      subtitle: "De onde vêm os problemas arquiteturais ocultos"
       number: 2
       
     - file: "capitulo-03.md"
-      title: "Sinais de um Sistema Assombrado"
-      subtitle: "Identificando os sintomas de uma arquitetura fantasma"
+      title: "Sussurros na Sala de Reunião"
+      subtitle: "Como as dinâmicas organizacionais geram e perpetuam problemas técnicos"
       number: 3
       
     - file: "capitulo-04.md"
-      title: "Histórias de Terror"
-      subtitle: "Casos reais de sistemas assombrados e suas consequências"
+      title: "Sinais de um Sistema Assombrado"
+      subtitle: "Identificando os sintomas de uma arquitetura fantasma"
       number: 4
       
     - file: "capitulo-05.md"
-      title: "O Ritual do Exorcismo"
-      subtitle: "Estratégias e técnicas para limpar sistemas assombrados"
+      title: "Histórias de Terror"
+      subtitle: "Casos reais de sistemas assombrados e suas consequências"
       number: 5
       
     - file: "capitulo-06.md"
-      title: "O Arsenal do Caça-Fantasmas"
-      subtitle: "Práticas e ferramentas para evitar a criação de fantasmas"
+      title: "O Ritual do Exorcismo"
+      subtitle: "Estratégias e técnicas para limpar sistemas assombrados"
       number: 6
       
     - file: "capitulo-07.md"
-      title: "O Talismã Digital"
-      subtitle: "Ampliando o arsenal de prevenção com inteligência artificial"
+      title: "O Arsenal do Caça-Fantasmas"
+      subtitle: "Práticas e ferramentas para evitar a criação de fantasmas"
       number: 7
       
     - file: "capitulo-08.md"
-      title: "A Dívida Espectral"
-      subtitle: "Quantificando e comunicando o impacto de problemas arquiteturais"
+      title: "O Talismã Digital"
+      subtitle: "Ampliando o arsenal de prevenção com inteligência artificial"
       number: 8
       
     - file: "capitulo-09.md"
+      title: "A Dívida Espectral"
+      subtitle: "Quantificando e comunicando o impacto de problemas arquiteturais"
+      number: 9
+      
+    - file: "capitulo-10.md"
       title: "A Vigília Perpétua"
       subtitle: "Mantendo sistemas saudáveis em um mundo em constante mudança"
-      number: 9
+      number: 10
 
     - file: "glossario.md"
       title: "Bestiário Técnico"
       subtitle: "Decifrando os Termos do Oculto"
-      number: 10
+      number: 11

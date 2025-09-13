@@ -14,34 +14,6 @@ Para ilustrar esse ritual, vamos acompanhar uma equipe de uma fintech em sua jor
 
 O sistema tornou-se uma fonte de ansiedade. Nas retrospectivas, a equipe relatava a mesma frustração: "Não podemos confiar nos dados de endereço". O som de um alerta de plantão vindo do `legacy-cep-api` gerava um desânimo coletivo. O sistema não era mais apenas um incômodo técnico; ele estava minando a moral da equipe e a confiança da empresa em sua própria base de clientes.
 
-### Passo 1: Monitoramento — Encarando o Problema de Frente
-
-Antes de qualquer mudança, a equipe precisa entender a real dimensão do problema. O medo e as anedotas não são suficientes; eles precisam de dados. A primeira ação é **habilitar monitoramento e observabilidade** no serviço.
-// ...existing code...
-A equipe chega a uma conclusão racional e unânime: é preciso construir um novo serviço, o `reliable-cep-api`, com base em uma API oficial e paga dos Correios, que garante disponibilidade e dados precisos. O investimento é justificável não como "dívida técnica", mas como um projeto para **aumentar a conversão de clientes e garantir a integridade dos dados**.
-
-### Passo 3: A Migração Segura — A Figueira Estranguladora em Ação
-
-A equipe não vai fazer uma substituição abrupta ("big bang"). Eles usarão o **Padrão Strangler Fig (Figueira Estranguladora)**, uma abordagem que permite que o novo sistema cresça em volta do antigo, substituindo-o gradualmente até que o sistema legado se torne obsoleto e possa ser removido com segurança.
-
-O plano de migração é dividido em fases claras:
-
-1.  **Construir o Novo Serviço e o Proxy:** Primeiro, eles desenvolvem o `reliable-cep-api` seguindo as melhores práticas: arquitetura limpa, cobertura total de testes e documentação clara. Em paralelo, colocam um **Proxy** na frente do `legacy-cep-api`. Inicialmente, este proxy é configurado para ser invisível, apenas repassando 100% das requisições para o serviço antigo. Para a aplicação cliente, nada mudou, mas a equipe agora tem um ponto central para controlar o tráfego.
-
-2.  **Estrangular Gradualmente o Legado (Fase de Transição):** Com o proxy no lugar, eles iniciam o processo de migração controlada, que pode ser imaginado em etapas:
-    *   **Modo Sombra (Shadowing):** Na primeira semana, eles ativam o modo sombra. Uma pequena porcentagem do tráfego (ex: 10%) é enviada para o serviço antigo, e o resultado é retornado ao usuário. Ao mesmo tempo, uma cópia dessa requisição é enviada para o novo `reliable-cep-api`. No final da semana, Amélia analisa os dados comparativos e comenta na sala da equipe: "Os resultados são animadores. O novo serviço não apenas acertou 100% dos endereços que o antigo errou, como fez isso 200ms mais rápido." Um sorriso discreto de alívio surge no rosto de Casimiro.
-    *   **Desvio de Tráfego (Roteamento):** Com a confiança alta, eles mudam a configuração do proxy. Agora, 20% do tráfego de produção é enviado **apenas** para o novo serviço, e seu resultado é o que o usuário recebe. O `legacy-cep-api` já começa a receber menos carga. O desvio é ampliado progressivamente: 50%, 80%, até que 100% do tráfego esteja sendo atendido pelo `reliable-cep-api`. A cada aumento, a equipe monitora os dashboards com uma tranquilidade que não sentiam há meses.
-
-3.  **O Isolamento Completo (Fase Final):** Após algumas semanas com 100% do tráfego sendo atendido pelo novo serviço sem incidentes, o `legacy-cep-api` está efetivamente isolado. Ele não recebe mais nenhuma chamada, tornando-se um componente inofensivo, pronto para ser desativado.
-
-### Passo 4: A Cerimônia de Desativação — Aposentando o Legado
-
-Após duas semanas com 100% do tráfego no novo serviço sem nenhum incidente, o painel de monitoramento do `legacy-cep-api` mostra uma linha reta e silenciosa. Chegou a hora do ato final.
-
-Bartolomeu, o Tech Lead, convoca a equipe para a "cerimônia de desativação". Com o time reunido ao redor de sua mesa, ele projeta o terminal no telão, posiciona o cursor sobre o comando para deletar os recursos da nuvem e faz uma pausa. "Hoje", ele diz, "não estamos apenas deletando código. Estamos aposentando a incerteza, o estresse e os plantões não planejados. Estamos recuperando nosso tempo para focar em inovar, não em apagar incêndios."
-
-Ele pressiona Enter. A equipe observa em silêncio enquanto os recursos são desprovisionados. Em seguida, o repositório é arquivado. É um momento de celebração contida. Eles não apenas resolveram um problema técnico, mas transformaram uma fonte de estresse em um sistema confiável e motivo de orgulho. O medo deu lugar ao controle. O ritual está completo.
-
 ### Passo 1: Monitoramento — Encarando o Fantasma de Frente
 
 Antes de qualquer mudança, a equipe precisa entender a real dimensão do problema. O medo e as anedotas não são suficientes; eles precisam de dados. A primeira ação é **habilitar monitoramento e observabilidade** no serviço.
@@ -69,19 +41,21 @@ A equipe não vai fazer uma substituição abrupta ("big bang"). Eles usarão o 
 
 O plano de migração é dividido em fases claras:
 
-1.  **Construir o Novo Serviço e o Proxy:** Primeiro, eles desenvolvem o `reliable-cep-api` seguindo as melhores práticas: arquitetura limpa, cobertura total de testes e documentação clara. Em paralelo, colocam um **Proxy** na frente do `cep-api`. Inicialmente, este proxy é configurado para ser invisível, apenas repassando 100% das requisições para o serviço antigo. Para a aplicação cliente, nada mudou, mas a equipe agora tem um ponto central para controlar o tráfego.
+1.  **Construir o Novo Serviço e o Proxy:** Primeiro, eles desenvolvem o `reliable-cep-api` seguindo as melhores práticas: arquitetura limpa, cobertura total de testes e documentação clara. Em paralelo, colocam um **Proxy** na frente do `legacy-cep-api`. Inicialmente, este proxy é configurado para ser invisível, apenas repassando 100% das requisições para o serviço antigo. Para a aplicação cliente, nada mudou, mas a equipe agora tem um ponto central para controlar o tráfego.
 
-2.  **Estrangular Gradualmente o Fantasma (Fase de Transição):** Com o proxy no lugar, eles iniciam o processo de migração controlada, que pode ser imaginado em etapas:
+2.  **Estrangular Gradualmente o Legado (Fase de Transição):** Com o proxy no lugar, eles iniciam o processo de migração controlada, que pode ser imaginado em etapas:
     *   **Modo Sombra (Shadowing):** Na primeira semana, eles ativam o modo sombra. Uma pequena porcentagem do tráfego (ex: 10%) é enviada para o serviço antigo, e o resultado é retornado ao usuário. Ao mesmo tempo, uma cópia dessa requisição é enviada para o novo `reliable-cep-api`. A equipe compara os resultados e a performance em segundo plano, sem impactar o usuário. Os dados confirmam que o novo serviço é mais rápido e preciso.
-    *   **Desvio de Tráfego (Roteamento):** Com a confiança alta, eles mudam a configuração do proxy. Agora, 20% do tráfego de produção é enviado **apenas** para o novo serviço, e seu resultado é o que o usuário recebe. O `cep-api` já começa a receber menos carga. O desvio é ampliado progressivamente: 50%, 80%, até que 100% do tráfego esteja sendo atendido pelo `reliable-cep-api`.
+    *   **Desvio de Tráfego (Roteamento):** Com a confiança alta, eles mudam a configuração do proxy. Agora, 20% do tráfego de produção é enviado **apenas** para o novo serviço, e seu resultado é o que o usuário recebe. O `legacy-cep-api` já começa a receber menos carga. O desvio é ampliado progressivamente: 50%, 80%, até que 100% do tráfego esteja sendo atendido pelo `reliable-cep-api`.
 
-3.  **O Exorcismo Completo (Fase Final):** Após algumas semanas com 100% do tráfego sendo atendido pelo novo serviço sem incidentes, o `cep-api` está efetivamente isolado. Ele não recebe mais nenhuma chamada, tornando-se um "fantasma" inofensivo, pronto para ser desativado.
+3.  **O Isolamento Completo (Fase Final):** Após algumas semanas com 100% do tráfego sendo atendido pelo novo serviço sem incidentes, o `legacy-cep-api` está efetivamente isolado. Ele não recebe mais nenhuma chamada, tornando-se um componente inofensivo, pronto para ser desativado.
 
-### Passo 4: A Cerimônia de Desativação — Aposentando o Fantasma
+### Passo 4: A Cerimônia de Desativação — Aposentando o Legado
 
-Após duas semanas com 100% do tráfego no novo serviço sem nenhum incidente, o painel de monitoramento do `cep-api` mostra uma linha reta e silenciosa. Ele não recebe mais nenhuma chamada. Chegou a hora do exorcismo final.
+Após duas semanas com 100% do tráfego no novo serviço sem nenhum incidente, o painel de monitoramento do `legacy-cep-api` mostra uma linha reta e silenciosa. Chegou a hora do ato final.
 
-Bartolomeu, o Tech Lead, convoca a equipe para a "cerimônia de desativação". Eles deletam o código-fonte do repositório, removem os recursos da nuvem e, por fim, apagam o antigo painel de monitoramento. É um momento de celebração. Eles não apenas resolveram um problema técnico, mas transformaram uma fonte de estresse e incerteza em um sistema confiável e motivo de orgulho. O medo deu lugar ao controle. O ritual está completo.
+Bartolomeu, o Tech Lead, convoca a equipe para a "cerimônia de desativação". Com o time reunido ao redor de sua mesa, ele projeta o terminal no telão, posiciona o cursor sobre o comando para deletar os recursos da nuvem e faz uma pausa. "Hoje", ele diz, "não estamos apenas deletando código. Estamos aposentando a incerteza, o estresse e os plantões não planejados. Estamos recuperando nosso tempo para focar em inovar, não em apagar incêndios."
+
+Ele pressiona Enter. A equipe observa em silêncio enquanto os recursos são desprovisionados. Em seguida, o repositório é arquivado. É um momento de celebração contida. Eles não apenas resolveram um problema técnico, mas transformaram uma fonte de estresse em um sistema confiável e motivo de orgulho. O medo deu lugar ao controle. O ritual está completo.
 
 ### Conclusão: De um Fantasma a um Monolito
 

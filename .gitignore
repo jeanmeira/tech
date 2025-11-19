@@ -1,5 +1,10 @@
-# Build output
-dist/
+# Build output (except encrypted library data)
+dist/*
+!dist/library/
+dist/library/*
+!dist/library/books-data.enc
+!dist/library/index.html
+
 build/
 
 # Node.js dependencies
@@ -48,6 +53,16 @@ coverage/
 
 # nyc test coverage
 .nyc_output
+
+# Library configuration (sensitive - passwords only)
+.library-config
+library-password.txt
+.temp-password
+dist/library/.temp-password
+
+# Test files with sensitive data
+test-*.js
+test-*.html
 
 # Dependency directories
 jspm_packages/

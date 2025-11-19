@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google Analytics - LGPD Compliant (only loads with consent) -->
+    <script>
+      // Analytics initialization function (called after consent)
+      window.initAnalytics = function() {
+        // Check if analytics is already loaded
+        if (window.gtag) return;
+        
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-VFL88MPT0T';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VFL88MPT0T', {
+            'anonymize_ip': true,
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false
+          });
+          
+          console.log('📊 Google Analytics carregado com consentimento LGPD');
+        };
+      };
+      
+      // Analytics will be initialized by cookie consent script
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Coleção curada de livros técnicos sobre arquitetura de software, microserviços, APIs e desenvolvimento">
+    <title>Biblioteca Técnica - Jean Meira - TECH</title>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="&#x2F;tech/favicon.ico">
+    <link rel="icon" type="image/png" href="&#x2F;tech/assets/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="&#x2F;tech/assets/favicon/favicon.png">
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;library&#x2F;">
+    <meta property="og:title" content="Biblioteca Técnica - Jean Meira - TECH">
+    <meta property="og:description" content="Coleção curada de livros técnicos sobre arquitetura de software, microserviços, APIs e desenvolvimento">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;library&#x2F;">
+    
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Biblioteca Técnica - Jean Meira - TECH">
+    <meta name="twitter:description" content="Coleção curada de livros técnicos sobre arquitetura de software, microserviços, APIs e desenvolvimento">
+    
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Biblioteca Técnica",
+        "author": {
+            "@type": "Person",
+            "name": "Jean Meira"
+        },
+        "description": "Coleção curada de livros técnicos essenciais",
+        "datePublished": "2025-11-19T20:33:29.686Z"
+    }
+    </script>
+    
+    <!-- Critical CSS Inline -->
+    <style>
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c59;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #6c757d;
+            --dark-gray: #343a40;
+            --border-color: #dee2e6;
+            --font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-base: 1rem;
+            --line-height-base: 1.6;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--light-gray);
+            --text-primary: var(--dark-gray);
+            --text-secondary: var(--medium-gray);
+            --border: var(--border-color);
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-green: #4a7c59;
+                --secondary-green: #5c8a6a;
+                --bg-primary: #1a1a1a;
+                --bg-secondary: #2d2d2d;
+                --text-primary: #e5e5e5;
+                --text-secondary: #b3b3b3;
+                --border: #404040;
+                --shadow: rgba(0, 0, 0, 0.3);
+                --light-gray: #2d2d2d;
+                --medium-gray: #b3b3b3;
+                --dark-gray: #e5e5e5;
+                --border-color: #404040;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-family); 
+            font-size: var(--font-size-base); 
+            line-height: var(--line-height-base); 
+            color: var(--text-primary); 
+            background-color: var(--bg-primary); 
+            transition: var(--transition); 
+        }
+        h1, h2, h3, h4, h5, h6 { 
+            font-weight: 600; 
+            line-height: 1.3; 
+            margin-bottom: var(--spacing-sm); 
+            color: var(--primary-green); 
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        .site-header { 
+            background-color: var(--bg-primary); 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .nav-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: var(--spacing-sm) var(--spacing-md); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .brand-link { 
+            font-weight: 700; 
+            font-size: 1.25rem; 
+            color: var(--primary-green); 
+            text-decoration: none; 
+        }
+        .main-content { 
+            min-height: 80vh; 
+            padding: var(--spacing-lg) 0; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 var(--spacing-md); 
+        }
+        /* Critical grid and card styles */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 400px));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            justify-content: center;
+        }
+        .card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--primary-green);
+        }
+        .card:active {
+            transform: translateY(-4px);
+        }
+        .card-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: contain;
+            background-color: var(--bg-secondary);
+        }
+        /* Fallback for browsers without aspect-ratio support */
+        @supports not (aspect-ratio: 1) {
+            .card-image {
+                width: 100%;
+                height: 250px;
+                object-fit: contain;
+            }
+        }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .card-image {
+                max-height: 200px;
+            }
+        }
+        .card-content {
+            padding: var(--spacing-md);
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-green);
+        }
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .hero {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-xl);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-lg);
+        }
+        /* Critical book header styles */
+        .book-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-lg);
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+        .book-cover {
+            width: 200px;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        .book-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        .book-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.8;
+        }
+        /* Critical responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .book-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .book-cover {
+                justify-self: center;
+            }
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+        }
+        /* Critical footer styles with accessibility compliance - High specificity */
+        .site-footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl) 0;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        .site-footer .footer-container p {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
+        }
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        .site-footer .footer-links a {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
+            font-size: 0.9rem;
+            text-decoration: none;
+            padding: var(--spacing-xs);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
+        }
+        .site-footer .footer-links a:hover {
+            color: var(--primary-green) !important;
+            background-color: var(--bg-primary);
+        }
+        .site-footer .footer-links a:focus {
+            outline: 2px solid var(--primary-green);
+            outline-offset: 2px;
+        }
+        /* Dark mode specific overrides for footer */
+        @media (prefers-color-scheme: dark) {
+            .site-footer .footer-container p {
+                color: #ffffff !important;  /* Branco puro para dark mode */
+            }
+            .site-footer .footer-links a {
+                color: #ffffff !important;  /* Branco puro para dark mode */
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--spacing-sm);
+            }
+        }
+    </style>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Defer main CSS -->
+    <link rel="preload" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.mi6gmegl.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.mi6gmegl.css"></noscript>
+    
+    <!-- Load CSS polyfill for older browsers -->
+    <script>
+      !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.href=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;d.href=s[s.length-1].href}var l=i.styleSheets;d.rel="stylesheet",d.media="only x",o(function(){d.media=r||"all"});var u=function(){if(d.addEventListener)d.removeEventListener("load",u);else if(d.attachEvent)d.detachEvent("onload",u);else return;d.media=r||"all"};return d.addEventListener?d.addEventListener("load",u):(d.attachEvent&&d.attachEvent("onload",u),setTimeout(u,3e3)),d.onloadcssdefined=function(e){for(var t,n=0;n<l.length;n++)l[n].href&&l[n].href===d.href&&(t=!0);t?e():setTimeout(function(){d.onloadcssdefined(e)})},d.onloadcssdefined(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="&#x2F;tech/" class="brand-link">Jean Meira - TECH</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Modal de senha -->
+<div class="password-modal" id="password-modal">
+    <div class="password-box">
+        <h2>🔐 Biblioteca Técnica</h2>
+        <p>Digite a senha para acessar o conteúdo</p>
+        <input type="password" id="password-input" placeholder="Senha" autofocus>
+        <button id="unlock-btn">Acessar</button>
+        <div class="error" id="password-error">Senha incorreta. Tente novamente.</div>
+    </div>
+</div>
+
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="&#x2F;tech/">Início</a> > 
+        <span>Biblioteca</span>
+    </nav>
+
+    <header class="page-header">
+        <h1>📚 Biblioteca Técnica</h1>
+        <p>Coleção curada de 39 livros técnicos essenciais</p>
+    </header>
+
+    <!-- Filters -->
+    <div class="library-filters">
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label for="search">🔍 Buscar</label>
+                <input type="text" id="search" placeholder="Título, autor...">
+            </div>
+
+            <div class="filter-group">
+                <label for="category">📂 Categoria</label>
+                <select id="category">
+                    <option value="">Todas</option>
+                    <option value="APIs">APIs</option>
+                    <option value="Arquitetura">Arquitetura</option>
+                    <option value="Cloud">Cloud</option>
+                    <option value="Comunicação">Comunicação</option>
+                    <option value="Data Engineering">Data Engineering</option>
+                    <option value="Design">Design</option>
+                    <option value="Domain-Driven Design">Domain-Driven Design</option>
+                    <option value="Enterprise Architecture">Enterprise Architecture</option>
+                    <option value="Microservices">Microservices</option>
+                    <option value="Performance">Performance</option>
+                    <option value="Requirements">Requirements</option>
+                    <option value="Security">Security</option>
+                    <option value="Sistemas Distribuídos">Sistemas Distribuídos</option>
+                    <option value="Systems Thinking">Systems Thinking</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="format">📄 Formato</label>
+                <select id="format">
+                    <option value="">Todos</option>
+                    <option value="pdf">PDF</option>
+                    <option value="epub">EPUB</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats">
+            <span id="visible-count">39</span> de <span id="total-count">39</span> livros
+        </div>
+    </div>
+
+    <!-- Books Grid -->
+    <div class="books-grid" id="books-grid">
+        <!-- Books will be loaded here via JavaScript -->
+    </div>
+</div>
+
+<!-- Library-specific styles -->
+<style>
+    /* Modal de senha */
+    .password-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    }
+
+    .password-modal.hidden {
+        display: none;
+    }
+
+    .password-box {
+        background: var(--bg-primary, white);
+        padding: 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        max-width: 400px;
+        width: 90%;
+    }
+
+    .password-box h2 {
+        color: var(--primary-green, #2d5a27);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .password-box p {
+        color: var(--text-secondary, #6c757d);
+        margin-bottom: 1.5rem;
+    }
+
+    .password-box input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--border-color, #dee2e6);
+        border-radius: 4px;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        background: var(--bg-primary, white);
+        color: var(--text-primary, #1a1a1a);
+    }
+
+    .password-box input:focus {
+        outline: none;
+        border-color: var(--primary-green, #2d5a27);
+    }
+
+    .password-box button {
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--primary-green, #2d5a27);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .password-box button:hover {
+        background: var(--primary-green-dark, #1e3d1a);
+    }
+
+    .password-box button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .password-box .error {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: none;
+    }
+
+    .password-box .error.show {
+        display: block;
+    }
+
+    /* Library Filters */
+    .library-filters {
+        background-color: var(--bg-secondary, #f8f9fa);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color, #dee2e6);
+    }
+
+    .filters-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .filter-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary, #1a1a1a);
+        font-size: 0.9rem;
+    }
+
+    .filter-group select,
+    .filter-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 4px;
+        font-size: 0.95rem;
+        background-color: var(--bg-primary, white);
+        color: var(--text-primary, #1a1a1a);
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+        outline: none;
+        border-color: var(--primary-green, #2d5a27);
+    }
+
+    .stats {
+        text-align: center;
+        color: var(--text-secondary, #6c757d);
+        font-size: 0.95rem;
+    }
+
+    /* Books Grid */
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 2rem 0;
+    }
+
+    .book-card {
+        background: var(--bg-primary, white);
+        border: 1px solid var(--border-color, #dee2e6);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .book-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .book-cover {
+        width: 100%;
+        height: 300px;
+        background-color: var(--bg-secondary, #f8f9fa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .book-cover img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .book-info {
+        padding: 1rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .book-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary, #1a1a1a);
+        line-height: 1.3;
+    }
+
+    .book-author {
+        font-size: 0.9rem;
+        color: var(--text-secondary, #6c757d);
+        margin-bottom: 0.5rem;
+    }
+
+    .book-meta {
+        font-size: 0.85rem;
+        color: var(--text-secondary, #6c757d);
+        margin-bottom: 0.75rem;
+    }
+
+    .book-category {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background-color: var(--bg-secondary, #f8f9fa);
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--primary-green, #2d5a27);
+        margin-bottom: 0.75rem;
+    }
+
+    .book-formats {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: auto;
+    }
+
+    .format-link {
+        flex: 1;
+        padding: 0.5rem;
+        background-color: var(--primary-green, #2d5a27);
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+
+    .format-link:hover {
+        background-color: var(--primary-green-dark, #1e3d1a);
+    }
+
+    .book-card.hidden {
+        display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .filters-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .books-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+    }
+</style>
+
+<!-- CryptoJS for decryption -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script>
+    // Global variables
+    let allBooks = [];
+    const searchInput = document.getElementById('search');
+    const categorySelect = document.getElementById('category');
+    const formatSelect = document.getElementById('format');
+    const booksGrid = document.getElementById('books-grid');
+    const visibleCount = document.getElementById('visible-count');
+    const modal = document.getElementById('password-modal');
+    const passwordInput = document.getElementById('password-input');
+    const unlockBtn = document.getElementById('unlock-btn');
+    const errorMsg = document.getElementById('password-error');
+
+    function decryptData(encryptedData, password) {
+        try {
+            const decrypted = CryptoJS.AES.decrypt(encryptedData, password);
+            const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+            
+            if (!decryptedText) {
+                return null;
+            }
+            
+            return JSON.parse(decryptedText);
+        } catch (error) {
+            console.error('Decryption error:', error);
+            return null;
+        }
+    }
+
+    // Load and decrypt books
+    async function loadBooks(password) {
+        try {
+            const response = await fetch('books-data.enc');
+            const encryptedData = await response.text();
+            
+            const data = decryptData(encryptedData, password);
+            
+            if (!data) {
+                return false;
+            }
+            
+            allBooks = data.books;
+            renderBooks(allBooks);
+            modal.classList.add('hidden');
+            return true;
+        } catch (error) {
+            console.error('Error loading books:', error);
+            return false;
+        }
+    }
+
+    // Render books
+    function renderBooks(books) {
+        booksGrid.innerHTML = books.map(book => `
+            <article class="book-card" data-category="${book.category}" data-formats="${Object.keys(book.formats || {}).join(' ')}" data-search="${book.title} ${book.author} ${book.category}">
+                <div class="book-cover">
+                    <img src="${book.cover}" alt="Capa do livro ${book.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22280%22%3E%3Crect fill=%22%23f8f9fa%22 width=%22200%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-family=%22Arial%22 font-size=%2216%22 fill=%22%236c757d%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E📖%3C/text%3E%3C/svg%3E'">
+                </div>
+                <div class="book-info">
+                    <h2 class="book-title">${book.title}</h2>
+                    <div class="book-author">${book.author}</div>
+                    <div class="book-meta">${book.publisher} • ${book.year}</div>
+                    <div class="book-category">${book.category}</div>
+                    <div class="book-formats">
+                        ${book.formats.epub ? `<a href="${book.formats.epub}" class="format-link" target="_blank">📕 EPUB</a>` : ''}
+                        ${book.formats.pdf ? `<a href="${book.formats.pdf}" class="format-link" target="_blank">📄 PDF</a>` : ''}
+                    </div>
+                </div>
+            </article>
+        `).join('');
+        
+        visibleCount.textContent = books.length;
+    }
+
+    // Filter books
+    function filterBooks() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedCategory = categorySelect.value;
+        const selectedFormat = formatSelect.value;
+        
+        const bookCards = Array.from(document.querySelectorAll('.book-card'));
+        let visibleBooks = 0;
+        
+        bookCards.forEach(card => {
+            const searchText = card.dataset.search.toLowerCase();
+            const category = card.dataset.category;
+            const formats = card.dataset.formats;
+            
+            const matchesSearch = searchText.includes(searchTerm);
+            const matchesCategory = !selectedCategory || category === selectedCategory;
+            const matchesFormat = !selectedFormat || formats.includes(selectedFormat);
+            
+            if (matchesSearch && matchesCategory && matchesFormat) {
+                card.classList.remove('hidden');
+                visibleBooks++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        
+        visibleCount.textContent = visibleBooks;
+        booksGrid.style.display = visibleBooks === 0 ? 'none' : 'grid';
+    }
+
+    // Event listeners
+    unlockBtn.addEventListener('click', async () => {
+        const password = passwordInput.value;
+        if (!password) return;
+        
+        unlockBtn.disabled = true;
+        unlockBtn.textContent = 'Verificando...';
+        
+        const success = await loadBooks(password);
+        
+        if (success) {
+            errorMsg.classList.remove('show');
+        } else {
+            errorMsg.classList.add('show');
+            unlockBtn.disabled = false;
+            unlockBtn.textContent = 'Acessar';
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+    });
+
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            unlockBtn.click();
+        }
+    });
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(window.searchTimeout);
+        window.searchTimeout = setTimeout(filterBooks, 300);
+    });
+    
+    categorySelect.addEventListener('change', filterBooks);
+    formatSelect.addEventListener('change', filterBooks);
+
+    // Focus password input
+    passwordInput.focus();
+</script>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Jean Meira. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/jeanmeira" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/jean-meira" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="&#x2F;tech/library/" style="opacity: 0.5;">📚</a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;main.mi6gmegl.js"></script>
+    
+    <!-- Cookie Consent Banner - LGPD Compliance -->
+    <script defer src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;cookie-consent.mi6gmegl.js"></script>
+    
+    <!-- Load non-critical JavaScript after main content -->
+    <script>
+        // Load non-critical JS after page load to reduce main thread work
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = '/tech/assets/js/non-critical.mi6gmegl.js';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>

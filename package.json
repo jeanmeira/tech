@@ -1,10 +1,19 @@
 {
+  "name": "tech-content-platform",
+  "version": "1.0.0",
+  "description": "Plataforma de conteúdo técnico com geração de livros e site estático",
+  "scripts": {
+    "encrypt-library": "node scripts/encrypt-library.js",
+    "encrypt-books-data": "node scripts/encrypt-library-data.js"
+  },
   "dependencies": {
     "archiver": "^5.3.1",
     "pdfkit": "^0.17.1"
   },
   "devDependencies": {
+    "crypto-js": "^4.2.0",
     "fs-extra": "^11.3.1",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "staticrypt": "^3.4.0"
   }
 }

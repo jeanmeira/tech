@@ -19,6 +19,177 @@ Uma plataforma completa para publicação de conteúdo técnico com geração au
 
 ---
 
+## 🔐 Biblioteca Técnica Protegida
+
+### Visão Geral
+
+A plataforma inclui uma **biblioteca técnica privada** com livros de referência, acessível através de senha. Esta área utiliza **StaticCrypt** para proteção client-side, mantendo a simplicidade de hospedagem estática.
+
+### Características
+
+- 🔒 **Proteção por senha** com criptografia client-side (AES-256)
+- 📚 **Catálogo completo** com metadados estruturados (autor, categoria, ano, publisher)
+- 🎨 **Interface consistente** com o resto do site (cards + filtros)
+- 🔍 **Sistema de filtros** local por categoria, formato (PDF/EPUB) e busca por texto
+- 🖼️ **Capas externas** via URLs (sem aumentar o tamanho do repositório)
+- 🚫 **Não versionado** no Git (arquivos de origem ficam locais)
+
+### Estrutura de Arquivos
+
+```
+content/
+└── library/                  # NÃO VERSIONADO no Git
+    └── books-meta.yml        # Metadados dos livros (local only)
+
+src/
+└── templates/
+    └── library.html          # Template da página (versionado)
+
+scripts/
+└── encrypt-library.js        # Script de criptografia local
+
+dist/
+└── library/
+    └── index.html           # Página criptografada (deploy)
+```
+
+### Workflow de Atualização
+
+#### 1. Editar Metadados (Local)
+
+Edite `content/library/books-meta.yml`:
+
+```yaml
+books:
+  - title: "Software Architecture: The Hard Parts"
+    slug: "softwarearchitecture_thehardparts"
+    author: "Neal Ford, Mark Richards, et al."
+    category: "Arquitetura"
+    year: "2021"
+    publisher: "O'Reilly"
+    cover: "https://learning.oreilly.com/library/cover/9781492086888/"
+    formats:
+      epub: "https://jmr-books-repo.s3.us-east-2.amazonaws.com/softwarearchitecture_thehardparts.epub"
+      pdf: "https://jmr-books-repo.s3.us-east-2.amazonaws.com/softwarearchitecture_thehardparts.pdf"
+```
+
+#### 2. Build Normal
+
+```bash
+cd build
+npm run build
+```
+
+Isso gera `dist/library/index.html` **SEM criptografia** (temporário).
+
+#### 3. Criptografar Localmente
+
+```bash
+npm run encrypt-library
+```
+
+O script solicitará a senha interativamente (modo oculto):
+
+```
+🔐 Iniciando criptografia da biblioteca...
+📄 Arquivo original: dist/library/index.html
+
+🔑 Digite a senha para criptografar: ************
+🔑 Confirme a senha: ************
+✓ Senha confirmada
+
+💾 Backup criado: index.html.backup
+🔒 Criptografando com StaticCrypt...
+✅ Biblioteca criptografada com sucesso!
+```
+
+**Importante:** A senha NÃO é armazenada no código - é solicitada toda vez que você executa o script.
+
+#### 4. Testar Localmente
+
+```bash
+cd dist
+python3 -m http.server 8000
+```
+
+Acesse: `http://localhost:8000/library/`
+
+#### 5. Deploy Manual
+
+```bash
+# Commit apenas o dist/ criptografado
+git add dist/library/index.html
+git commit -m "Update library (encrypted)"
+git push
+```
+
+### Configuração de Senha
+
+A senha **NÃO é armazenada** no repositório por segurança. Ela é solicitada interativamente toda vez que você executa o script de criptografia.
+
+**Recomendação de senha forte:**
+- Mínimo 12 caracteres
+- Mistura de maiúsculas, minúsculas, números e símbolos
+- Armazenar em gerenciador de senhas (1Password, Bitwarden, etc.)
+- Compartilhar apenas com usuários autorizados via canal seguro
+
+### Segurança
+
+⚠️ **IMPORTANTE:** Configuração sensível não versionada no Git
+
+- **Criptografia AES-256** client-side via CryptoJS
+- **Senha armazenada localmente** em `.library-config` (NÃO versionado)
+- **Sem senha no código** - Scripts leem de arquivo de configuração
+- **Arquivos originais** não versionados (proteção adicional)
+- **Dados criptografados** podem ser versionados (já protegidos)
+
+**Configuração inicial:**
+```bash
+# 1. Copiar template
+cp .library-config.example .library-config
+
+# 2. Editar com senha real
+nano .library-config
+
+# 3. Verificar que não está no Git
+git status | grep library-config  # Não deve aparecer
+```
+
+**Arquivos nunca versionados:**
+- `.library-config` - Senha de criptografia
+- `content/library/` - Metadados dos livros
+- `test-*.js`, `test-*.html` - Scripts de teste
+
+📖 **Documentação completa:** Ver [SECURITY.md](SECURITY.md)
+
+### Limitações
+
+- ⚠️ **Proteção client-side**: Usuários avançados com a senha podem descriptografar
+- ⚠️ **Sem rate limiting**: Use CloudFront + WAF para produção se necessário
+- ⚠️ **Senha única**: Todos acessam com a mesma senha (sem autenticação individual)
+
+### Manutenção
+
+**Adicionar novo livro:**
+1. Adicionar entrada em `content/library/books-meta.yml`
+2. Build → Encrypt → Deploy
+
+**Remover livro:**
+1. Remover entrada do YAML
+2. Build → Encrypt → Deploy
+
+**Atualizar metadados:**
+1. Editar `books-meta.yml`
+2. Build → Encrypt → Deploy
+
+### Acesso
+
+- **URL:** `/library/`
+- **Link:** Ícone discreto 📚 no footer (opacidade reduzida)
+- **Senha:** Armazenar em gerenciador de senhas e compartilhar com usuários autorizados
+
+---
+
 ## 🏗️ Arquitetura do Projeto
 
 ### Visão Geral

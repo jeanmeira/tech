@@ -1,0 +1,11 @@
+# Configuração da Biblioteca - Template
+# 
+# ATENÇÃO: Este é apenas um template de exemplo!
+# 
+# Para usar:
+# 1. Copie este arquivo: cp .library-config.example .library-config
+# 2. Edite .library-config com sua senha real
+# 3. NUNCA faça commit do arquivo .library-config (já está no .gitignore)
+
+# Senha para criptografar/descriptografar a biblioteca
+LIBRARY_PASSWORD=sua-senha-aqui

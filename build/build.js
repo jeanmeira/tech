@@ -55,6 +55,7 @@ class SiteBuilder {
             await this.generateBooksPages(books);
             await this.generateArticlesPages(articles);
             await this.generateCookiePolicyPage();
+            await this.generateLibraryPage();
             
             // Generate additional files
             await this.generateSitemap(books, articles);
@@ -1029,6 +1030,82 @@ Sitemap: ${this.fullBaseUrl}/sitemap.xml`;
         await fs.writeFile(path.join(policyDir, 'index.html'), html);
         
         console.log('🍪 Generated cookie policy page');
+    }
+
+    async generateLibraryPage() {
+        const libraryDir = path.join(this.distDir, 'library');
+        await fs.ensureDir(libraryDir);
+        
+        // Check if library metadata exists (not versioned)
+        const libraryMetaPath = path.join(this.contentDir, 'library/books-meta.yml');
+        
+        if (!await fs.pathExists(libraryMetaPath)) {
+            console.log('📚 Library metadata not found, skipping library page generation');
+            return;
+        }
+        
+        try {
+            // Load library data
+            const libraryMetaContent = await fs.readFile(libraryMetaPath, 'utf8');
+            const libraryData = yaml.load(libraryMetaContent);
+            
+            // Extract unique categories for filters
+            const categoriesSet = new Set();
+            libraryData.books.forEach(book => {
+                if (book.category) {
+                    categoriesSet.add(book.category);
+                }
+            });
+            const categories = Array.from(categoriesSet).sort();
+            
+            // Save books data as JSON (will be encrypted separately)
+            const booksDataPath = path.join(libraryDir, 'books-data.json');
+            await fs.writeJson(booksDataPath, {
+                books: libraryData.books,
+                categories: categories,
+                totalBooks: libraryData.books.length
+            }, { spaces: 2 });
+            
+            // Load base template and library content
+            const baseTemplate = await this.loadTemplate('base.html');
+            const libraryContent = await this.loadTemplate('library-content.html');
+            
+            // Render library content first
+            const contentData = {
+                baseUrl: this.baseUrl,
+                categories: categories,
+                totalBooks: libraryData.books.length
+            };
+            const renderedContent = mustache.render(libraryContent, contentData);
+            
+            // Then render full page with base template
+            const pageData = {
+                meta_title: 'Biblioteca Técnica - Jean Meira - TECH',
+                meta_description: 'Coleção curada de livros técnicos sobre arquitetura de software, microserviços, APIs e desenvolvimento',
+                canonical_url: `${this.fullBaseUrl}/library/`,
+                og_type: 'website',
+                schema_type: 'WebPage',
+                title: 'Biblioteca Técnica',
+                description: 'Coleção curada de livros técnicos essenciais',
+                date: new Date().toISOString(),
+                css_path: this.getCssPath(),
+                js_path: this.getJsPath(),
+                non_critical_js_path: this.getNonCriticalJsPath(),
+                cookie_consent_js_path: this.getCookieConsentJsPath(),
+                baseUrl: this.baseUrl,
+                content: renderedContent
+            };
+            
+            const html = mustache.render(baseTemplate, pageData);
+            await fs.writeFile(path.join(libraryDir, 'index.html'), html);
+            
+            console.log(`📚 Generated library page with ${libraryData.books.length} books`);
+            console.log('💾 Books data saved to books-data.json (unencrypted)');
+            console.log('⚠️  Remember to run "npm run encrypt-books-data" to protect the data');
+        } catch (error) {
+            console.error('❌ Error generating library page:', error);
+            throw error;
+        }
     }
 
     // Helper method to generate responsive image HTML

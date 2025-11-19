@@ -72,7 +72,27 @@ class SiteBuilder {
     }
 
     async cleanDist() {
+        const libraryBackup = path.join(this.distDir, 'library');
+        const libraryBackupTemp = path.join(this.rootDir, '.library-backup-temp');
+        
+        // Backup library folder if it exists (contains pre-encrypted data)
+        let hasLibraryBackup = false;
+        if (await fs.pathExists(libraryBackup)) {
+            await fs.copy(libraryBackup, libraryBackupTemp);
+            hasLibraryBackup = true;
+            console.log('📚 Backed up library folder');
+        }
+        
+        // Clean dist directory
         await fs.emptyDir(this.distDir);
+        
+        // Restore library folder if it was backed up
+        if (hasLibraryBackup) {
+            await fs.copy(libraryBackupTemp, libraryBackup);
+            await fs.remove(libraryBackupTemp);
+            console.log('📚 Restored library folder');
+        }
+        
         console.log('🧹 Cleaned dist directory');
     }
 

@@ -1,0 +1,80 @@
+# Biblioteca Técnica - Metadados (EXEMPLO)
+# Este é um arquivo de referência com dados fake
+# 
+# IMPORTANTE: 
+# - Copie este arquivo para books-meta.yml
+# - Substitua os dados de exemplo pelos livros reais
+# - O arquivo books-meta.yml NÃO será versionado (está no .gitignore)
+
+books:
+  - title: "Building Microservices"
+    slug: "building-microservices"
+    author: "Sam Newman"
+    category: "Microservices"
+    year: "2021"
+    publisher: "O'Reilly"
+    cover: "https://learning.oreilly.com/library/cover/9781492034018/"
+    formats:
+      epub: "https://example.com/books/building-microservices.epub"
+      pdf: "https://example.com/books/building-microservices.pdf"
+
+  - title: "Domain-Driven Design"
+    slug: "domain-driven-design"
+    author: "Eric Evans"
+    category: "Domain-Driven Design"
+    year: "2003"
+    publisher: "Addison-Wesley"
+    cover: "https://learning.oreilly.com/library/cover/9780321125217/"
+    formats:
+      pdf: "https://example.com/books/domain-driven-design.pdf"
+
+  - title: "Clean Architecture"
+    slug: "clean-architecture"
+    author: "Robert C. Martin"
+    category: "Arquitetura"
+    year: "2017"
+    publisher: "Prentice Hall"
+    cover: "https://learning.oreilly.com/library/cover/9780134494166/"
+    formats:
+      epub: "https://example.com/books/clean-architecture.epub"
+      pdf: "https://example.com/books/clean-architecture.pdf"
+
+  - title: "The Pragmatic Programmer"
+    slug: "pragmatic-programmer"
+    author: "David Thomas, Andrew Hunt"
+    category: "Desenvolvimento"
+    year: "2019"
+    publisher: "Addison-Wesley"
+    cover: "https://learning.oreilly.com/library/cover/9780135957059/"
+    formats:
+      pdf: "https://example.com/books/pragmatic-programmer.pdf"
+
+# Estrutura de cada livro:
+# 
+# - title: "Título do Livro"           (obrigatório)
+#   slug: "titulo-do-livro"            (obrigatório, usado na URL)
+#   author: "Nome do Autor"            (obrigatório)
+#   category: "Categoria"              (obrigatório)
+#   year: "2024"                       (obrigatório)
+#   publisher: "Editora"               (obrigatório)
+#   cover: "https://url-da-capa.jpg"   (obrigatório)
+#   formats:                           (obrigatório, pelo menos 1)
+#     pdf: "https://url-do-pdf.pdf"    (opcional)
+#     epub: "https://url-do-epub.epub" (opcional)
+#
+# Categorias disponíveis:
+# - Arquitetura
+# - Microservices
+# - Domain-Driven Design
+# - APIs
+# - Cloud
+# - Data Engineering
+# - Sistemas Distribuídos
+# - Design
+# - Security
+# - Performance
+# - Comunicação
+# - Enterprise Architecture
+# - Systems Thinking
+# - Requirements
+# - Desenvolvimento

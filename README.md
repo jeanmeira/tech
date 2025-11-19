@@ -23,170 +23,168 @@ Uma plataforma completa para publicação de conteúdo técnico com geração au
 
 ### Visão Geral
 
-A plataforma inclui uma **biblioteca técnica privada** com livros de referência, acessível através de senha. Esta área utiliza **StaticCrypt** para proteção client-side, mantendo a simplicidade de hospedagem estática.
+A plataforma inclui uma **biblioteca técnica privada** com livros de referência, acessível através de senha. Esta área utiliza **CryptoJS (AES-256)** para criptografia client-side dos metadados, mantendo a simplicidade de hospedagem estática.
 
 ### Características
 
-- 🔒 **Proteção por senha** com criptografia client-side (AES-256)
+- 🔒 **Proteção por senha** com criptografia AES-256 client-side
 - 📚 **Catálogo completo** com metadados estruturados (autor, categoria, ano, publisher)
-- 🎨 **Interface consistente** com o resto do site (cards + filtros)
+- 🎨 **Interface integrada** com tema dark mode do site
 - 🔍 **Sistema de filtros** local por categoria, formato (PDF/EPUB) e busca por texto
 - 🖼️ **Capas externas** via URLs (sem aumentar o tamanho do repositório)
-- 🚫 **Não versionado** no Git (arquivos de origem ficam locais)
+- ⚡ **Performance otimizada**: Apenas 21KB de dados criptografados (JSON)
+- 🚫 **Metadados não versionados** - apenas conteúdo criptografado é commitado
 
 ### Estrutura de Arquivos
 
 ```
 content/
-└── library/                  # NÃO VERSIONADO no Git
-    └── books-meta.yml        # Metadados dos livros (local only)
+└── library/
+    ├── README.md                    # Documentação completa
+    ├── books-meta.example.yml       # Template (versionado)
+    └── books-meta.yml              # Dados reais (NÃO versionado)
 
-src/
-└── templates/
-    └── library.html          # Template da página (versionado)
+src/templates/
+├── library-content.html             # Template da biblioteca
+└── library.html                     # Template alternativo
 
 scripts/
-└── encrypt-library.js        # Script de criptografia local
+└── encrypt-library-data.js          # Script de criptografia
 
-dist/
-└── library/
-    └── index.html           # Página criptografada (deploy)
+dist/library/
+├── index.html                       # Página pública (versionado)
+├── books-data.enc                   # Dados criptografados (versionado)
+└── books-data.json                  # Temporário (não versionado)
 ```
 
-### Workflow de Atualização
+### Quick Start
 
-#### 1. Editar Metadados (Local)
-
-Edite `content/library/books-meta.yml`:
-
-```yaml
-books:
-  - title: "Software Architecture: The Hard Parts"
-    slug: "softwarearchitecture_thehardparts"
-    author: "Neal Ford, Mark Richards, et al."
-    category: "Arquitetura"
-    year: "2021"
-    publisher: "O'Reilly"
-    cover: "https://learning.oreilly.com/library/cover/9781492086888/"
-    formats:
-      epub: "https://jmr-books-repo.s3.us-east-2.amazonaws.com/softwarearchitecture_thehardparts.epub"
-      pdf: "https://jmr-books-repo.s3.us-east-2.amazonaws.com/softwarearchitecture_thehardparts.pdf"
-```
-
-#### 2. Build Normal
+#### 1. Configuração Inicial
 
 ```bash
-cd build
-npm run build
+# Copiar exemplos
+cp content/library/books-meta.example.yml content/library/books-meta.yml
+cp .library-config.example .library-config
+
+# Editar com dados reais
+nano content/library/books-meta.yml
+nano .library-config  # Definir LIBRARY_PASSWORD
 ```
 
-Isso gera `dist/library/index.html` **SEM criptografia** (temporário).
-
-#### 3. Criptografar Localmente
+#### 2. Build e Criptografia
 
 ```bash
-npm run encrypt-library
+# Build completo (build + encrypt)
+./build-library.sh
+
+# OU manualmente:
+cd build && npm run build
+echo "sua-senha" | npm run encrypt-books-data
 ```
 
-O script solicitará a senha interativamente (modo oculto):
-
-```
-🔐 Iniciando criptografia da biblioteca...
-📄 Arquivo original: dist/library/index.html
-
-🔑 Digite a senha para criptografar: ************
-🔑 Confirme a senha: ************
-✓ Senha confirmada
-
-💾 Backup criado: index.html.backup
-🔒 Criptografando com StaticCrypt...
-✅ Biblioteca criptografada com sucesso!
-```
-
-**Importante:** A senha NÃO é armazenada no código - é solicitada toda vez que você executa o script.
-
-#### 4. Testar Localmente
+#### 3. Testar Localmente
 
 ```bash
 cd dist
 python3 -m http.server 8000
+# Acesse: http://localhost:8000/library/
 ```
 
-Acesse: `http://localhost:8000/library/`
-
-#### 5. Deploy Manual
+#### 4. Deploy
 
 ```bash
-# Commit apenas o dist/ criptografado
-git add dist/library/index.html
-git commit -m "Update library (encrypted)"
+# Commitar apenas arquivos criptografados
+git add dist/library/books-data.enc dist/library/index.html
+git commit -m "docs: atualiza biblioteca"
 git push
 ```
 
-### Configuração de Senha
+### Estrutura de Metadados
 
-A senha **NÃO é armazenada** no repositório por segurança. Ela é solicitada interativamente toda vez que você executa o script de criptografia.
+Cada livro em `books-meta.yml`:
 
-**Recomendação de senha forte:**
-- Mínimo 12 caracteres
-- Mistura de maiúsculas, minúsculas, números e símbolos
-- Armazenar em gerenciador de senhas (1Password, Bitwarden, etc.)
-- Compartilhar apenas com usuários autorizados via canal seguro
+```yaml
+books:
+  - title: "Building Microservices, 2nd Edition"
+    slug: "buildingmicroservices2e"
+    author: "Sam Newman"
+    category: "Microservices"
+    year: "2021"
+    publisher: "O'Reilly"
+    cover: "https://learning.oreilly.com/library/cover/9781492034018/"
+    formats:
+      epub: "https://s3.amazonaws.com/path/to/book.epub"
+      pdf: "https://s3.amazonaws.com/path/to/book.pdf"
+```
+
+### Workflow de Criptografia
+
+```
+books-meta.yml (privado)
+    ↓
+[npm run build]
+    ↓
+books-data.json (temp)
+    ↓
+[npm run encrypt-books-data]
+    ↓
+books-data.enc (21KB) ✅ COMMITADO
+```
 
 ### Segurança
 
-⚠️ **IMPORTANTE:** Configuração sensível não versionada no Git
+✅ **Versionado no Git:**
+- `dist/library/books-data.enc` - Dados criptografados (21KB)
+- `dist/library/index.html` - Página da biblioteca
+- `content/library/books-meta.example.yml` - Template com dados fake
 
-- **Criptografia AES-256** client-side via CryptoJS
-- **Senha armazenada localmente** em `.library-config` (NÃO versionado)
-- **Sem senha no código** - Scripts leem de arquivo de configuração
-- **Arquivos originais** não versionados (proteção adicional)
-- **Dados criptografados** podem ser versionados (já protegidos)
-
-**Configuração inicial:**
-```bash
-# 1. Copiar template
-cp .library-config.example .library-config
-
-# 2. Editar com senha real
-nano .library-config
-
-# 3. Verificar que não está no Git
-git status | grep library-config  # Não deve aparecer
-```
-
-**Arquivos nunca versionados:**
+❌ **NÃO versionado (`.gitignore`):**
+- `content/library/books-meta.yml` - Metadados reais
 - `.library-config` - Senha de criptografia
-- `content/library/` - Metadados dos livros
+- `dist/library/books-data.json` - JSON não criptografado
 - `test-*.js`, `test-*.html` - Scripts de teste
-
-📖 **Documentação completa:** Ver [SECURITY.md](SECURITY.md)
-
-### Limitações
-
-- ⚠️ **Proteção client-side**: Usuários avançados com a senha podem descriptografar
-- ⚠️ **Sem rate limiting**: Use CloudFront + WAF para produção se necessário
-- ⚠️ **Senha única**: Todos acessam com a mesma senha (sem autenticação individual)
 
 ### Manutenção
 
 **Adicionar novo livro:**
-1. Adicionar entrada em `content/library/books-meta.yml`
-2. Build → Encrypt → Deploy
+```bash
+# 1. Editar metadados
+nano content/library/books-meta.yml
 
-**Remover livro:**
-1. Remover entrada do YAML
-2. Build → Encrypt → Deploy
+# 2. Build + encrypt + commit
+./build-library.sh
+git add dist/library/books-data.enc dist/library/index.html
+git commit -m "docs: adiciona novo livro"
+git push
+```
 
-**Atualizar metadados:**
-1. Editar `books-meta.yml`
-2. Build → Encrypt → Deploy
+**Trocar senha:**
+```bash
+# 1. Atualizar .library-config
+nano .library-config
+
+# 2. Re-criptografar
+echo "nova-senha" | npm run encrypt-books-data
+
+# 3. Commitar novo .enc
+git add dist/library/books-data.enc
+git commit -m "security: atualiza senha da biblioteca"
+git push
+```
+
+### Limitações
+
+- ⚠️ **Proteção client-side**: Não substitui autenticação server-side
+- ⚠️ **Senha única**: Todos acessam com a mesma senha
+- ⚠️ **Sem rate limiting**: Considere CloudFront + WAF para produção
+- ✅ **GitHub Actions simplificado**: Usa `.enc` já commitado (sem re-criptografia)
 
 ### Acesso
 
 - **URL:** `/library/`
-- **Link:** Ícone discreto 📚 no footer (opacidade reduzida)
-- **Senha:** Armazenar em gerenciador de senhas e compartilhar com usuários autorizados
+- **Senha:** Definida em `.library-config` (nunca commitada)
+
+📖 **Documentação completa:** [content/library/README.md](content/library/README.md)
 
 ---
 

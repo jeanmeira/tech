@@ -13,6 +13,7 @@ books:
     category: "Microservices"
     year: "2021"
     publisher: "O'Reilly"
+    description: "The definitive guide to microservices architecture. Covers service decomposition strategies, inter-service communication, deployment patterns, monitoring, security, and organizational considerations for distributed systems."
     cover: "https://learning.oreilly.com/library/cover/9781492034018/"
     formats:
       epub: "https://example.com/books/building-microservices.epub"
@@ -24,6 +25,7 @@ books:
     category: "Domain-Driven Design"
     year: "2003"
     publisher: "Addison-Wesley"
+    description: "The classic book that introduced Domain-Driven Design. Learn strategic and tactical patterns for modeling complex business domains, establishing ubiquitous language, and building software that reflects business reality."
     cover: "https://learning.oreilly.com/library/cover/9780321125217/"
     formats:
       pdf: "https://example.com/books/domain-driven-design.pdf"
@@ -34,6 +36,7 @@ books:
     category: "Arquitetura"
     year: "2017"
     publisher: "Prentice Hall"
+    description: "Learn principles of software architecture from Uncle Bob. Covers SOLID principles, component design, boundaries, and creating maintainable, testable systems independent of frameworks, UI, and databases."
     cover: "https://learning.oreilly.com/library/cover/9780134494166/"
     formats:
       epub: "https://example.com/books/clean-architecture.epub"
@@ -45,6 +48,7 @@ books:
     category: "Desenvolvimento"
     year: "2019"
     publisher: "Addison-Wesley"
+    description: "Timeless wisdom for software craftsmanship. Learn practical approaches to software development, from code organization to career development. Updated edition covers modern practices like version control, testing, and automation."
     cover: "https://learning.oreilly.com/library/cover/9780135957059/"
     formats:
       pdf: "https://example.com/books/pragmatic-programmer.pdf"
@@ -57,6 +61,7 @@ books:
 #   category: "Categoria"              (obrigatório)
 #   year: "2024"                       (obrigatório)
 #   publisher: "Editora"               (obrigatório)
+#   description: "Breve descrição..."  (obrigatório, ~150-250 caracteres)
 #   cover: "https://url-da-capa.jpg"   (obrigatório)
 #   formats:                           (obrigatório, pelo menos 1)
 #     pdf: "https://url-do-pdf.pdf"    (opcional)

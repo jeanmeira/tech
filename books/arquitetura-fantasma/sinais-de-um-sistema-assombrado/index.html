@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google Analytics - LGPD Compliant (only loads with consent) -->
+    <script>
+      // Analytics initialization function (called after consent)
+      window.initAnalytics = function() {
+        // Check if analytics is already loaded
+        if (window.gtag) return;
+        
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-VFL88MPT0T';
+        document.head.appendChild(script);
+        
+        script.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VFL88MPT0T', {
+            'anonymize_ip': true,
+            'allow_google_signals': false,
+            'allow_ad_personalization_signals': false
+          });
+          
+          console.log('📊 Google Analytics carregado com consentimento LGPD');
+        };
+      };
+      
+      // Analytics will be initialized by cookie consent script
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Identificando os sintomas de uma arquitetura fantasma">
+    <title>Sinais de um Sistema Assombrado - Arquitetura Fantasma</title>
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="&#x2F;tech/favicon.ico">
+    <link rel="icon" type="image/png" href="&#x2F;tech/assets/favicon/favicon.png">
+    <link rel="apple-touch-icon" href="&#x2F;tech/assets/favicon/favicon.png">
+    
+    <!-- SEO -->
+    <link rel="canonical" href="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;books&#x2F;arquitetura-fantasma&#x2F;sinais-de-um-sistema-assombrado&#x2F;">
+    <meta property="og:title" content="Sinais de um Sistema Assombrado - Arquitetura Fantasma">
+    <meta property="og:description" content="Identificando os sintomas de uma arquitetura fantasma">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https:&#x2F;&#x2F;jeanmeira.github.io&#x2F;tech&#x2F;books&#x2F;arquitetura-fantasma&#x2F;sinais-de-um-sistema-assombrado&#x2F;">
+    
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sinais de um Sistema Assombrado - Arquitetura Fantasma">
+    <meta name="twitter:description" content="Identificando os sintomas de uma arquitetura fantasma">
+    
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "name": "Sinais de um Sistema Assombrado",
+        "author": {
+            "@type": "Person",
+            "name": "Jean Meira"
+        },
+        "description": "Identificando os sintomas de uma arquitetura fantasma",
+        "datePublished": "2025-08-17"
+    }
+    </script>
+    
+    <!-- Critical CSS Inline -->
+    <style>
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c59;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #6c757d;
+            --dark-gray: #343a40;
+            --border-color: #dee2e6;
+            --font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-base: 1rem;
+            --line-height-base: 1.6;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --bg-primary: var(--white);
+            --bg-secondary: var(--light-gray);
+            --text-primary: var(--dark-gray);
+            --text-secondary: var(--medium-gray);
+            --border: var(--border-color);
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-green: #4a7c59;
+                --secondary-green: #5c8a6a;
+                --bg-primary: #1a1a1a;
+                --bg-secondary: #2d2d2d;
+                --text-primary: #e5e5e5;
+                --text-secondary: #b3b3b3;
+                --border: #404040;
+                --shadow: rgba(0, 0, 0, 0.3);
+                --light-gray: #2d2d2d;
+                --medium-gray: #b3b3b3;
+                --dark-gray: #e5e5e5;
+                --border-color: #404040;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { 
+            font-family: var(--font-family); 
+            font-size: var(--font-size-base); 
+            line-height: var(--line-height-base); 
+            color: var(--text-primary); 
+            background-color: var(--bg-primary); 
+            transition: var(--transition); 
+        }
+        h1, h2, h3, h4, h5, h6 { 
+            font-weight: 600; 
+            line-height: 1.3; 
+            margin-bottom: var(--spacing-sm); 
+            color: var(--primary-green); 
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        .site-header { 
+            background-color: var(--bg-primary); 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .nav-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: var(--spacing-sm) var(--spacing-md); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .brand-link { 
+            font-weight: 700; 
+            font-size: 1.25rem; 
+            color: var(--primary-green); 
+            text-decoration: none; 
+        }
+        .main-content { 
+            min-height: 80vh; 
+            padding: var(--spacing-lg) 0; 
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 var(--spacing-md); 
+        }
+        /* Critical grid and card styles */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 400px));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+            justify-content: center;
+        }
+        .card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transform: translateY(0);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--primary-green);
+        }
+        .card:active {
+            transform: translateY(-4px);
+        }
+        .card-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: contain;
+            background-color: var(--bg-secondary);
+        }
+        /* Fallback for browsers without aspect-ratio support */
+        @supports not (aspect-ratio: 1) {
+            .card-image {
+                width: 100%;
+                height: 250px;
+                object-fit: contain;
+            }
+        }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .card-image {
+                max-height: 200px;
+            }
+        }
+        .card-content {
+            padding: var(--spacing-md);
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-green);
+        }
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .hero {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-xl);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-lg);
+        }
+        /* Critical book header styles */
+        .book-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-lg);
+            align-items: start;
+            margin-bottom: var(--spacing-xl);
+        }
+        .book-cover {
+            width: 200px;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        .book-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+        .book-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.8;
+        }
+        /* Critical responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .book-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .book-cover {
+                justify-self: center;
+            }
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+        }
+        /* Critical footer styles with accessibility compliance - High specificity */
+        .site-footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl) 0;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        .site-footer .footer-container p {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
+        }
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        .site-footer .footer-links a {
+            color: #1a1a1a !important;  /* Máximo contraste no light mode */
+            font-size: 0.9rem;
+            text-decoration: none;
+            padding: var(--spacing-xs);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 700;  /* Peso máximo para melhor legibilidade */
+        }
+        .site-footer .footer-links a:hover {
+            color: var(--primary-green) !important;
+            background-color: var(--bg-primary);
+        }
+        .site-footer .footer-links a:focus {
+            outline: 2px solid var(--primary-green);
+            outline-offset: 2px;
+        }
+        /* Dark mode specific overrides for footer */
+        @media (prefers-color-scheme: dark) {
+            .site-footer .footer-container p {
+                color: #ffffff !important;  /* Branco puro para dark mode */
+            }
+            .site-footer .footer-links a {
+                color: #ffffff !important;  /* Branco puro para dark mode */
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--spacing-sm);
+            }
+        }
+    </style>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Defer main CSS -->
+    <link rel="preload" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.mi6phbyy.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="&#x2F;tech&#x2F;assets&#x2F;css&#x2F;main.mi6phbyy.css"></noscript>
+    
+    <!-- Load CSS polyfill for older browsers -->
+    <script>
+      !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.href=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;d.href=s[s.length-1].href}var l=i.styleSheets;d.rel="stylesheet",d.media="only x",o(function(){d.media=r||"all"});var u=function(){if(d.addEventListener)d.removeEventListener("load",u);else if(d.attachEvent)d.detachEvent("onload",u);else return;d.media=r||"all"};return d.addEventListener?d.addEventListener("load",u):(d.attachEvent&&d.attachEvent("onload",u),setTimeout(u,3e3)),d.onloadcssdefined=function(e){for(var t,n=0;n<l.length;n++)l[n].href&&l[n].href===d.href&&(t=!0);t?e():setTimeout(function(){d.onloadcssdefined(e)})},d.onloadcssdefined(a),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="&#x2F;tech/" class="brand-link">Jean Meira - TECH</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="/tech/">Início</a> > 
+                    <a href="/tech/books/">Livros</a> > 
+                    <a href="/tech/books/arquitetura-fantasma/">Arquitetura Fantasma</a> > 
+                    <span>Sinais de um Sistema Assombrado</span>
+                </nav>
+                
+                <article class="chapter-content">
+                    <header class="chapter-header">
+                        <div class="chapter-number">Capítulo 4</div>
+                        <h1>Sinais de um Sistema Assombrado</h1>
+                        <p class="chapter-subtitle">Identificando os sintomas de uma arquitetura fantasma</p>
+                    </header>
+                    
+                    <div class="content">
+                        <blockquote>
+<p>&quot;O otimismo é o inimigo mortal do programador; a esperança é a causa de projetos inacabados e orçamentos estourados.&quot;</p>
+<p>— <strong>Rich Cook, em &quot;The Tao of Programming&quot;.</strong></p>
+<p><strong>Contexto:</strong> Este livro, escrito em um estilo que imita o Tao Te Ching, oferece aforismos sobre a arte da programação. Esta citação em particular ataca diretamente o &quot;viés de otimismo&quot;. Ela nos lembra que a engenharia de software robusta não é construída sobre a esperança de que tudo dará certo, mas sobre o planejamento cuidadoso para quando as coisas derem errado. Um sistema assombrado é frequentemente o resultado de um excesso de otimismo — a crença de que &quot;soluções temporárias&quot; serão corrigidas e que a complexidade não cobrará seu preço.</p>
+</blockquote>
+<blockquote>
+<p>&quot;O código legado é frequentemente definido como &#39;código que os desenvolvedores têm medo de mudar&#39;.&quot;</p>
+<p>— <strong>Michael Feathers, em seu livro seminal &quot;Working Effectively with Legacy Code&quot;.</strong></p>
+<p><strong>Contexto:</strong> Feathers deu à comunidade de software uma das definições mais práticas e emocionais de código legado. Não se trata da idade do código, mas da nossa confiança em modificá-lo. Esta citação é a descrição perfeita de um sintoma de assombração: o medo. Quando as equipes evitam tocar em certas partes do sistema, é um sinal claro de que o conhecimento se perdeu e um fantasma tomou conta daquela área. O medo é um indicador de que o código não tem uma rede de segurança de testes, tornando qualquer alteração um risco.</p>
+</blockquote>
+<p>Um sistema assombrado raramente se revela através de uma falha espetacular e definitiva. Em vez disso, ele sussurra sua presença através de uma série de sintomas sutis e persistentes, anomalias no comportamento da equipe e no funcionamento do código que, juntas, pintam o retrato de uma arquitetura assombrada por fantasmas técnicos. Aprender a reconhecer esses sinais é a habilidade diagnóstica fundamental do caçador de fantasmas.</p>
+<p>O primeiro e mais comum sintoma é <strong>comportamental</strong>. Ele se manifesta na cultura da equipe. Observe a frequência com que a frase &quot;sempre foi assim&quot; é usada como justificativa para uma prática ou decisão. Quando um questionamento sobre uma biblioteca antiga ou um processo ineficiente é recebido com essa resposta, não é um sinal de respeito pela tradição, mas de amnésia coletiva. Ninguém mais se lembra do contexto original, então a prática se fossiliza e se torna um dogma inquestionável. Esse sintoma evolui para um <strong>medo paralisante de mudanças</strong>. A equipe, inconscientemente, começa a evitar certas partes do código. Pull requests são cuidadosamente elaborados para contornar um módulo específico, refatorações param abruptamente em uma determinada fronteira, e novas funcionalidades são construídas &quot;ao redor&quot; de um código existente, como se ele fosse radioativo.</p>
+<p>Esse medo tem um impacto direto no <strong>processo de onboarding</strong>, que se torna dolorosamente lento e confuso. Novos desenvolvedores, cheios de energia e perguntas, demoram meses para se sentirem produtivos. Eles se veem fazendo as mesmas perguntas sobre as mesmas partes do sistema, apenas para receber respostas vagas ou contraditórias. A arquitetura não pode ser explicada de forma coerente porque ela não é mais compreendida. Isso leva à formação de <strong>conhecimento tribal</strong>, onde informações críticas sobre o sistema não residem em documentação ou diagramas, mas na cabeça de algumas poucas pessoas. O deploy que só o João sabe fazer, o bug que só a Maria consegue reproduzir, a configuração que só o Pedro entende: cada um desses é um sintoma de um sistema que depende de heróis, uma condição insustentável e perigosa.</p>
+<p>Os sintomas <strong>técnicos</strong> são igualmente reveladores. Um dos mais traiçoeiros é a <strong>stack moderna com comportamento frágil</strong>. O sistema pode usar as tecnologias mais recentes (microserviços, contêineres, CI/CD), mas se comporta como um monolito legado. Os microserviços são tão acoplados que ninguém ousa dividi-los ou juntá-los, e o pipeline de CI/CD, supostamente automatizado, contém passos manuais &quot;necessários&quot; que ninguém consegue explicar. O <strong>acoplamento elevado</strong> é outro sinal clássico: uma mudança em uma função aparentemente inofensiva, como <code>updateUserProfile</code>, misteriosamente quebra uma funcionalidade completamente diferente, como <code>calculateShippingCost</code>. Isso indica a presença de dependências ocultas, os fios invisíveis que os fantasmas usam para manipular o sistema. E, claro, há as <strong>configurações mágicas</strong>, valores em arquivos de configuração que são acompanhados por comentários ameaçadores como &quot;NÃO ALTERAR!!! (João - 2019)&quot;. O número <code>37429</code> para um timeout ou <code>847</code> para um <code>batch_size</code> não são escolhas deliberadas; são artefatos de um passado esquecido, agora tratados com superstição.</p>
+<p>Os sintomas também se manifestam na <strong>operação</strong> e na <strong>comunicação</strong>. Quando cada parte do sistema parece ter sido feita por uma equipe diferente, com padrões de logging, estruturas de API e convenções de nomenclatura radicalmente inconsistentes, é um sinal de que não há uma visão arquitetural unificada. O <strong>debugging se transforma em um exercício de adivinhação</strong>, baseado em &quot;vamos tentar reiniciar o serviço&quot; em vez de uma análise sistemática. Os <strong>deployments se tornam rituais</strong>, cerimônias frágeis que exigem uma ordem específica para subir os serviços ou a presença de uma pessoa específica. A <strong>documentação, se existe, é contraditória</strong>, com READMEs desatualizados e wikis que não refletem mais a realidade do código.</p>
+<p>Reconhecer esses sintomas não é um exercício de culpa, mas de diagnóstico. Um sistema que exibe muitos desses sinais está em um estado de assombração que varia de &quot;incômodo&quot;, afetando a produtividade, a &quot;perigoso&quot;, impedindo a evolução do negócio. A boa notícia é que um fantasma, uma vez identificado através de seus sintomas, perde muito de seu poder. Ele pode ser nomeado, estudado e, finalmente, exorcizado. E um fantasma identificado é um fantasma a caminho da redenção.</p>
+<hr>
+<h3 id="leituras-adicionais">Leituras Adicionais</h3>
+<ul>
+<li><strong>&quot;Accelerate&quot; de Nicole Forsgren, Jez Humble, e Gene Kim.</strong><ul>
+<li><strong>Motivo:</strong> O livro apresenta as métricas que definem equipes de alta performance. Um sistema assombrado invariavelmente terá um desempenho ruim nessas métricas (lead time, frequência de deploy, etc.), tornando os sintomas mensuráveis e fornecendo uma linguagem para comunicar o impacto do problema.</li>
+</ul>
+</li>
+<li><strong>&quot;Site Reliability Engineering: How Google Runs Production Systems&quot; de Betsy Beyer, Chris Jones, Jennifer Petoff, e Niall Richard Murphy.</strong><ul>
+<li><strong>Motivo:</strong> Este livro, conhecido como &quot;a bíblia do SRE&quot;, detalha como o Google lida com a complexidade de sistemas em escala. Muitos dos princípios e práticas descritos são, na essência, mecanismos para detectar e lidar com &quot;fantasmas&quot; antes que eles causem grandes incidentes.</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+                    </div>
+                    
+                    <nav class="chapter-nav">
+                        <a href="/tech/books/arquitetura-fantasma/sussurros-na-sala-de-reuniao/" class="nav-btn">← Sussurros na Sala de Reunião</a>
+                        <a href="/tech/books/arquitetura-fantasma/" class="nav-btn">Índice</a>
+                        <a href="/tech/books/arquitetura-fantasma/historias-de-terror/" class="nav-btn">Histórias de Terror →</a>
+                    </nav>
+                </article>
+                
+                <section class="comments-section">
+                    <h3>Comentários</h3>
+                    <script src="https://utteranc.es/client.js"
+                            repo="jeanmeira/tech"
+                            issue-term="pathname"
+                            theme="github-light"
+                            crossorigin="anonymous"
+                            async>
+                    </script>
+                </section>
+            </div>
+        
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Jean Meira. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/jeanmeira" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://linkedin.com/in/jean-meira" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="&#x2F;tech/library/" style="opacity: 0.5;">📚</a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;main.mi6phbyy.js"></script>
+    
+    <!-- Cookie Consent Banner - LGPD Compliance -->
+    <script defer src="&#x2F;tech&#x2F;assets&#x2F;js&#x2F;cookie-consent.mi6phbyy.js"></script>
+    
+    <!-- Load non-critical JavaScript after main content -->
+    <script>
+        // Load non-critical JS after page load to reduce main thread work
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = '/tech/assets/js/non-critical.mi6phbyy.js';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>

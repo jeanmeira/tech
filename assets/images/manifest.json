@@ -1,0 +1,142 @@
+{
+  "api-design-rest-graphql-grpc": {
+    "webp": {
+      "small": "api-design-rest-graphql-grpc-200.webp",
+      "medium": "api-design-rest-graphql-grpc-400.webp",
+      "large": "api-design-rest-graphql-grpc-800.webp",
+      "original": "api-design-rest-graphql-grpc.webp"
+    },
+    "png": {
+      "small": "api-design-rest-graphql-grpc-200.png",
+      "medium": "api-design-rest-graphql-grpc-400.png",
+      "large": "api-design-rest-graphql-grpc-800.png",
+      "original": "api-design-rest-graphql-grpc.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "arquitetura-fantasma": {
+    "webp": {
+      "small": "arquitetura-fantasma-200.webp",
+      "medium": "arquitetura-fantasma-400.webp",
+      "large": "arquitetura-fantasma-800.webp",
+      "original": "arquitetura-fantasma.webp"
+    },
+    "png": {
+      "small": "arquitetura-fantasma-200.png",
+      "medium": "arquitetura-fantasma-400.png",
+      "large": "arquitetura-fantasma-800.png",
+      "original": "arquitetura-fantasma.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "arquitetura-microsservicos": {
+    "webp": {
+      "small": "arquitetura-microsservicos-200.webp",
+      "medium": "arquitetura-microsservicos-400.webp",
+      "large": "arquitetura-microsservicos-800.webp",
+      "original": "arquitetura-microsservicos.webp"
+    },
+    "png": {
+      "small": "arquitetura-microsservicos-200.png",
+      "medium": "arquitetura-microsservicos-400.png",
+      "large": "arquitetura-microsservicos-800.png",
+      "original": "arquitetura-microsservicos.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "arquitetura-oculta-poder": {
+    "webp": {
+      "small": "arquitetura-oculta-poder-200.webp",
+      "medium": "arquitetura-oculta-poder-400.webp",
+      "large": "arquitetura-oculta-poder-800.webp",
+      "original": "arquitetura-oculta-poder.webp"
+    },
+    "png": {
+      "small": "arquitetura-oculta-poder-200.png",
+      "medium": "arquitetura-oculta-poder-400.png",
+      "large": "arquitetura-oculta-poder-800.png",
+      "original": "arquitetura-oculta-poder.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "database-design-sql-nosql": {
+    "webp": {
+      "small": "database-design-sql-nosql-200.webp",
+      "medium": "database-design-sql-nosql-400.webp",
+      "large": "database-design-sql-nosql-800.webp",
+      "original": "database-design-sql-nosql.webp"
+    },
+    "png": {
+      "small": "database-design-sql-nosql-200.png",
+      "medium": "database-design-sql-nosql-400.png",
+      "large": "database-design-sql-nosql-800.png",
+      "original": "database-design-sql-nosql.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "event-driven-architecture": {
+    "webp": {
+      "small": "event-driven-architecture-200.webp",
+      "medium": "event-driven-architecture-400.webp",
+      "large": "event-driven-architecture-800.webp",
+      "original": "event-driven-architecture.webp"
+    },
+    "png": {
+      "small": "event-driven-architecture-200.png",
+      "medium": "event-driven-architecture-400.png",
+      "large": "event-driven-architecture-800.png",
+      "original": "event-driven-architecture.png"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  },
+  "jean-meira": {
+    "webp": {
+      "small": "jean-meira-200.webp",
+      "medium": "jean-meira-400.webp",
+      "large": "jean-meira-800.webp",
+      "original": "jean-meira.webp"
+    },
+    "png": {
+      "small": "jean-meira-200.png",
+      "medium": "jean-meira-400.png",
+      "large": "jean-meira-800.png",
+      "original": "jean-meira.jpg"
+    },
+    "sizes": {
+      "small": "200w",
+      "medium": "400w",
+      "large": "800w",
+      "original": "1024w"
+    }
+  }
+}
